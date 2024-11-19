@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ThemeProvider } from '@mui/material';
 import lightTheme from './themes/lightTheme';
 import Layout from './layouts/layout';
+import CenterBox from './components/CenterBox';
 
 const App = () => {
     return(
@@ -9,7 +10,9 @@ const App = () => {
         <Layout>
           <div>
             <h1>Welcome to CarBazaar</h1>
-            <Button variant='contained' color='primary'>MUI Installed</Button>
+            <CenterBox>
+              <Button variant='contained' color='primary'>MUI Installed</Button>
+            </CenterBox>
           </div>
         </Layout>
       </ThemeProvider>

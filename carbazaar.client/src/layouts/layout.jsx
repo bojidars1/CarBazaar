@@ -3,9 +3,9 @@ import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/materi
 
 const Layout = ({ children }) => {
     return (
-        <div>
+        <Box>
             {/* Header Section with Logo and Navigation */}
-           <AppBar position='sticky'>
+           <AppBar position='sticky' sx={{ margin: '0.5em auto', width: '97%'}}>
             <Toolbar>
                 {/* Logo and App Name */}
                 <Typography variant='h6' component='div' sx={{ 
@@ -27,11 +27,7 @@ const Layout = ({ children }) => {
            </AppBar>
 
            {/* Main Content */}
-           <Container maxWidth='lg' 
-           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+           <Container sx={{
             mt: 2
            }}>
             {children}
@@ -45,7 +41,7 @@ const Layout = ({ children }) => {
              &copy; 2024 CarBazaar - All rights reserved.
            </Typography>
            </Box>
-        </div>
+        </Box>
     );
 };
 

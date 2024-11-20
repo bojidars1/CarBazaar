@@ -1,19 +1,15 @@
 import React from 'react';
-import { Button, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import lightTheme from './themes/lightTheme';
 import Layout from './layouts/layout';
-import CenterBox from './components/CenterBox';
+import Home from './pages/Home';
 
 const App = () => {
     return(
       <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
         <Layout>
-          <div>
-            <h1>Welcome to CarBazaar</h1>
-            <CenterBox>
-              <Button variant='contained' color='primary'>MUI Installed</Button>
-            </CenterBox>
-          </div>
+          <Home />
         </Layout>
       </ThemeProvider>
     );

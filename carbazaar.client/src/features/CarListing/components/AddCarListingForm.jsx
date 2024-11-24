@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
 
-const CarListingForm = ({ onSubmit }) => {
+const CarListingForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         type: '',
@@ -23,7 +23,8 @@ const CarListingForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        
+        
     };
 
     return (

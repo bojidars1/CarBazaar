@@ -7,7 +7,7 @@ namespace CarBazaar.Data.Models
     {
         [Key]
         [Comment("Car Listing Identifier")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Comment("Car Listing Name")]
         public string Name { get; set; } = null!;

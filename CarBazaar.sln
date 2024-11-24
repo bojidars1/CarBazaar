@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Server", "CarBaza
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "carbazaar.client", "carbazaar.client\carbazaar.client.esproj", "{48642B37-B803-4C26-A30C-ED88DCD39373}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{050E8927-FBCC-4182-B7B3-66EC22E0148B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{050E8927-FBCC-4182-B7B3-66EC22E0148B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{76AEE6AA-0944-4DE9-AC1B-E2E88A69677F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBazaar.Data", "CarBazaar.Data\CarBazaar.Data.csproj", "{8B8ABF22-8D25-415D-8FA6-FA2EB58BEDDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Data", "CarBazaar.Data\CarBazaar.Data.csproj", "{8B8ABF22-8D25-415D-8FA6-FA2EB58BEDDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBazaar.Data.Models", "CarBazaar.Data.Models\CarBazaar.Data.Models.csproj", "{E85C68C1-9A4B-4CAE-BFEB-AF7575DFF841}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Data.Models", "CarBazaar.Data.Models\CarBazaar.Data.Models.csproj", "{E85C68C1-9A4B-4CAE-BFEB-AF7575DFF841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

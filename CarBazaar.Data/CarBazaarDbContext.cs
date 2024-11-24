@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CarBazaar.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace CarBazaar.Data
     public class CarBazaarDbContext : DbContext
     {
         public CarBazaarDbContext(DbContextOptions<CarBazaarDbContext> options) : base(options) { }
+
+        public DbSet<CarListing> CarListings { get; set; }
     }
 }

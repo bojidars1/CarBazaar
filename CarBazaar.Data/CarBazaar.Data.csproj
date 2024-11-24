@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarBazaar.Data.Models\CarBazaar.Data.Models.csproj" />
+    <ProjectReference Include="..\CarBazaar.Server\CarBazaar.Server.csproj" />
+  </ItemGroup>
+
 </Project>

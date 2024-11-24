@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, InputLabel, Grid2, FormControl, MenuItem, Select } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
     const [carType, setCarType] = useState('All');
@@ -85,6 +86,7 @@ const HeroSection = () => {
 
             {/* Call-to-Action */}
             <Button
+            component={Link} to="/carlisting/add"
             variant='outlined'
             color='secondary'
             size='large'

@@ -31,7 +31,7 @@ namespace CarBazaar.Infrastructure.CarListing
 		public long Km { get; set; }
 
 		[Required]
-		public DateTime ProductionDate { get; set; }
+		public int ProductionYear { get; set; }
 
 		[Required]
 		public int Horsepower { get; set; }

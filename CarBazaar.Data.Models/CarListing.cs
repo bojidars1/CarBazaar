@@ -30,8 +30,8 @@ namespace CarBazaar.Data.Models
         [Comment("Car KM")]
         public long Km { get; set; }
 
-        [Comment("Car Production Date")]
-        public DateTime ProductionDate { get; set; }
+        [Comment("Car Production Year")]
+        public int ProductionYear { get; set; }
 
         [Comment("Car Horsepower")]
         public int Horsepower { get; set; }

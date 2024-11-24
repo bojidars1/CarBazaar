@@ -10,7 +10,7 @@ namespace CarBazaar.Server.Controllers
 	public class CarListingController(CarBazaarDbContext context) : Controller
 	{
 		[HttpPost]
-		public async Task<IActionResult> Add(AddCarListingDto dto)
+		public async Task<IActionResult> Add([FromBody]AddCarListingDto dto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -27,7 +27,7 @@ namespace CarBazaar.Server.Controllers
 				Gearbox = dto.Gearbox,
 				State = dto.State,
 				Km = dto.Km,
-				ProductionDate = dto.ProductionDate,
+				ProductionYear = dto.ProductionYear,
 				Horsepower = dto.Horsepower,
 				Color = dto.Color,
 				ExtraInfo = dto.ExtraInfo,

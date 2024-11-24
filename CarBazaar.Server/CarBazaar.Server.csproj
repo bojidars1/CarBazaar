@@ -26,6 +26,7 @@
     <ProjectReference Include="..\carbazaar.client\carbazaar.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\CarBazaar.Data\CarBazaar.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

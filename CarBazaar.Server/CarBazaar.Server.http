@@ -1,6 +1,6 @@
 @CarBazaar.Server_HostAddress = http://localhost:5198
 
-GET {{CarBazaar.Server_HostAddress}}/weatherforecast/
+GET {{CarBazaar.Server_HostAddress}}
 Accept: application/json
 
 ###

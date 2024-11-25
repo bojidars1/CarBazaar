@@ -11,7 +11,7 @@ const CarListingForm = () => {
         gearbox: '',
         state: '',
         km: '',
-        productionDate: '',
+        productionYear: '',
         horsepower: '',
         color: '',
         extraInfo: ''
@@ -24,6 +24,9 @@ const CarListingForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const response = await axios.post('https://localhost:7100/api/CarListing', formData);
+        console.log(response);
     };
 
     return (
@@ -114,12 +117,11 @@ const CarListingForm = () => {
             />
 
             <TextField
-                label="Car Production Date"
-                name="productionDate"
-                value={formData.productionDate}
+                label="Car Production Year"
+                name="productionYear"
+                value={formData.productionYear}
                 onChange={handleChange}
-                type="date"
-                InputLabelProps={{ shrink: true }}
+                type="number"
                 fullWidth
                 required
             />

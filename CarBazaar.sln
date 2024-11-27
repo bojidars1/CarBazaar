@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Data", "CarBazaar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Data.Models", "CarBazaar.Data.Models\CarBazaar.Data.Models.csproj", "{E85C68C1-9A4B-4CAE-BFEB-AF7575DFF841}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBazaar.Infrastructure", "CarBazaar.Infrastructure\CarBazaar.Infrastructure.csproj", "{88E815E4-AE73-4854-B148-7AE57F17643A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.ViewModels", "CarBazaar.Infrastructure\CarBazaar.ViewModels.csproj", "{88E815E4-AE73-4854-B148-7AE57F17643A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

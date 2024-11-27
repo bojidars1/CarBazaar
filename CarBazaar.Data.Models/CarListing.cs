@@ -42,6 +42,9 @@ namespace CarBazaar.Data.Models
         [Comment("Extra Car Info")]
         public string ExtraInfo { get; set; } = null!;
 
+        [Comment("Image URL")]
+        public string ImageURL { get; set; } = null!;
+
         [Comment("Listing Publication Date")]
         public DateTime PublicationDate { get; set; }
     }

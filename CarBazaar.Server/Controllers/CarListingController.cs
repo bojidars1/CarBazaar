@@ -1,6 +1,6 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
-using CarBazaar.Infrastructure.CarListing;
+using CarBazaar.ViewModels.CarListing;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarBazaar.Server.Controllers

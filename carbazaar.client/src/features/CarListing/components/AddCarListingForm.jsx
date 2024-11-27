@@ -25,7 +25,10 @@ const CarListingForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await axios.post('https://localhost:7100/api/CarListing', formData);
+        const response = await axios.post('https://localhost:7100/api/CarListing', formData)
+        .catch(function (error) {
+            console.log(error.toJSON());
+        });
         console.log(response);
     };
 

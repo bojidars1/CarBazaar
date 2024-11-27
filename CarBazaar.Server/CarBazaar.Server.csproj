@@ -28,6 +28,7 @@
     </ProjectReference>
     <ProjectReference Include="..\CarBazaar.Data\CarBazaar.Data.csproj" />
     <ProjectReference Include="..\CarBazaar.Infrastructure\CarBazaar.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarBazaar.Infrastructure\CarBazaar.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

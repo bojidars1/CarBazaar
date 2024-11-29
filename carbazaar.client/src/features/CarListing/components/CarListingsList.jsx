@@ -31,7 +31,7 @@ const CarListings = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant='h4' color='text.primary' sx={{ textAlign: 'center', mb: 3}}>
+            <Typography variant='h4' sx={{ textAlign: 'center', mb: 3}}>
                 Car Listings
             </Typography>
             
@@ -44,8 +44,7 @@ const CarListings = () => {
                     {error}
                 </Typography>
             ) : (
-                <Box sx={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap',
-                     alignItems: 'center', justifyContent: 'center' }}
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
                 >
                     {carListings.map((car) => (
                         <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />

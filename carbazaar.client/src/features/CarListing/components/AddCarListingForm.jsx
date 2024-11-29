@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 const CarListingForm = () => {
     const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const CarListingForm = () => {
     });
 
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,6 +39,10 @@ const CarListingForm = () => {
 
         try {
             const response = await axios.post('https://localhost:7100/api/CarListing', formData);
+
+            setTimeout(() => {
+                navigate("/carlisting/list");
+            }, 2000);
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setErrors(error.response.data.errors);

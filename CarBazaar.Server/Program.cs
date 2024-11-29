@@ -1,4 +1,6 @@
 using CarBazaar.Data;
+using CarBazaar.Infrastructure.Repositories;
+using CarBazaar.Infrastructure.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,11 @@ builder.Services.AddDbContext<CarBazaarDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CarBazaarDbContext"));
 });
 builder.Services.AddControllers();
+
+// Repositories
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>);
+builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

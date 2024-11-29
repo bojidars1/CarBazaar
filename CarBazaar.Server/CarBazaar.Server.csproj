@@ -27,6 +27,7 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\CarBazaar.Data\CarBazaar.Data.csproj" />
+    <ProjectReference Include="..\CarBazaar.Infrastructure\CarBazaar.Infrastructure.csproj" />
     <ProjectReference Include="..\CarBazaar.Infrastructure\CarBazaar.ViewModels.csproj" />
     <ProjectReference Include="..\CarBazaar.ViewModels\CarBazaar.ViewModels.csproj" />
   </ItemGroup>

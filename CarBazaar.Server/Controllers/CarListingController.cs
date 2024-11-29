@@ -14,7 +14,13 @@ namespace CarBazaar.Server.Controllers
 		public async Task<IActionResult> GetListings()
 		{
 			var listings = await context.CarListings.AsNoTracking().ToListAsync();
-			return Ok(listings);
+			return Ok(listings.Select(l => new CarListingListDetailsDto
+			{
+				Id = l.Id,
+				Name = l.Name,
+				Price = l.Price,
+				ImageURL = l.ImageURL
+			}).ToList());
 		}
 
 		[HttpPost]

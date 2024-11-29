@@ -14,7 +14,8 @@ const CarListingForm = () => {
         productionYear: '',
         horsepower: '',
         color: '',
-        extraInfo: ''
+        extraInfo: '',
+        imageURL: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -65,6 +66,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.Name}
                 helperText={errors.Name ? errors.Name[0] : ""}
+                required
                 fullWidth
             />
 
@@ -75,6 +77,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.Type}
                 helperText={errors.Type ? errors.Type[0] : ""}
+                required
                 fullWidth
                 select
             >
@@ -91,6 +94,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.Brand}
                 helperText={errors.Brand ? errors.Brand[0] : ""}
+                required
                 fullWidth
                 select
             >
@@ -107,6 +111,7 @@ const CarListingForm = () => {
                 type="number"
                 error={!!errors.Price}
                 helperText={errors.Price ? errors.Price[0] : ""}
+                required
                 fullWidth
             />
 
@@ -117,6 +122,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.Gearbox}
                 helperText={errors.Gearbox ? errors.Gearbox[0] : ""}
+                required
                 fullWidth
                 select
             >
@@ -131,6 +137,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.State}
                 helperText={errors.State ? errors.State[0] : ""}
+                required
                 fullWidth
             />
 
@@ -142,6 +149,7 @@ const CarListingForm = () => {
                 type="number"
                 error={!!errors.KM}
                 helperText={errors.KM ? errors.KM[0] : ""}
+                required
                 fullWidth
             />
 
@@ -153,6 +161,7 @@ const CarListingForm = () => {
                 type="number"
                 error={!!errors.ProductionYear}
                 helperText={errors.ProductionYear ? errors.ProductionYear[0] : ""}
+                required
                 fullWidth
             />
 
@@ -164,6 +173,7 @@ const CarListingForm = () => {
                 type="number"
                 error={!!errors.Horsepower}
                 helperText={errors.Horsepower ? errors.Horsepower[0] : ""}
+                required
                 fullWidth
             />
 
@@ -174,6 +184,7 @@ const CarListingForm = () => {
                 onChange={handleChange}
                 error={!!errors.Color}
                 helperText={errors.Color ? errors.Color[0] : ""}
+                required
                 fullWidth
             />
 
@@ -182,8 +193,20 @@ const CarListingForm = () => {
                 name="extraInfo"
                 value={formData.extraInfo}
                 onChange={handleChange}
+                error={!!errors.extraInfo}
+                helperText={errors.ExtraInfo ? errors.ExtraInfo[0] : ""}
                 multiline
                 rows={4}
+                fullWidth
+            />
+
+            <TextField
+                label="Image URL"
+                name="imageURL"
+                value={formData.imageURL}
+                onChange={handleChange}
+                error={!!errors.imageURL}
+                helperText={errors.ImageURL ? errors.ImageURL[0] : ""}
                 fullWidth
             />
 

@@ -51,5 +51,8 @@ namespace CarBazaar.ViewModels.CarListing
 
 		[StringLength(500, ErrorMessage = "Info cannot exceed 500 characters.")]
 		public string ExtraInfo { get; set; } = string.Empty;
+
+		[StringLength(2000, ErrorMessage = "Image URL cannot exceed 500 characters.")]
+		public string ImageURL { get; set; } = string.Empty;
 	}
 }

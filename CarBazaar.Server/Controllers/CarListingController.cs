@@ -31,6 +31,7 @@ namespace CarBazaar.Server.Controllers
 				Horsepower = dto.Horsepower,
 				Color = dto.Color,
 				ExtraInfo = dto.ExtraInfo,
+				ImageURL = dto.ImageURL,
 				PublicationDate = DateTime.Now
 			};
 

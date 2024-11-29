@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
 
                     {/* Navigation Buttons */}
                     <Button color='inherit' component={Link} to="/">Home</Button>
-                    <Button color='inherit'>Play</Button>
+                    <Button color='inherit' component={Link} to="/carlisting/list">Cars</Button>
                     <Button color='inherit'>About</Button>
                     <Button color='inherit'>Login</Button>
                     <Button color='inherit'>Register</Button>

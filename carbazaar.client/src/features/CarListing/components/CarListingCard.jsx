@@ -1,13 +1,13 @@
-import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/material';
 import React from 'react';
 
 const CarListingCard = ({ car, onDetailsClick }) => {
     return (
-        <Card sx={{ maxWidth: 345, margin: 2, boxShadow: 3 }}>
+        <Card sx={{ minWidth: '50%', margin: 2, boxShadow: 3 }}>
             {/* Car Image */}
             <CardMedia
-            component={img}
-            height='200'
+            component="img"
+            height='250'
             image={car.imageURL || 'https://www.ilusso.com/wp-content/uploads/3-3-1024x683.jpg'}
             alt={car.name}
             />

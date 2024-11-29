@@ -20,29 +20,38 @@ namespace CarBazaar.Infrastructure.Repositories
 			_dbSet = context.Set<T>();
         }
 
-        public Task AddAsync(T entity)
+        public virtual async Task AddAsync(T entity)
+		{
+			await _dbSet.AddAsync(entity);
+			await _context.SaveChangesAsync();
+		}
+
+		public virtual Task DeleteByIdAsync(string id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task DeleteByIdAsync(string id)
+		public virtual async Task<List<T>> GetAllAsync()
 		{
-			throw new NotImplementedException();
+			return await _dbSet.AsNoTracking().ToListAsync();
 		}
 
-		public Task<List<T>> GetAllAsync()
+		public virtual async Task<T?> GetByIdAsync(string id)
 		{
-			throw new NotImplementedException();
+			if (Guid.TryParse(id, out var guidId))
+			{
+				return await _dbSet.FindAsync(guidId);
+			} else
+			{
+				return null;
+			}
+			
 		}
 
-		public Task<T?> GetByIdAsync(string id)
+		public virtual async Task UpdateAsync(T entity)
 		{
-			throw new NotImplementedException();
-		}
-
-		public Task UpdateAsync(T entity)
-		{
-			throw new NotImplementedException();
+			_context.Entry(entity).State = EntityState.Modified;
+			await _context.SaveChangesAsync();
 		}
 	}
 }

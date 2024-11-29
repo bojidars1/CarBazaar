@@ -2,6 +2,7 @@
 using CarBazaar.Data.Models;
 using CarBazaar.ViewModels.CarListing;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarBazaar.Server.Controllers
 {
@@ -9,6 +10,13 @@ namespace CarBazaar.Server.Controllers
 	[Route("api/[controller]")]
 	public class CarListingController(CarBazaarDbContext context) : Controller
 	{
+		[HttpGet]
+		public async Task<IActionResult> GetListings()
+		{
+			var listings = await context.CarListings.AsNoTracking().ToListAsync();
+			return Ok(listings);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> Add([FromBody]AddCarListingDto dto)
 		{

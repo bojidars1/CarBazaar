@@ -14,7 +14,7 @@ builder.Services.AddDbContext<CarBazaarDbContext>(options =>
 builder.Services.AddControllers();
 
 // Repositories
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>);
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

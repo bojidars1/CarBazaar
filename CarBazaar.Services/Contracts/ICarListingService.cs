@@ -1,5 +1,4 @@
 ﻿using CarBazaar.ViewModels.CarListing;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +9,10 @@ namespace CarBazaar.Services.Contracts
 {
 	public interface ICarListingService
 	{
-		public Task AddAsync([FromBody]AddCarListingDto dto);
+		public Task AddAsync(AddCarListingDto dto);
 		
 		public Task<List<CarListingListDetailsDto>> GetAllAsync();
 
-		public Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync([FromQuery]string id);
+		public Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync(string id);
 	}
 }

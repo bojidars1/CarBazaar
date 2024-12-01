@@ -13,7 +13,7 @@ namespace CarBazaar.Services
 {
 	public class CarListingService(ICarListingRepository repository) : ICarListingService
 	{
-		public async Task AddAsync([FromBody] AddCarListingDto dto)
+		public async Task AddAsync(AddCarListingDto dto)
 		{
 			CarListing carListing = new CarListing
 			{
@@ -48,7 +48,7 @@ namespace CarBazaar.Services
 			}).ToList();
 		}
 
-		public async Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync([FromQuery] string id)
+		public async Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync(string id)
 		{
 			var listing = await repository.GetByIdAsync(id);
 

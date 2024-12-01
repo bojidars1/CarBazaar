@@ -6,6 +6,7 @@ import Layout from './layouts/layout';
 import Home from './pages/Home';
 import AddCarListing from './pages/AddCarListing';
 import CarListings from './pages/CarListings';
+import CarListingDetails from './features/CarListing/components/CarListingDetails';
 
 const App = () => {
     return(
@@ -17,6 +18,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/carlisting/add" element={<AddCarListing />} />
               <Route path="/carlisting/list" element={<CarListings />} />
+              <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
             </Routes>
           </Layout>
         </Router>

@@ -1,4 +1,4 @@
-import { Box, Button, CardContent, CardMedia, DialogActions, DialogContent, DialogTitle, Grid2, Paper, Typography } from '@mui/material';
+import { Box, Button, CardContent, CardMedia, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,7 +27,7 @@ const CarListingDetails = () => {
                 setCarListing(respone.data);
             } catch (err) {
                 setError('Failed to fetch car listing details.');
-                console.err(err);
+                console.error(err);
             } finally {
                 setLoading(false);
             }
@@ -75,7 +75,7 @@ const CarListingDetails = () => {
             <Paper elevation={3} sx={{ overflow: 'hidden', borderRadius: 3 }}>
                 <Grid2 container>
                     {/* Image Section */}
-                    <Grid2 item xs={12} md={6}>
+                    <Grid2 xs={12} md={6}>
                         <CardMedia 
                         component='img'
                         image={carListing.imageURL || 'https://www.ilusso.com/wp-content/uploads/3-3-1024x683.jpg'}
@@ -88,7 +88,7 @@ const CarListingDetails = () => {
                     </Grid2>
 
                     {/* Car Details */}
-                    <Grid2 item xs={12} md={6}>
+                    <Grid2 xs={12} md={6}>
                         <CardContent sx={{ p: 4 }}>
                             <Typography variant='h4' gutterBottom>{carListing.name}</Typography>
                             <Typography variant='h6' gutterBottom color='text.secondary'>
@@ -100,31 +100,31 @@ const CarListingDetails = () => {
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Gearbox:</strong> ${carListing.gearbox}
+                                <strong>Gearbox:</strong> {carListing.gearbox}
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>State:</strong> ${carListing.state}
+                                <strong>State:</strong> {carListing.state}
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Kilometers:</strong> ${carListing.km} KM
+                                <strong>Kilometers:</strong> {carListing.km} KM
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Production Year:</strong> ${carListing.productionYear}
+                                <strong>Production Year:</strong> {carListing.productionYear}
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Horsepower:</strong> ${carListing.horsepower} hp
+                                <strong>Horsepower:</strong> {carListing.horsepower} hp
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Color:</strong> ${carListing.color}
+                                <strong>Color:</strong> {carListing.color}
                             </Typography>
 
                             <Typography variant='body1' sx={{ mb: 2 }}>
-                                <strong>Extra Info:</strong> ${carListing.extraInfo || "No additional information available."}
+                                <strong>Extra Info:</strong> {carListing.extraInfo || "No additional information available."}
                             </Typography>
                         </CardContent>
                     </Grid2>
@@ -153,10 +153,10 @@ const CarListingDetails = () => {
                             For inquiries about this car, you can:
                         </Typography>
                         <Typography variant='body2' sx={{ mb: 1 }}>
-                            - **Phone Number**: {"+359893456569"}
+                            - <strong>Phone Number</strong>: {"+359893456569"}
                         </Typography>
                         <Typography variant='body2'>
-                            - Start a **chat** (Coming soon!)
+                            - Start a <strong>chat</strong> (Coming soon!)
                         </Typography>
                     </DialogContent>
                     <DialogActions>

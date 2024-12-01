@@ -29,7 +29,7 @@ const CarListings = () => {
     }, []);
 
     const handleDetailsClick = (id) => {
-        navigate(`/${id}`)
+        navigate(`/carlisting/details/${id}`)
     };
 
     return (

@@ -8,6 +8,7 @@ import AddCarListing from './pages/AddCarListing';
 import CarListings from './pages/CarListings';
 import CarListingDetails from './features/CarListing/components/CarListingDetails';
 import EditCarListingForm from './features/CarListing/components/EditCarListingForm';
+import DeleteCarListing from './features/CarListing/components/DeleteCarListing';
 
 const App = () => {
     return(
@@ -21,6 +22,7 @@ const App = () => {
               <Route path="/carlisting/list" element={<CarListings />} />
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
               <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
+              <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
             </Routes>
           </Layout>
         </Router>

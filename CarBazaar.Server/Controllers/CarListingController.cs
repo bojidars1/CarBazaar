@@ -1,5 +1,6 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.CarListing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace CarBazaar.Server.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class CarListingController(CarBazaarDbContext context) : Controller
+	public class CarListingController(ICarListingService service) : Controller
 	{
 		[HttpGet]
 		public async Task<IActionResult> GetListings()
@@ -31,28 +32,9 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest(ModelState);
 			}
 
-			CarListing carListing = new CarListing
-			{
-				Id = Guid.NewGuid(),
-				Name = dto.Name,
-				Type = dto.Type,
-				Brand = dto.Brand,
-				Price = dto.Price,
-				Gearbox = dto.Gearbox,
-				State = dto.State,
-				Km = dto.Km,
-				ProductionYear = dto.ProductionYear,
-				Horsepower = dto.Horsepower,
-				Color = dto.Color,
-				ExtraInfo = dto.ExtraInfo,
-				ImageURL = dto.ImageURL,
-				PublicationDate = DateTime.Now
-			};
+			await service.AddAsync(dto);
 
-			context.CarListings.Add(carListing);
-			await context.SaveChangesAsync();
-
-			return Ok(carListing);
+			return Ok("Success");
 		}
 	}
 }

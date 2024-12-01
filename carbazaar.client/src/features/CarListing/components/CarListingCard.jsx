@@ -1,7 +1,10 @@
 import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CarListingCard = ({ car, onDetailsClick }) => {
+    const navigate = useNavigate();
+
     return (
         <Card sx={{ maxWidth: 345, margin: 2, boxShadow: 3 }}>
             {/* Car Image */}
@@ -32,6 +35,9 @@ const CarListingCard = ({ car, onDetailsClick }) => {
                 onClick={() => onDetailsClick(car.id)}
                 >
                     View Details
+                </Button>
+                <Button variant='contained' color='secondary' fullWidth onClick={() => navigate(`/carlisting/edit/${car.id}`)}>
+                    Edit
                 </Button>
             </Box>
         </Card>

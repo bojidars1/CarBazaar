@@ -1,3 +1,4 @@
+import { Box, Button, CardContent, CardMedia, DialogActions, DialogContent, DialogTitle, Grid2, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,15 +9,163 @@ const CarListingDetails = () => {
 
     const [carListing, setCarListing] = useState(null);
     const [contactOpen, setContactOpen] = useState(false);
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+
+    const handleContactOpen = () => {
+        setContactOpen(true);
+    };
+
+    const handleContactClose = () => {
+        setContactOpen(false);
+    };
 
     useEffect(() => {
         const fetchCarDetailsAsync = async () => {
             try {
                 const respone = await axios.get(`https://localhost:7100/api/CarListing/${id}`);
+                setCarListing(respone.data);
+            } catch (err) {
+                setError('Failed to fetch car listing details.');
+                console.err(err);
+            } finally {
+                setLoading(false);
             }
         };
-    }, []);
+
+        fetchCarDetailsAsync();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh'
+            }}>
+                <Typography variant='h6'>Loading...</Typography>
+            </Box>
+        );
+    }
+
+    if (error || !carListing) {
+        return (
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh'
+            }}>
+                <Typography variant='h6'>{error || "Car listing not found."}</Typography>
+            </Box>
+        );
+    }
+
+    return (
+        <Box sx={{
+            maxWidth: '1200px',
+            margin: 'auto',
+            mt: 5,
+            p: 3,
+            backgroundColor: '#f9f9f9',
+            borderRadius: 3,
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+        }}>
+            <Paper elevation={3} sx={{ overflow: 'hidden', borderRadius: 3 }}>
+                <Grid2 container>
+                    {/* Image Section */}
+                    <Grid2 item xs={12} md={6}>
+                        <CardMedia 
+                        component='img'
+                        image={carListing.imageURL || 'https://www.ilusso.com/wp-content/uploads/3-3-1024x683.jpg'}
+                        alt={carListing.name}
+                        sx={{
+                            height: '100%',
+                            objectFit: 'cover'
+                        }}
+                        />
+                    </Grid2>
+
+                    {/* Car Details */}
+                    <Grid2 item xs={12} md={6}>
+                        <CardContent sx={{ p: 4 }}>
+                            <Typography variant='h4' gutterBottom>{carListing.name}</Typography>
+                            <Typography variant='h6' gutterBottom color='text.secondary'>
+                                {carListing.brand} - {carListing.type}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Price:</strong> ${carListing.price}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Gearbox:</strong> ${carListing.gearbox}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>State:</strong> ${carListing.state}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Kilometers:</strong> ${carListing.km} KM
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Production Year:</strong> ${carListing.productionYear}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Horsepower:</strong> ${carListing.horsepower} hp
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Color:</strong> ${carListing.color}
+                            </Typography>
+
+                            <Typography variant='body1' sx={{ mb: 2 }}>
+                                <strong>Extra Info:</strong> ${carListing.extraInfo || "No additional information available."}
+                            </Typography>
+                        </CardContent>
+                    </Grid2>
+                </Grid2>
+            </Paper>
+
+            {/* CTA */}
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                mt: 4,
+                px: 2
+            }}>
+                <Button variant='contained' color='primary' onClick={() => navigate("/carlisting/list")}>
+                    Back To Listings
+                </Button>
+                <Button variant='contained' color='secondary' onClick={handleContactOpen}>
+                    Contact Seller
+                </Button>
+
+                {/* Contact Dialog */}
+                <Dialog open={contactOpen} onClose={handleContactClose}>
+                    <DialogTitle>Contact the Seller</DialogTitle>
+                    <DialogContent>
+                        <Typography variant='body1' sx={{ mb: 2 }}>
+                            For inquiries about this car, you can:
+                        </Typography>
+                        <Typography variant='body2' sx={{ mb: 1 }}>
+                            - **Phone Number**: {"+359893456569"}
+                        </Typography>
+                        <Typography variant='body2'>
+                            - Start a **chat** (Coming soon!)
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleContactClose}>Close</Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        </Box>
+    );
 };
 
 export default CarListingDetails;

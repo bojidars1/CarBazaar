@@ -126,5 +126,10 @@ namespace CarBazaar.Services
 				Name = listing.Name,
 			};
 		}
+
+		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync()
+		{
+			
+		}
 	}
 }

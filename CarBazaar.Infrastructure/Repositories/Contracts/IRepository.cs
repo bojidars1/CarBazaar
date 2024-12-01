@@ -17,5 +17,7 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 		Task UpdateAsync(T entity);
 
 		Task DeleteByIdAsync(string id);
+
+		IQueryable<T> GetBaseQuery();
 	}
 }

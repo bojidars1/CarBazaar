@@ -42,6 +42,11 @@ namespace CarBazaar.Infrastructure.Repositories
 			return await _dbSet.AsNoTracking().ToListAsync();
 		}
 
+		public virtual IQueryable<T> GetBaseQuery()
+		{
+			return _dbSet.AsQueryable();
+		}
+
 		public virtual async Task<T?> GetByIdAsync(string id)
 		{
 			if (Guid.TryParse(id, out var guidId))

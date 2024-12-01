@@ -3,6 +3,7 @@ using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.CarListing;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -127,9 +128,45 @@ namespace CarBazaar.Services
 			};
 		}
 
-		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync()
+		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(CarListingSearchDto dto)
 		{
-			
+			var query = repository.GetBaseQuery();
+
+			if (!string.IsNullOrEmpty(dto.Type) && dto.Type != "All")
+			{
+				query = query.Where(cl => cl.Type == dto.Type);
+			}
+
+			if (!string.IsNullOrEmpty(dto.Brand) && dto.Brand != "All")
+			{
+				query = query.Where(cl => cl.Brand == dto.Brand);
+			}
+
+			if (!string.IsNullOrEmpty(dto.PriceRange) && dto.PriceRange != "All")
+			{
+				switch (dto.PriceRange)
+				{
+					case "0-10000":
+						query = query.Where(cl => cl.Price <= 10000);
+						break;
+					case "10000-30000":
+						query = query.Where(cl => cl.Price > 10000 && cl.Price <= 30000);
+						break;
+					case "50000+":
+						query = query.Where(cl => cl.Price > 50000);
+						break;
+				}
+			}
+
+			var results = await query.Select(cl => new CarListingListDetailsDto
+			{
+				Id = cl.Id,
+				Name = cl.Name,
+				Price = cl.Price,
+				ImageURL = cl.ImageURL,
+			}).ToListAsync();
+
+			return results;
 		}
 	}
 }

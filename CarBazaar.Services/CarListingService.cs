@@ -153,7 +153,7 @@ namespace CarBazaar.Services
 						query = query.Where(cl => cl.Price > 10000 && cl.Price <= 30000);
 						break;
 					case "50000+":
-						query = query.Where(cl => cl.Price > 50000);
+						query = query.Where(cl => cl.Price >= 50000);
 						break;
 				}
 			}

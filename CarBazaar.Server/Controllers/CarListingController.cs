@@ -34,10 +34,18 @@ namespace CarBazaar.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details([FromQuery]string id)
 		{
-			if (id == string.Empty || null)
+			if (id == string.Empty || id == null)
 			{
 				return NotFound();
 			}
+
+			CarListingDetailsDto? listing = await service.GetCarListingDetailsByIdAsync(id);
+			if (listing == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(listing);
 		}
 	}
 }

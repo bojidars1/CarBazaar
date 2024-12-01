@@ -1,4 +1,5 @@
 ﻿using CarBazaar.Data;
+using CarBazaar.Data.Models;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,9 +27,14 @@ namespace CarBazaar.Infrastructure.Repositories
 			await _context.SaveChangesAsync();
 		}
 
-		public virtual Task DeleteByIdAsync(string id)
+		public virtual async Task DeleteByIdAsync(string id)
 		{
-			throw new NotImplementedException();
+			var entity = await GetByIdAsync(id);
+			if (entity != null)
+			{
+				_dbSet.Remove(entity);
+			}
+			await _context.SaveChangesAsync();
 		}
 
 		public virtual async Task<List<T>> GetAllAsync()
@@ -45,7 +51,6 @@ namespace CarBazaar.Infrastructure.Repositories
 			{
 				return null;
 			}
-			
 		}
 
 		public virtual async Task UpdateAsync(T entity)

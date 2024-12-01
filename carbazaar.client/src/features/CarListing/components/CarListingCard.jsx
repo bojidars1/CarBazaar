@@ -39,7 +39,11 @@ const CarListingCard = ({ car, onDetailsClick }) => {
                 <Button variant='contained' color='secondary' fullWidth onClick={() => navigate(`/carlisting/edit/${car.id}`)}>
                     Edit
                 </Button>
-                <Button variant='contained' color='error' fullWidth onClick={() => navigate(`/carlisting/delete/${car.id}`)}>
+                <Button 
+                variant='contained' 
+                color='error' 
+                fullWidth 
+                onClick={() => navigate(`/carlisting/delete/${car.id}`)}>
                     Delete
                 </Button>
             </Box>

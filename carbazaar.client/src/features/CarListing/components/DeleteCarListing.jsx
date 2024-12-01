@@ -1,7 +1,7 @@
 import { Button, Paper, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const DeleteCarListing = () => {
     const { id } = useParams();
@@ -9,7 +9,7 @@ const DeleteCarListing = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.delete('https://localhost:7100/api/CarListing/${id}');
+            await axios.delete(`https://localhost:7100/api/CarListing/${id}`);
             navigate('/carlisting/list');
         } catch (err) {
             console.error(err);
@@ -27,7 +27,7 @@ const DeleteCarListing = () => {
         borderRadius: 2,
         boxShadow: 3
     }}>
-        <Typography variant='h4' color='error'>Delete Car Listing: <strong>Listing</strong>?</Typography>
+        <Typography variant='h4' color='error'>Delete Car Listing: <strong></strong>?</Typography>
         <Box sx={{
             display: 'flex',
             justifyContent: 'space-between',

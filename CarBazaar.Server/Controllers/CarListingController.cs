@@ -65,5 +65,22 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok("Success");
 		}
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> SoftDelete(string id)
+		{
+			if (string.IsNullOrEmpty(id))
+			{
+				return BadRequest();
+			}
+
+			bool isDeleted = await service.SoftDeleteCarListingAsync(id);
+			if (!isDeleted)
+			{
+				return NotFound();
+			}
+
+			return Ok("Success");
+		}
 	}
 }

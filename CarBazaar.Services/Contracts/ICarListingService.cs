@@ -14,5 +14,7 @@ namespace CarBazaar.Services.Contracts
 		public Task<List<CarListingListDetailsDto>> GetAllAsync();
 
 		public Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync(string id);
+
+		public Task<bool> UpdateCarListingAsync(EditCarListingDto dto);
 	}
 }

@@ -10,7 +10,7 @@ namespace CarBazaar.ViewModels.CarListing
 	public class EditCarListingDto
 	{
 		[Required]
-		public Guid Id { get; set; }
+		public string Id { get; set; } = null!;
 
 		[Required(ErrorMessage = "Name is required.")]
 		[StringLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]

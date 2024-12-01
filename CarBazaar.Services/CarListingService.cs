@@ -36,6 +36,31 @@ namespace CarBazaar.Services
 			await repository.AddAsync(carListing);
 		}
 
+		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto)
+		{
+			CarListing? listing = await repository.GetByIdAsync(dto.Id);
+			if (listing == null)
+			{
+				return false;
+			}
+
+			listing.Name = dto.Name;
+			listing.Type = dto.Type;
+			listing.Brand = dto.Brand;
+			listing.Price = dto.Price;
+			listing.Gearbox = dto.Gearbox;
+			listing.State = dto.State;
+			listing.Km = dto.Km;
+			listing.ProductionYear = dto.ProductionYear;
+			listing.Horsepower = dto.Horsepower;
+			listing.Color = dto.Color;
+			listing.ExtraInfo = dto.ExtraInfo;
+			listing.ImageURL = dto.ImageURL;
+
+			await repository.UpdateAsync(listing);
+			return true;
+		}
+
 		public async Task<List<CarListingListDetailsDto>> GetAllAsync()
 		{
 			var listings = await repository.GetAllAsync();

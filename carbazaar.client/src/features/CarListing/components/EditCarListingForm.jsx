@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CarListingForm = () => {
+    const { id } = useParams();
+
     const [formData, setFormData] = useState({
-        id: '',
+        id: id,
         name: '',
         type: '',
         brand: '',

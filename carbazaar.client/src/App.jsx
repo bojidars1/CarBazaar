@@ -19,6 +19,7 @@ const App = () => {
               <Route path="/carlisting/add" element={<AddCarListing />} />
               <Route path="/carlisting/list" element={<CarListings />} />
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
+              <Route path="/carlisting/edit/:id" />
             </Routes>
           </Layout>
         </Router>

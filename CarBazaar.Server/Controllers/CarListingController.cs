@@ -19,7 +19,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add([FromBody]AddCarListingDto dto)
+		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -46,6 +46,24 @@ namespace CarBazaar.Server.Controllers
 			}
 
 			return Ok(listing);
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> Edit([FromBody] EditCarListingDto dto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			bool isUpdated = await service.UpdateCarListingAsync(dto);
+
+			if (!isUpdated)
+			{
+				return NotFound();
+			}
+
+			return Ok("Success");
 		}
 	}
 }

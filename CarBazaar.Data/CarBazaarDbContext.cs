@@ -13,5 +13,12 @@ namespace CarBazaar.Data
         public CarBazaarDbContext(DbContextOptions<CarBazaarDbContext> options) : base(options) { }
 
         public DbSet<CarListing> CarListings { get; set; }
-    }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<CarListing>().HasQueryFilter(cl => !cl.IsDeleted);
+		}
+	}
 }

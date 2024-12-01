@@ -47,5 +47,7 @@ namespace CarBazaar.Data.Models
 
         [Comment("Listing Publication Date")]
         public DateTime PublicationDate { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

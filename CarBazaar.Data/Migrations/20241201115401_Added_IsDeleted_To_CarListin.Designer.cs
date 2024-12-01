@@ -4,6 +4,7 @@ using CarBazaar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarBazaar.Data.Migrations
 {
     [DbContext(typeof(CarBazaarDbContext))]
-    partial class CarBazaarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201115401_Added_IsDeleted_To_CarListin")]
+    partial class Added_IsDeleted_To_CarListin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +97,7 @@ namespace CarBazaar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarListings", (string)null);
+                    b.ToTable("CarListings");
                 });
 #pragma warning restore 612, 618
         }

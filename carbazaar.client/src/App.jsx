@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import AddCarListing from './pages/AddCarListing';
 import CarListings from './pages/CarListings';
 import CarListingDetails from './features/CarListing/components/CarListingDetails';
+import EditCarListingForm from './features/CarListing/components/EditCarListingForm';
 
 const App = () => {
     return(
@@ -19,7 +20,7 @@ const App = () => {
               <Route path="/carlisting/add" element={<AddCarListing />} />
               <Route path="/carlisting/list" element={<CarListings />} />
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
-              <Route path="/carlisting/edit/:id" />
+              <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
             </Routes>
           </Layout>
         </Router>

@@ -4,8 +4,11 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import CarListingCard from './CarListingCard';
+import { useNavigate } from 'react-router-dom';
 
 const CarListings = () => {
+    const navigate = useNavigate();
+
     const [carListings, setCarListings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -26,7 +29,7 @@ const CarListings = () => {
     }, []);
 
     const handleDetailsClick = (id) => {
-        console.log("View details for this car listing.");
+        navigate(`/${id}`)
     };
 
     return (

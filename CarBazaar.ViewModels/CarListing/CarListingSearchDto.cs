@@ -8,10 +8,10 @@ namespace CarBazaar.ViewModels.CarListing
 {
 	public class CarListingSearchDto
 	{
-		public string Type { get; set; } = null!;
+		public string? Type { get; set; }
 
-		public string Brand { get; set; } = null!;
+		public string? Brand { get; set; }
 
-		public string PriceRange { get; set; } = null!;
+		public string? PriceRange { get; set; }
 	}
 }

@@ -11,10 +11,6 @@ namespace CarBazaar.Server.Controllers
 	[Route("api/[controller]")]
 	public class CarListingController(ICarListingService service) : Controller
 	{
-		/// <summary>
-		/// Fetches all car listings from the database.
-		/// </summary>
-		/// <returns>A list of car listings with brief details (ID, Name, Price and Image URL)</returns>
 		[HttpGet]
 		public async Task<IActionResult> GetListings()
 		{

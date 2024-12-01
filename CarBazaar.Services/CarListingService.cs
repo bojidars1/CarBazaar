@@ -36,9 +36,16 @@ namespace CarBazaar.Services
 			await repository.AddAsync(carListing);
 		}
 
-		public Task<List<CarListingListDetailsDto>> GetAllAsync()
+		public async Task<List<CarListingListDetailsDto>> GetAllAsync()
 		{
-			throw new NotImplementedException();
+			var listings = await repository.GetAllAsync();
+			return listings.Select(l => new CarListingListDetailsDto
+			{
+				Id = l.Id,
+				Name = l.Name,
+				Price = l.Price,
+				ImageURL = l.ImageURL
+			}).ToList();
 		}
 	}
 }

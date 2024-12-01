@@ -31,8 +31,8 @@ namespace CarBazaar.Server.Controllers
 			return Ok("Success");
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> Details([FromQuery]string id)
+		[HttpGet("{id}")]
+		public async Task<IActionResult> Details(string id)
 		{
 			if (id == string.Empty || id == null)
 			{

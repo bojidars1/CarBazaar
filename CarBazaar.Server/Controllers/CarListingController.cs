@@ -100,5 +100,12 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok(listing);
 		}
+
+		[HttpGet("search")]
+		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto)
+		{
+			var results = await service.SearchCarListingsAsync(dto);
+			return Ok(results);
+		}
 	}
 }

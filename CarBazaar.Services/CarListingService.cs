@@ -112,19 +112,5 @@ namespace CarBazaar.Services
 			await repository.UpdateAsync(listing);
 			return true;
 		}
-
-		public async Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id)
-		{
-			CarListing? listing = await repository.GetByIdAsync(id);
-			if (listing == null)
-			{
-				return null;
-			}
-
-			return new DeleteCarListingDto
-			{
-				Name = listing.Name
-			};
-		}
 	}
 }

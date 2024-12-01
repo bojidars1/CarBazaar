@@ -30,5 +30,11 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok("Success");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details([FromBody]string id)
+		{
+			
+		}
 	}
 }

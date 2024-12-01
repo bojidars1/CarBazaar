@@ -13,5 +13,7 @@ namespace CarBazaar.Services.Contracts
 		public Task AddAsync([FromBody]AddCarListingDto dto);
 		
 		public Task<List<CarListingListDetailsDto>> GetAllAsync();
+
+		public Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync([FromQuery]string id);
 	}
 }

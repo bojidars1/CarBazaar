@@ -47,5 +47,32 @@ namespace CarBazaar.Services
 				ImageURL = l.ImageURL
 			}).ToList();
 		}
+
+		public async Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync([FromQuery] string id)
+		{
+			var listing = await repository.GetByIdAsync(id);
+
+			if (listing == null)
+			{
+				return null;
+			}
+
+			return new CarListingDetailsDto
+			{
+				Id = listing.Id,
+				Name = listing.Name,
+				Type = listing.Type,
+				Brand = listing.Brand,
+				Price = listing.Price,
+				Gearbox = listing.Gearbox,
+				State = listing.State,
+				Km = listing.Km,
+				ProductionYear = listing.ProductionYear,
+				Horsepower = listing.Horsepower,
+				Color = listing.Color,
+				ExtraInfo = listing.ExtraInfo,
+				ImageURL = listing.ImageURL
+			};
+		}
 	}
 }

@@ -22,7 +22,7 @@ namespace CarBazaar.ViewModels.CarListing
 
         public string State { get; set; } = null!;
 
-        public long KM { get; set; }
+        public long Km { get; set; }
 
         public int ProductionYear { get; set; }
 

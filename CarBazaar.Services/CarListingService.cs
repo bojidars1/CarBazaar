@@ -99,5 +99,18 @@ namespace CarBazaar.Services
 				ImageURL = listing.ImageURL
 			};
 		}
+
+		public async Task<bool> SoftDeleteCarListingAsync(string id)
+		{
+			CarListing? listing = await repository.GetByIdAsync(id);
+			if (listing == null)
+			{
+				return false;
+			}
+
+			listing.IsDeleted = true;
+			await repository.UpdateAsync(listing);
+			return true;
+		}
 	}
 }

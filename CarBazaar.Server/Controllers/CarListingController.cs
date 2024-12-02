@@ -102,14 +102,14 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("search")]
-		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto)
+		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-			var results = await service.SearchCarListingsAsync(dto);
+			var results = await service.SearchCarListingsAsync(dto, page, pageSize);
 			return Ok(results);
 		}
 	}

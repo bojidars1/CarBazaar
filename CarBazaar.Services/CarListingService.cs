@@ -129,7 +129,7 @@ namespace CarBazaar.Services
 		}
 
 		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(
-			int? pageIndex, int pageSize, CarListingSearchDto dto)
+			CarListingSearchDto dto, int? pageIndex, int pageSize)
 		{
 			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
 

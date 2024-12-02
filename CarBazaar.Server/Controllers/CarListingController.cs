@@ -12,9 +12,9 @@ namespace CarBazaar.Server.Controllers
 	public class CarListingController(ICarListingService service) : Controller
 	{
 		[HttpGet]
-		public async Task<IActionResult> GetListings()
+		public async Task<IActionResult> GetListings([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
-			var listings = await service.GetAllAsync();
+			var listings = await service.GetPaginatedCarListingsAsync(page, pageSize);
 			return Ok(listings);
 		}
 

@@ -131,9 +131,7 @@ namespace CarBazaar.Services
 		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(
 			CarListingSearchDto dto, int? pageIndex, int pageSize)
 		{
-			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
-
-			var query = listings.AsQueryable();
+			var query = repository.GetBaseQuery();
 
 			if (!string.IsNullOrEmpty(dto.Type) && dto.Type != "All")
 			{

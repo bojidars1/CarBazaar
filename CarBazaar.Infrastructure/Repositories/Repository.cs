@@ -59,9 +59,9 @@ namespace CarBazaar.Infrastructure.Repositories
 			}
 		}
 
-		public virtual async Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize)
+		public virtual async Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize, IQueryable<T>? queryable)
 		{
-			return await PaginatedList<T>.CreateAsync(_dbSet.AsNoTracking(), pageIndex ?? 1, pageSize);
+			return await PaginatedList<T>.CreateAsync(queryable ?? _dbSet.AsNoTracking(), pageIndex ?? 1, pageSize);
 		}
 
 		public virtual async Task UpdateAsync(T entity)

@@ -21,6 +21,6 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 
 		IQueryable<T> GetBaseQuery();
 
-		Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize);
+		Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize, IQueryable<T>? queryable);
 	}
 }

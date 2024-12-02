@@ -128,9 +128,12 @@ namespace CarBazaar.Services
 			};
 		}
 
-		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(CarListingSearchDto dto)
+		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(
+			int? pageIndex, int pageSize, CarListingSearchDto dto)
 		{
-			var query = repository.GetBaseQuery();
+			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
+
+			var query = listings.AsQueryable();
 
 			if (!string.IsNullOrEmpty(dto.Type) && dto.Type != "All")
 			{

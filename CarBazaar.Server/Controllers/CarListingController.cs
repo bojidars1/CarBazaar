@@ -104,6 +104,11 @@ namespace CarBazaar.Server.Controllers
 		[HttpGet("search")]
 		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var results = await service.SearchCarListingsAsync(dto);
 			return Ok(results);
 		}

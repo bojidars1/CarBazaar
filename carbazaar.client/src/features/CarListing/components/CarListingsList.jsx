@@ -4,29 +4,34 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import CarListingCard from './CarListingCard';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CarListings = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [carListings, setCarListings] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const carListingsState = location.state?.data;
+
+    const [carListings, setCarListings] = useState(carListingsState || []);
+    const [loading, setLoading] = useState(!carListingsState);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const getCarListings = async () => {
-            try {
-                const response = await axios.get('https://localhost:7100/api/CarListing');
-                setCarListings(response.data);
-            } catch (err) {
-                setError("Failed to get car listings. Please try again.")
-            } finally {
-                setLoading(false);
-            }
-        };
-        
-        getCarListings();
-    }, []);
+        if (!carListingsState) {
+            const getCarListings = async () => {
+                try {
+                    const response = await axios.get('https://localhost:7100/api/CarListing');
+                    setCarListings(response.data);
+                } catch (err) {
+                    setError("Failed to get car listings. Please try again.")
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            getCarListings();
+        }
+    }, [carListingsState]);
 
     const handleDetailsClick = (id) => {
         navigate(`/carlisting/details/${id}`)

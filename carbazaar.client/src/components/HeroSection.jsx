@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, InputLabel, Grid2, FormControl, MenuItem, Select } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HeroSection = () => {
+    const navigate = useNavigate();
+
     const [carType, setCarType] = useState('All');
     const [carBrand, setCarBrand] = useState('All');
     const [priceRange, setPriceRange] = useState('All');
@@ -11,8 +14,19 @@ const HeroSection = () => {
     const handleCarBrandChange = (e) => setCarBrand(e.target.value);
     const handlePriceRangeChange = (e) => setPriceRange(e.target.value);
     
-    const handleSearch = () => {
-        console.log(carType, carBrand, priceRange);
+    const handleSearch = async () => {
+        const params = {
+            type: carType,
+            brand: carBrand,
+            priceRange
+        };
+
+        try {
+            const response = await axios.get('https://localhost:7100/api/CarListing/search', { params });
+            navigate('/carlisting/list', { state: { data: response.data } });
+        } catch (err) {
+            console.error('Error fetching search results:', err);
+        }
     };
 
     return (

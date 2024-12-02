@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarBazaar.Infrastructure.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,7 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 		Task DeleteByIdAsync(string id);
 
 		IQueryable<T> GetBaseQuery();
+
+		Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize);
 	}
 }

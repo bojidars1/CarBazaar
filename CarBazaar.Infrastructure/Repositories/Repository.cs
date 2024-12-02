@@ -1,5 +1,6 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Extensions;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -56,6 +57,11 @@ namespace CarBazaar.Infrastructure.Repositories
 			{
 				return null;
 			}
+		}
+
+		public virtual async Task<PaginatedList<T>> GetPaginatedAsync(int? pageIndex, int pageSize)
+		{
+			return await PaginatedList<T>.CreateAsync(_dbSet.AsNoTracking(), pageIndex ?? 1, pageSize);
 		}
 
 		public virtual async Task UpdateAsync(T entity)

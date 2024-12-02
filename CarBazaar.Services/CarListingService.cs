@@ -159,13 +159,15 @@ namespace CarBazaar.Services
 				}
 			}
 
-			var results = await query.Select(cl => new CarListingListDetailsDto
+			var paginatedQuery = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
+
+			var results = paginatedQuery.Select(cl => new CarListingListDetailsDto
 			{
 				Id = cl.Id,
 				Name = cl.Name,
 				Price = cl.Price,
 				ImageURL = cl.ImageURL,
-			}).ToListAsync();
+			}).ToList();
 
 			return results;
 		}

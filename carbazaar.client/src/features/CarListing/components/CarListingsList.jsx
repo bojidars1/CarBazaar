@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography, Card, Grid2, CardMedia, CardContent, CardActions, Button } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
@@ -39,25 +39,24 @@ const CarListings = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant='h4' sx={{ textAlign: 'center', mb: 3}}>
+            <Typography variant="h4" sx={{ textAlign: 'center', mb: 3 }}>
                 Car Listings
             </Typography>
-            
+
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
                     <CircularProgress />
                 </Box>
             ) : error ? (
-                <Typography color='error' variant='h6' sx={{ textAlign: 'center' }}>
+                <Typography color="error" variant="h6" sx={{ textAlign: 'center' }}>
                     {error}
                 </Typography>
             ) : (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
-                >
+                <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
                     {carListings.map((car) => (
                         <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />
                     ))}
-                </Box>
+                </Grid2>
             )}
         </Box>
     );

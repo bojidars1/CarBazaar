@@ -1,53 +1,45 @@
-import { Card, CardContent, CardMedia, Typography, Box, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, CardActions, Typography, Grid2, Button } from '@mui/material';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const CarListingCard = ({ car, onDetailsClick }) => {
-    const navigate = useNavigate();
-
     return (
-        <Card sx={{ maxWidth: 345, margin: 2, boxShadow: 3 }}>
-            {/* Car Image */}
-            <CardMedia
-            component="img"
-            height='200'
-            image={car.imageURL || 'https://www.ilusso.com/wp-content/uploads/3-3-1024x683.jpg'}
-            alt={car.name}
-            />
+        <Grid2 key={car.id} xs={12}>
+            <Card sx={{ display: 'flex', alignItems: 'center', p: 2, boxShadow: 3 }}>
+                {/* Image */}
+                <CardMedia
+                    component="img"
+                    image={car.imageURL || 'placeholder.jpg'} // Placeholder image if no URL
+                    alt={car.name}
+                    sx={{
+                        width: 150,
+                        height: 100,
+                        objectFit: 'cover',
+                        borderRadius: 1
+                        }}
+                />
 
-            {/* Car Details */}
-            <CardContent>
-                <Typography variant='h6' component="div" sx={{ fontWeight: 'bold' }}>
-                    {car.name}
-                </Typography>
+                {/* Details */}
+                <CardContent sx={{ flexGrow: 1, ml: 2 }}>
+                    <Typography variant="h6" fontWeight="bold">
+                        {car.name}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                        Price: ${car.price.toLocaleString()}
+                    </Typography>
+                </CardContent>
 
-                <Typography variant='body2' color='text.secondary'>
-                    Price: ${car.price}
-                </Typography>
-            </CardContent>
-
-            {/* CTA Button */}
-            <Box sx={{ p: 2 }}>
+                {/* Actions */}
+                <CardActions>
                 <Button
-                variant='contained'
-                color='primary'
-                fullWidth
-                onClick={() => onDetailsClick(car.id)}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => onDetailsClick(car.id)}
                 >
                     View Details
                 </Button>
-                <Button variant='contained' color='secondary' fullWidth onClick={() => navigate(`/carlisting/edit/${car.id}`)}>
-                    Edit
-                </Button>
-                <Button 
-                variant='contained' 
-                color='error' 
-                fullWidth 
-                onClick={() => navigate(`/carlisting/delete/${car.id}`)}>
-                    Delete
-                </Button>
-            </Box>
-        </Card>
+                </CardActions>
+            </Card>
+        </Grid2>
     );
 };
 

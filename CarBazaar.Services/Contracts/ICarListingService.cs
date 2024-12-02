@@ -22,5 +22,7 @@ namespace CarBazaar.Services.Contracts
 		public Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id);
 
 		public Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(CarListingSearchDto dto);
+
+		public Task<List<CarListingListDetailsDto>> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize);
 	}
 }

@@ -168,5 +168,18 @@ namespace CarBazaar.Services
 
 			return results;
 		}
+
+		public async Task<List<CarListingListDetailsDto>> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize)
+		{
+			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
+
+			return listings.Select(cl => new CarListingListDetailsDto
+			{
+				Id = cl.Id,
+				Name = cl.Name,
+				Price = cl.Price,
+				ImageURL = cl.ImageURL,
+			}).ToList();
+		}
 	}
 }

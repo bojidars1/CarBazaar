@@ -11,14 +11,16 @@ const CarListings = () => {
     const location = useLocation();
 
     const carListingsState = location.state?.data;
+    const carListingsFromState = carListingsState?.items;
+    const totalPagesFromState = carListingsState?.totalPages;
 
-    const [carListings, setCarListings] = useState(carListingsState || []);
+    const [carListings, setCarListings] = useState(carListingsFromState || []);
     const [loading, setLoading] = useState(!carListingsState);
     const [error, setError] = useState('');
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [totalPages, setTotalPages] = useState(totalPagesFromState || 1);
 
-    const pageSize = 10;
+    const pageSize = 1;
 
     const fetchCarListings = async (page) => {
         const params = {
@@ -28,10 +30,8 @@ const CarListings = () => {
 
         try {
             const response = await axios.get('https://localhost:7100/api/CarListing', { params });
-            console.log(response.data);
             setCarListings(response.data.items);
             setTotalPages(response.data.totalPages);
-            console.log(carListings);
         } catch (err) {
             setError('Failed to get car listings. Please try again.');
         } finally {

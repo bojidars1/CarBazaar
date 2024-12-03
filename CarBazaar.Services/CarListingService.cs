@@ -128,7 +128,7 @@ namespace CarBazaar.Services
 			};
 		}
 
-		public async Task<List<CarListingListDetailsDto>> SearchCarListingsAsync(
+		public async Task<CarListingPaginatedSearchDto> SearchCarListingsAsync(
 			CarListingSearchDto dto, int? pageIndex, int pageSize)
 		{
 			var query = repository.GetBaseQuery();
@@ -162,7 +162,7 @@ namespace CarBazaar.Services
 			var paginatedQuery = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
 			var totalPages = paginatedQuery.TotalPages;
 
-			var results = paginatedQuery.Select(cl => new CarListingListDetailsDto
+			var items = paginatedQuery.Select(cl => new CarListingListDetailsDto
 			{
 				Id = cl.Id,
 				Name = cl.Name,
@@ -170,7 +170,11 @@ namespace CarBazaar.Services
 				ImageURL = cl.ImageURL,
 			}).ToList();
 
-			return results;
+			return new CarListingPaginatedSearchDto
+			{
+				Items = items,
+				TotalPages = totalPages,
+			};
 		}
 
 		public async Task<List<CarListingListDetailsDto>> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize)

@@ -8,6 +8,8 @@ namespace CarBazaar.ViewModels.CarListing
 {
     public class CarListingPaginatedSearchDto
     {
+        public List<CarListingListDetailsDto> Items { get; set; } = new List<CarListingListDetailsDto>();
 
+        public int TotalPages { get; set; }
     }
 }

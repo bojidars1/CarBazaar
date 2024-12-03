@@ -160,6 +160,7 @@ namespace CarBazaar.Services
 			}
 
 			var paginatedQuery = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
+			var totalPages = paginatedQuery.TotalPages;
 
 			var results = paginatedQuery.Select(cl => new CarListingListDetailsDto
 			{

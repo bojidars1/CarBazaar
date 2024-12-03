@@ -15,23 +15,36 @@ const CarListings = () => {
     const [carListings, setCarListings] = useState(carListingsState || []);
     const [loading, setLoading] = useState(!carListingsState);
     const [error, setError] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const pageSize = 10;
+
+    const fetchCarListings = async (page) => {
+        const params = {
+            page,
+            pageSize
+        }
+
+        try {
+            const response = await axios.get('https://localhost:7100/api/CarListing', { params });
+            setCarListings(response.data);
+        } catch (err) {
+            setError("Failed to get car listings. Please try again.")
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (!carListingsState) {
-            const getCarListings = async () => {
-                try {
-                    const response = await axios.get('https://localhost:7100/api/CarListing');
-                    setCarListings(response.data);
-                } catch (err) {
-                    setError("Failed to get car listings. Please try again.")
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            getCarListings();
+            fetchCarListings(page);
         }
-    }, [carListingsState]);
+    }, [carListingsState, page]);
+
+    const handlePageChange = (e, value) => {
+        setPage(value);
+    }
 
     const handleDetailsClick = (id) => {
         navigate(`/carlisting/details/${id}`)

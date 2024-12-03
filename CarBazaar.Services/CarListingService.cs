@@ -177,17 +177,24 @@ namespace CarBazaar.Services
 			};
 		}
 
-		public async Task<List<CarListingListDetailsDto>> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize)
+		public async Task<CarListingPaginatedSearchDto> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize)
 		{
 			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
+			int totalPages = listings.TotalPages;
 
-			return listings.Select(cl => new CarListingListDetailsDto
+			var items = listings.Select(cl => new CarListingListDetailsDto
 			{
 				Id = cl.Id,
 				Name = cl.Name,
 				Price = cl.Price,
 				ImageURL = cl.ImageURL,
 			}).ToList();
+
+			return new CarListingPaginatedSearchDto
+			{
+				Items = items,
+				TotalPages = totalPages,
+			};
 		}
 	}
 }

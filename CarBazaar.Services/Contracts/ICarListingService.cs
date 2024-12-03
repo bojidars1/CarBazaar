@@ -23,6 +23,6 @@ namespace CarBazaar.Services.Contracts
 
 		public Task<CarListingPaginatedSearchDto> SearchCarListingsAsync(CarListingSearchDto dto, int? pageIndex, int pageSize);
 
-		public Task<List<CarListingListDetailsDto>> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize);
+		public Task<CarListingPaginatedSearchDto> GetPaginatedCarListingsAsync(int? pageIndex, int pageSize);
 	}
 }

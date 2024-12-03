@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography, Card, Grid2, CardMedia, CardContent, CardActions, Button } from '@mui/material';
+import { Box, CircularProgress, Typography, Card, Grid2, CardMedia, CardContent, CardActions, Button, Pagination } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
@@ -28,9 +28,12 @@ const CarListings = () => {
 
         try {
             const response = await axios.get('https://localhost:7100/api/CarListing', { params });
-            setCarListings(response.data);
+            console.log(response.data);
+            setCarListings(response.data.items);
+            setTotalPages(response.data.totalPages);
+            console.log(carListings);
         } catch (err) {
-            setError("Failed to get car listings. Please try again.")
+            setError('Failed to get car listings. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -65,11 +68,28 @@ const CarListings = () => {
                     {error}
                 </Typography>
             ) : (
-                <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
-                    {carListings.map((car) => (
-                        <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />
-                    ))}
-                </Grid2>
+                <>
+                   <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
+                       {carListings.map((car) => (
+                          <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />
+                       ))}
+                   </Grid2>
+
+                   {/* Pagination */}
+                   <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    mt: 3
+                   }}>
+                    <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
+                    color='primary'
+                    size='large'
+                    />
+                   </Box>
+                </>
             )}
         </Box>
     );

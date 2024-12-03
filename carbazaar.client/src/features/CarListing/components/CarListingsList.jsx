@@ -10,26 +10,27 @@ const CarListings = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const carListingsState = location.state?.data;
-    const carListingsFromState = carListingsState?.items;
-    const totalPagesFromState = carListingsState?.totalPages;
+    const carListingsState = location.state?.params;
 
-    const [carListings, setCarListings] = useState(carListingsFromState || []);
-    const [loading, setLoading] = useState(!carListingsState);
+    const [carListings, setCarListings] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(totalPagesFromState || 1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const pageSize = 1;
 
     const fetchCarListings = async (page) => {
         const params = {
+            type: carListingsState?.type,
+            brand: carListingsState?.brand,
+            priceRange: carListingsState?.priceRange,
             page,
             pageSize
-        }
+        };
 
         try {
-            const response = await axios.get('https://localhost:7100/api/CarListing', { params });
+            const response = await axios.get('https://localhost:7100/api/CarListing/search', { params });
             setCarListings(response.data.items);
             setTotalPages(response.data.totalPages);
         } catch (err) {
@@ -40,10 +41,8 @@ const CarListings = () => {
     };
 
     useEffect(() => {
-        if (!carListingsState) {
-            fetchCarListings(page);
-        }
-    }, [carListingsState, page]);
+        fetchCarListings(page);
+    }, [page]);
 
     const handlePageChange = (e, value) => {
         setPage(value);

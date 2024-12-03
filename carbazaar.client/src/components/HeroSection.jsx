@@ -14,19 +14,14 @@ const HeroSection = () => {
     const handleCarBrandChange = (e) => setCarBrand(e.target.value);
     const handlePriceRangeChange = (e) => setPriceRange(e.target.value);
     
-    const handleSearch = async () => {
+    const handleSearch = () => {
         const params = {
             type: carType,
             brand: carBrand,
-            priceRange
+            priceRange,
         };
 
-        try {
-            const response = await axios.get('https://localhost:7100/api/CarListing/search', { params });
-            navigate('/carlisting/list', { state: { data: response.data } });
-        } catch (err) {
-            console.error('Error fetching search results:', err);
-        }
+        navigate('/carlisting/list', { state: { params: params } });
     };
 
     return (

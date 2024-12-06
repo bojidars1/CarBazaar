@@ -9,6 +9,7 @@ import CarListings from './pages/CarListings';
 import CarListingDetails from './features/CarListing/components/CarListingDetails';
 import EditCarListingForm from './features/CarListing/components/EditCarListingForm';
 import DeleteCarListing from './features/CarListing/components/DeleteCarListing';
+import Login from './pages/Login';
 
 const App = () => {
     return(
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
               <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
               <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
+              <Route path='/login' element={<Login />} />
             </Routes>
           </Layout>
         </Router>

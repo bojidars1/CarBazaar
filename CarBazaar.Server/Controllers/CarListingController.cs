@@ -7,9 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarBazaar.Server.Controllers
 {
-	[ApiController]
 	[Route("api/[controller]")]
-	public class CarListingController(ICarListingService service) : Controller
+	public class CarListingController(ICarListingService service) : BaseController
 	{
 		[HttpGet]
 		public async Task<IActionResult> GetListings([FromQuery] int page = 1, [FromQuery] int pageSize = 10)

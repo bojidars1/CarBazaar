@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Data
 {
-    public class CarBazaarDbContext : IdentityDbContext
+    public class CarBazaarDbContext : IdentityDbContext<CarBazaarUser>
     {
         public CarBazaarDbContext(DbContextOptions<CarBazaarDbContext> options) : base(options) { }
 

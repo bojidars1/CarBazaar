@@ -11,6 +11,7 @@ namespace CarBazaar.Server.Controllers
 	public class CarListingController(ICarListingService service) : BaseController
 	{
 		[HttpGet]
+		[ProducesResponseType<CarListingPaginatedSearchDto>(200)]
 		public async Task<IActionResult> GetListings([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
 			var listings = await service.GetPaginatedCarListingsAsync(page, pageSize);
@@ -18,6 +19,8 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
 		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
 			await service.AddAsync(dto);
@@ -26,6 +29,8 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[ProducesResponseType<CarListingDetailsDto>(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> Details(string id)
 		{
 			if (id == string.Empty || id == null)
@@ -43,6 +48,9 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPut]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> Edit([FromBody] EditCarListingDto dto)
 		{
 			bool isUpdated = await service.UpdateCarListingAsync(dto);
@@ -56,6 +64,9 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> SoftDelete(string id)
 		{
 			if (string.IsNullOrEmpty(id))
@@ -73,6 +84,9 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("delete/{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetSoftDeleteDto(string id)
 		{
 			if (string.IsNullOrEmpty(id))
@@ -91,6 +105,8 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("search")]
+		[ProducesResponseType<CarListingPaginatedSearchDto>(200)]
+		[ProducesResponseType(400)]
 		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
 			var results = await service.SearchCarListingsAsync(dto, page, pageSize);

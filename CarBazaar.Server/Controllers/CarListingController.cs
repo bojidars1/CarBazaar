@@ -20,11 +20,6 @@ namespace CarBazaar.Server.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
 			await service.AddAsync(dto);
 
 			return Ok("Success");
@@ -50,11 +45,6 @@ namespace CarBazaar.Server.Controllers
 		[HttpPut]
 		public async Task<IActionResult> Edit([FromBody] EditCarListingDto dto)
 		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
 			bool isUpdated = await service.UpdateCarListingAsync(dto);
 
 			if (!isUpdated)
@@ -103,11 +93,6 @@ namespace CarBazaar.Server.Controllers
 		[HttpGet("search")]
 		public async Task<IActionResult> Search([FromQuery] CarListingSearchDto dto, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
 			var results = await service.SearchCarListingsAsync(dto, page, pageSize);
 			return Ok(results);
 		}

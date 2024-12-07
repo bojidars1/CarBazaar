@@ -1,19 +1,29 @@
-import { Container, Box, Typography, TextField, Button } from "@mui/material";
+import { Container, Box, Typography, TextField, Button, Alert } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+        setError('');
 
         if (password !== confirmPassword) {
-            alert('Passwords do not match!');
+            setError('Passwords does not match!');
             return;
         }
-        console.log(`Registered: ${email}, ${password}`);
+
+        try {
+            const response = await axios.post('https://localhost:7100/register', { email, password });
+            console.log(response);
+        } catch (err) {
+            const errorMessages = Object.values(err.response.data.errors).flat().join('\n');
+            setError(errorMessages);
+        }
     }
 
     return (
@@ -31,6 +41,9 @@ const Register = () => {
                 <Typography variant='h4' sx={{ mb: 4 }}>
                     Register
                 </Typography>
+
+                {error && <Alert severity='error' sx={{ mb: 2 }}>{error}</Alert>}
+
                 <form onSubmit={handleRegister} style={{ width: '100%' }}>
                     <TextField
                     label='Email'

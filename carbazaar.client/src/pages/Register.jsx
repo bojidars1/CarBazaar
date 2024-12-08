@@ -2,8 +2,11 @@ import { Container, Box, Typography, TextField, Button, Alert } from "@mui/mater
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/userSlice';
 
 const Register = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -22,6 +25,7 @@ const Register = () => {
 
         try {
             const response = await axios.post('https://localhost:7100/register', { email, password });
+            dispatch(setUser(response.data));
             navigate('/');
         } catch (err) {
             const errorMessages = Object.values(err.response.data.errors).flat().join('\n');

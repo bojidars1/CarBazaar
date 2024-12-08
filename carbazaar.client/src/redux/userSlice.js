@@ -1,13 +1,18 @@
-const { createSlice } = require("@reduxjs/toolkit")
+import { createSlice } from "@reduxjs/toolkit";
 
-const initalState = {
-    user: null
+const name = 'user';
+const initialState = createIntialState();
+const reducers = createReducers();
+const slice = createSlice({ name, initialState, reducers });
+
+function createIntialState() {
+    return {
+        value: null
+    }
 }
 
-const userSlice = createSlice({
-    name: 'user',
-    initalState,
-    reducers: {
+function createReducers() {
+    return {
         setUser: (state, action) => {
             state.user = action.payload;
         },
@@ -15,8 +20,8 @@ const userSlice = createSlice({
             state.user = null;
         }
     }
-});
+}
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser } = slice.actions;
 
-export default userSlice.reducer;
+export default slice.reducer;

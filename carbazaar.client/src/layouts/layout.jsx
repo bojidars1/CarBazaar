@@ -3,8 +3,11 @@ import { AppBar, Toolbar, Typography, Button, Box, Container, IconButton, Drawer
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
+    const user = useSelector((state) => state.user.user);
+    const dispatch = useDispatch();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = (open) => (event) => {
@@ -26,6 +29,7 @@ const Layout = ({ children }) => {
                             style={{ width: '50px', height: '50px', marginRight: '10px' }}
                         />
                         CarBazaar
+                        {user && user.accessToken}
                     </Typography>
 
                     {/* Nav Buttons */}

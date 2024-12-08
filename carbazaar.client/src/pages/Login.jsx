@@ -1,13 +1,27 @@
 import { Container, Box, Typography, TextField, Button } from '@mui/material';
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../redux/userSlice';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log(`Successful login: ${email} .. ${password}`);
+
+        try {
+            const response = await axios.post('https://localhost:7100/login', { email, password });
+            dispatch(setUser(response.data));
+            navigate('/');
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (

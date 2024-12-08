@@ -28,5 +28,19 @@ namespace CarBazaar.Server.Controllers
 
 			return BadRequest(ModelState);
 		}
+
+		[HttpPost("login")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		public async Task<IActionResult> Login([FromBody] LoginDto dto)
+		{
+			var result = await signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, false);
+			if (result.Succeeded)
+			{
+				return Ok(new { message = "Login successful" });
+			}
+
+			return Unauthorized(new { message = "Invalid email or password" });
+		}
 	}
 }

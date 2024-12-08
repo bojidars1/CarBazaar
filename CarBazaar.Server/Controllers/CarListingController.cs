@@ -23,6 +23,13 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
+			var userId = GetUserId();
+
+			if (userId == null)
+			{
+				return Unauthorized("Please login or create an account to add a Car Listing");
+			}
+
 			await service.AddAsync(dto);
 
 			return Ok("Success");

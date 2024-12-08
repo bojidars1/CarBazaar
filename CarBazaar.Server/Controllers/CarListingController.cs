@@ -2,6 +2,7 @@
 using CarBazaar.Data.Models;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.CarListing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,10 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
 		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
 			var userId = GetUserId();

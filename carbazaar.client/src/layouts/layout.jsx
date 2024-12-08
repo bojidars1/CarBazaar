@@ -1,14 +1,15 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Container, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
-    console.log(user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = (open) => (event) => {
@@ -16,6 +17,11 @@ const Layout = ({ children }) => {
             return;
         }
         setDrawerOpen(open);
+    };
+
+    const handleLogout = async () => {
+        dispatch(logout());
+        navigate('/');
     };
 
     return (
@@ -38,15 +44,22 @@ const Layout = ({ children }) => {
                         )}
                     </Typography>
 
-                    
-
                     {/* Nav Buttons */}
                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Button color="inherit" component={Link} to="/">Home</Button>
                         <Button color="inherit" component={Link} to="/carlisting/list">Cars</Button>
                         <Button color="inherit" component={Link} to="/">About</Button>
-                        <Button color="inherit" component={Link} to="/login">Login</Button>
-                        <Button color="inherit" component={Link} to="/register">Register</Button>
+                        {user ? (
+                            <>
+                            <Button color="inherit" component={Link} to="/">Logout</Button>
+                            </>
+                        ) : (
+                            <>
+                            <Button color="inherit" component={Link} to="/login">Login</Button>
+                            <Button color="inherit" component={Link} to="/register">Register</Button>
+                            </>
+                        )}
+                        
                     </Box>
 
                     {/* Mobile Menu Button */}

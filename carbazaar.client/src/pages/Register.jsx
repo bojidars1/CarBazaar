@@ -24,8 +24,9 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('https://localhost:7100/register', { email, password });
-            dispatch(setUser(response.data));
+            const response = await axios.post('https://localhost:7100/api/account/register', { email, password, confirmPassword });
+            const { user } = response.data;
+            dispatch(setUser(user));
             navigate('/');
         } catch (err) {
             const errorMessages = Object.values(err.response.data.errors).flat().join('\n');

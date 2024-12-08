@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { clearUser } from '../redux/userSlice';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
@@ -20,8 +22,13 @@ const Layout = ({ children }) => {
     };
 
     const handleLogout = async () => {
-        dispatch(logout());
-        navigate('/');
+        try {
+            await axios.post('https://localhost:7100/api/account/logout');
+            dispatch(clearUser());
+            navigate('/');
+        } catch (err) {
+            console.log('Logout failed');
+        }
     };
 
     return (
@@ -51,7 +58,7 @@ const Layout = ({ children }) => {
                         <Button color="inherit" component={Link} to="/">About</Button>
                         {user ? (
                             <>
-                            <Button color="inherit" component={Link} to="/">Logout</Button>
+                            <Button color="inherit" onClick={handleLogout}>Logout</Button>
                             </>
                         ) : (
                             <>

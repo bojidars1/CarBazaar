@@ -7,7 +7,7 @@ const slice = createSlice({ name, initialState, reducers });
 
 function createIntialState() {
     return {
-        value: null
+        user: null
     }
 }
 

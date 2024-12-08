@@ -15,13 +15,13 @@ namespace CarBazaar.Data.Models
 
 		[ForeignKey("UserId")]
 		[Comment("User")]
-		public CarBazaarUser User { get; set; } = new CarBazaarUser();
+		public CarBazaarUser User { get; set; } = null!;
 
 		[Comment("Car Listing Id")]
 		public Guid CarListingId {  get; set; }
 
 		[ForeignKey("CarListingId")]
 		[Comment("Car Listing")]
-		public CarListing CarListing { get; set; } = new CarListing();
+		public CarListing CarListing { get; set; } = null!;
 	}
 }

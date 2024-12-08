@@ -30,7 +30,7 @@ namespace CarBazaar.Server.Controllers
 				return Unauthorized("Please login or create an account to add a Car Listing");
 			}
 
-			await service.AddAsync(dto);
+			await service.AddAsync(dto, userId);
 
 			return Ok("Success");
 		}

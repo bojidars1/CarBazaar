@@ -9,7 +9,7 @@ namespace CarBazaar.Services.Contracts
 {
 	public interface ICarListingService
 	{
-		public Task<Guid> AddAsync(AddCarListingDto dto);
+		public Task AddAsync(AddCarListingDto dto, string userId);
 		
 		public Task<List<CarListingListDetailsDto>> GetAllAsync();
 

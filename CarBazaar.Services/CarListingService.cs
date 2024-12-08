@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class CarListingService(ICarListingRepository repository) : ICarListingService
+	public class CarListingService(ICarListingRepository repository, IUserCarListingService userCarListingService) : ICarListingService
 	{
-		public async Task<Guid> AddAsync(AddCarListingDto dto)
+		public async Task AddAsync(AddCarListingDto dto, string userId)
 		{
 			CarListing carListing = new CarListing
 			{
@@ -35,7 +35,12 @@ namespace CarBazaar.Services
 			};
 
 			await repository.AddAsync(carListing);
-			return carListing.Id;
+
+			await userCarListingService.AddAsync(new UserCarListing
+			{
+				UserId = userId,
+				CarListingId = carListing.Id,
+			}); 
 		}
 
 		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto)

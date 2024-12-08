@@ -1,8 +1,11 @@
 import { Container, Box, Typography, TextField, Button, Alert } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,7 +22,7 @@ const Register = () => {
 
         try {
             const response = await axios.post('https://localhost:7100/register', { email, password });
-            console.log(response);
+            navigate('/');
         } catch (err) {
             const errorMessages = Object.values(err.response.data.errors).flat().join('\n');
             setError(errorMessages);

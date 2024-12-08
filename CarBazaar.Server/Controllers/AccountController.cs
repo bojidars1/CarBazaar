@@ -18,7 +18,7 @@ namespace CarBazaar.Server.Controllers
 			var result = await userManager.CreateAsync(user, dto.Password);
 			if (result.Succeeded)
 			{
-				return Ok(new { message = "Registration successful" });
+				return Ok(new { user = dto.Email });
 			}
 
 			return BadRequest(ModelState);

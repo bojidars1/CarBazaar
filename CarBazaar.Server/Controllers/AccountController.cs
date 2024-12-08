@@ -42,5 +42,14 @@ namespace CarBazaar.Server.Controllers
 
 			return Unauthorized(new { message = "Invalid email or password" });
 		}
+
+		[HttpPost("logout")]
+		[ProducesResponseType(204)]
+		public async Task<IActionResult> Logout()
+		{
+			await signInManager.SignOutAsync();
+
+			return NoContent();
+		}
 	}
 }

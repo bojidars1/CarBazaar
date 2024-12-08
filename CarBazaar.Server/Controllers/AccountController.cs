@@ -37,7 +37,7 @@ namespace CarBazaar.Server.Controllers
 			var result = await signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, false);
 			if (result.Succeeded)
 			{
-				return Ok(new { message = "Login successful" });
+				return Ok(new { user = dto.Email });
 			}
 
 			return Unauthorized(new { message = "Invalid email or password" });

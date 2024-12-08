@@ -16,8 +16,9 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:7100/login', { email, password });
-            dispatch(setUser(response.data));
+            const response = await axios.post('https://localhost:7100/api/account/login', { email, password });
+            const { user } = response.data;
+            dispatch(setUser(user));
             navigate('/');
         } catch (err) {
             console.log(err);

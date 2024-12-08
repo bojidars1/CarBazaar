@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
+    console.log(user);
     const dispatch = useDispatch();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -29,8 +30,15 @@ const Layout = ({ children }) => {
                             style={{ width: '50px', height: '50px', marginRight: '10px' }}
                         />
                         CarBazaar
-                        {user && user.accessToken}
+                        {/* User Greeting */}
+                        {user && (
+                            <Typography variant="body1" sx={{ display: 'inline', color: 'white', ml: '1em' }}>
+                            Hello, {user}
+                            </Typography>
+                        )}
                     </Typography>
+
+                    
 
                     {/* Nav Buttons */}
                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>

@@ -13,11 +13,6 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> Register([FromBody] RegisterDto dto)
 		{
-			if (dto.Password != dto.ConfirmPassword)
-			{
-				return BadRequest(new { message = "Passwords does not match!"});
-			}
-
 			var user = new CarBazaarUser { UserName = dto.Email, Email = dto.Email };
 
 			var result = await userManager.CreateAsync(user, dto.Password);

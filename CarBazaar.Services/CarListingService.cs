@@ -14,7 +14,7 @@ namespace CarBazaar.Services
 {
 	public class CarListingService(ICarListingRepository repository) : ICarListingService
 	{
-		public async Task AddAsync(AddCarListingDto dto)
+		public async Task<Guid> AddAsync(AddCarListingDto dto)
 		{
 			CarListing carListing = new CarListing
 			{
@@ -35,6 +35,7 @@ namespace CarBazaar.Services
 			};
 
 			await repository.AddAsync(carListing);
+			return carListing.Id;
 		}
 
 		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto)

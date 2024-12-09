@@ -22,10 +22,15 @@ const App = () => {
    
    if (token) {
     const decodedToken = jwtDecode(token);
-    const userEmail = decodedToken.email;
+    const isExpired = Date.now() >= decodedToken.exp * 1000;
+    if (isExpired) {
+      localStorage.removeItem('token');
+    } else {
+      const userEmail = decodedToken.email;
 
-    dispatch(setAuthenticated(token));
-    dispatch(setUser(userEmail));
+      dispatch(setAuthenticated(token));
+      dispatch(setUser(userEmail));
+    }
    }
 
     return(

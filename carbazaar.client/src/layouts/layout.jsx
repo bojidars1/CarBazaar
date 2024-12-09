@@ -5,10 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { logout } from '../redux/authSlice';
 import { clearUser } from '../redux/userSlice';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
+    const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -23,7 +25,14 @@ const Layout = ({ children }) => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('https://localhost:7100/api/account/logout');
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            await axios.post('https://localhost:7100/api/account/logout', {}, config);
+            localStorage.removeItem('token');
+            dispatch(logout());
             dispatch(clearUser());
             navigate('/');
         } catch (err) {

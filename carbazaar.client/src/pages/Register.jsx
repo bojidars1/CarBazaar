@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
+import { setAuthenticated } from '../redux/authSlice';
+import { jwtDecode } from "jwt-decode";
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -25,8 +27,13 @@ const Register = () => {
 
         try {
             const response = await axios.post('https://localhost:7100/api/account/register', { email, password });
-            const { user } = response.data;
-            dispatch(setUser(user));
+            const { token } = response.data;
+
+            const decodedToken = jwtDecode(token);
+            const userEmail = decodedToken.email;
+
+            dispatch(setAuthenticated(token));
+            dispatch(setUser(userEmail));
             navigate('/');
         } catch (err) {
             const errorMessages = Object.values(err.response.data.errors).flat().join('\n');

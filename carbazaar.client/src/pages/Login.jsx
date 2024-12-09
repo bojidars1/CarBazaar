@@ -22,10 +22,10 @@ const Login = () => {
             const { token } = response.data;
 
             const decodedToken = jwtDecode(token);
-            const email = decodedToken.email;
+            const userEmail = decodedToken.email;
 
             dispatch(setAuthenticated(token));
-            dispatch(setUser(email));
+            dispatch(setUser(userEmail));
             navigate('/');
         } catch (err) {
             console.log(err);

@@ -13,5 +13,7 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts.Redis
 		public Task<bool> IsBlackListedAsync(string token);
 
 		public Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry);
+
+		public Task<string?> GetUserIdByRefreshTokenAsync(string refreshToken);
 	}
 }

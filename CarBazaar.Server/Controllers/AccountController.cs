@@ -61,7 +61,7 @@ namespace CarBazaar.Server.Controllers
 
 		[HttpPost("logout")]
 		[Authorize]
-		public async Task<IActionResult> Logout([FromServices] IRedisService redisService)
+		public async Task<IActionResult> Logout()
 		{
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
 			if (string.IsNullOrEmpty(token))
@@ -77,5 +77,17 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok("Logged out successfully");
 		}
+
+		[HttpPost("refresh-token")]
+		public async Task<IActionResult> RefreshToken()
+		{
+			var refreshToken = Request.Cookies["refresh-token"];
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+				return BadRequest("Refresh token is not found");
+            }
+
+			
+        }
 	}
 }

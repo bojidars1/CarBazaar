@@ -11,15 +11,31 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 	public class RedisRepository : IRedisRepository
 	{
 		private readonly IDatabase database;
+		private readonly IServer server;
 
 		public RedisRepository(IConnectionMultiplexer redis)
 		{
 			database = redis.GetDatabase();
+			var endpoints = redis.GetEndPoints();
+			server = redis.GetServer(endpoints.First());
 		}
 
 		public async Task AddToBlackListAsync(string token, TimeSpan expiry)
 		{
 			await database.StringSetAsync(token, "blacklisted", expiry);
+		}
+
+		public async Task<string?> GetUserIdByRefreshTokenAsync(string refreshToken)
+		{
+			var keys = server.Keys(pattern: "refreshToken:*");
+			foreach (var key in keys)
+			{
+				if (await database.StringGetAsync(key) == refreshToken)
+				{
+					return key.ToString().Split(':')[1];
+				}
+			}
+			return null;
 		}
 
 		public async Task<bool> IsBlackListedAsync(string token)
@@ -29,7 +45,7 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 
 		public async Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry)
 		{
-			await database.StringSetAsync(userId, refreshToken, expiry);
+			await database.StringSetAsync($"refreshToken:{userId}", refreshToken, expiry);
 		}
 	}
 }

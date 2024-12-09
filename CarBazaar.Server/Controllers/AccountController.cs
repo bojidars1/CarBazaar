@@ -9,7 +9,10 @@ using System.IdentityModel.Tokens.Jwt;
 namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
-	public class AccountController(IJwtService jwtService, UserManager<CarBazaarUser> userManager) : BaseController
+	public class AccountController(
+		IJwtService jwtService,
+		IRedisService redisService,
+		UserManager<CarBazaarUser> userManager) : BaseController
 	{
 		[HttpPost("register")]
 		[ProducesResponseType(200)]
@@ -39,12 +42,21 @@ namespace CarBazaar.Server.Controllers
 				var accessToken = jwtService.GenerateAccessToken(user.Id, user.Email);
 				var refreshToken = jwtService.GenerateRefreshToken();
 
+				await redisService.StoreRefreshTokenAsync(user.Id, refreshToken, TimeSpan.FromDays(30));
 
-				return Ok(new { token });
+				Response.Cookies.Append("refresh_token", refreshToken, new CookieOptions
+				{
+					HttpOnly = true,
+					Secure = true,
+					SameSite = SameSiteMode.Strict,
+					Expires = DateTime.UtcNow.AddDays(30)
+				});
+
+				return Ok(new { accessToken });
 			}
 
 			// I won't let them know that such an account exists
-			return BadRequest(ModelState);
+			return BadRequest("Invalid email or password");
 		}
 
 		[HttpPost("logout")]

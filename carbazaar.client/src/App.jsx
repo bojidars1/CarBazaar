@@ -11,8 +11,22 @@ import EditCarListingForm from './features/CarListing/components/EditCarListingF
 import DeleteCarListing from './features/CarListing/components/DeleteCarListing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { setAuthenticated } from './redux/authSlice';
+import { setUser } from './redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
 
 const App = () => {
+   const dispatch = useDispatch();
+   const token = localStorage.getItem('token');
+   if (savedToken) {
+    const decodedToken = jwtDecode(token);
+    const userEmail = decodedToken.email;
+
+    dispatch(setAuthenticated(token));
+    dispatch(setUser(userEmail));
+   }
+
     return(
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />

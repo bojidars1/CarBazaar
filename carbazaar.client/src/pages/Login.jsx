@@ -24,6 +24,8 @@ const Login = () => {
             const decodedToken = jwtDecode(token);
             const userEmail = decodedToken.email;
 
+            localStorage.setItem('token', token);
+
             dispatch(setAuthenticated(token));
             dispatch(setUser(userEmail));
             navigate('/');

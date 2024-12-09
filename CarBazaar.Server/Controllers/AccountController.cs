@@ -79,15 +79,36 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost("refresh-token")]
+		[ProducesResponseType<string>(400)]
 		public async Task<IActionResult> RefreshToken()
 		{
 			var refreshToken = Request.Cookies["refresh-token"];
-            if (string.IsNullOrEmpty(refreshToken))
-            {
-				return BadRequest("Refresh token is not found");
-            }
+			if (string.IsNullOrEmpty(refreshToken))
+			{
+				return BadRequest("Invalid Refresh Token");
+			}
 
-			var userId = await redisService.
-        }
+			var userId = await redisService.GetUserIdByRefreshTokenAsync(refreshToken);
+			if (userId == null)
+			{
+				return BadRequest("Invalid Refresh Token");
+			}
+
+			var user = await userManager.FindByIdAsync(userId);
+			var newAccessToken = jwtService.GenerateAccessToken(userId, user.Email);
+			var newRefreshToken = jwtService.GenerateRefreshToken();
+
+			await redisService.StoreRefreshTokenAsync(userId, newRefreshToken, TimeSpan.FromDays(30));
+
+			Response.Cookies.Append("refesh_token", newRefreshToken, new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict,
+				Expires = DateTime.UtcNow.AddDays(30)
+			});
+
+			return Ok(new { accessToken = newAccessToken });
+		}
 	}
 }

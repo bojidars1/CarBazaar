@@ -19,7 +19,8 @@ import { jwtDecode } from 'jwt-decode';
 const App = () => {
    const dispatch = useDispatch();
    const token = localStorage.getItem('token');
-   if (savedToken) {
+   
+   if (token) {
     const decodedToken = jwtDecode(token);
     const userEmail = decodedToken.email;
 

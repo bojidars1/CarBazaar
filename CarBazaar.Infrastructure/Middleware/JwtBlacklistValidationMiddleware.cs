@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services.Middleware
 {
-	public class JwtBlacklistValidationMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
+	public class JwtBlacklistValidationMiddleware(RequestDelegate next, IRedisRepository redisRepository)
 	{
 		public async Task InvokeAsync(HttpContext context)
 		{
 			var token = context.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", "");
-
-			var redisRepository = serviceProvider.GetRequiredService<IRedisRepository>();
 
 			if (token != null && await redisRepository.IsBlackListedAsync(token))
 			{

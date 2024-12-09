@@ -19,5 +19,10 @@ namespace CarBazaar.Services
 		{
 			return await repository.IsBlackListedAsync(token);
 		}
+
+		public async Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry)
+		{
+			await repository.StoreRefreshTokenAsync(userId, refreshToken, expiry);
+		}
 	}
 }

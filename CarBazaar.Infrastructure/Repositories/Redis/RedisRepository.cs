@@ -26,5 +26,10 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 		{
 			return await database.KeyExistsAsync(token);
 		}
+
+		public async Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry)
+		{
+			await database.StringSetAsync(userId, refreshToken, expiry);
+		}
 	}
 }

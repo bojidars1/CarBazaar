@@ -11,5 +11,7 @@ namespace CarBazaar.Services.Contracts
 		public Task AddToBlacklistAsync(string token, TimeSpan expiry);
 
 		public Task<bool> IsBlackListedAsync(string token);
+
+		public Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry);
 	}
 }

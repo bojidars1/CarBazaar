@@ -1,6 +1,7 @@
 ﻿using CarBazaar.Data.Models;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,7 +21,7 @@ namespace CarBazaar.Server.Controllers
 			var result = await userManager.CreateAsync(user, dto.Password);
 			if (result.Succeeded)
 			{
-				var token = jwtService.GenerateToken(user.Id, user.Email);
+				var token = jwtService.GenerateAccessToken(user.Id, user.Email);
 				return Ok(new { token });
 			}
 
@@ -35,7 +36,10 @@ namespace CarBazaar.Server.Controllers
 			var user = await userManager.FindByEmailAsync(dto.Email);
 			if (user != null && await userManager.CheckPasswordAsync(user, dto.Password))
 			{
-				var token = jwtService.GenerateToken(user.Id, user.Email);
+				var accessToken = jwtService.GenerateAccessToken(user.Id, user.Email);
+				var refreshToken = jwtService.GenerateRefreshToken();
+
+
 				return Ok(new { token });
 			}
 
@@ -44,6 +48,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost("logout")]
+		[Authorize]
 		public async Task<IActionResult> Logout([FromServices] IRedisService redisService)
 		{
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");

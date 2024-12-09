@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../redux/userSlice';
+import { setAuthenticated } from '../redux/authSlice';
+import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -18,8 +20,12 @@ const Login = () => {
         try {
             const response = await axios.post('https://localhost:7100/api/account/login', { email, password });
             const { token } = response.data;
-            
-            dispatch(setUser(user));
+
+            const decodedToken = jwtDecode(token);
+            const email = decodedToken.email;
+
+            dispatch(setAuthenticated(token));
+            dispatch(setUser(email));
             navigate('/');
         } catch (err) {
             console.log(err);

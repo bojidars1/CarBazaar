@@ -67,6 +67,7 @@ builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 builder.Services.AddScoped<IUserCarListingService, UserCarListingService>();
 
 // Services
+builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<ICarListingService, CarListingService>();
 builder.Services.AddScoped<IUserCarListingRepository, UserCarListingRepository>();
 

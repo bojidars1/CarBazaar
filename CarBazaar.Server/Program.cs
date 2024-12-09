@@ -2,11 +2,14 @@ using CarBazaar.Data;
 using CarBazaar.Data.Models;
 using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
+using CarBazaar.Infrastructure.Repositories.Contracts.Redis;
+using CarBazaar.Infrastructure.Repositories.Redis;
 using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,10 +64,14 @@ builder.Services.AddIdentityApiEndpoints<CarBazaarUser>(options =>
 })
     .AddEntityFrameworkStores<CarBazaarDbContext>();
 
+// Redis
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379"));
+
 // Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 builder.Services.AddScoped<IUserCarListingService, UserCarListingService>();
+builder.Services.AddScoped<IRedisRepository, RedisRepository>();
 
 // Services
 builder.Services.AddScoped<IJwtService, JwtService>();

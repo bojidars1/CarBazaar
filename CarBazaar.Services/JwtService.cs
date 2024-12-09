@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace CarBazaar.Services
 {
 	public class JwtService(IConfiguration config) : IJwtService
 	{
-		public string GenerateToken(string userId, string email)
+		public string GenerateAccessToken(string userId, string email)
 		{
 			var claims = new[]
 			{
@@ -36,6 +37,16 @@ namespace CarBazaar.Services
 				);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
+		}
+
+		public string GenerateRefreshToken()
+		{
+			var randomBytes = new byte[64];
+			using (var rng = RandomNumberGenerator.Create())
+			{
+				rng.GetBytes(randomBytes);
+			}
+			return Convert.ToBase64String(randomBytes);
 		}
 	}
 }

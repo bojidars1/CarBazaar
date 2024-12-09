@@ -15,5 +15,7 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts.Redis
 		public Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry);
 
 		public Task<string?> GetUserIdByRefreshTokenAsync(string refreshToken);
+
+		public Task RemoveRefreshTokenAsync(string refreshToken);
 	}
 }

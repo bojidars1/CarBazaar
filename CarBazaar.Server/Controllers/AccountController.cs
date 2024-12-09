@@ -63,6 +63,14 @@ namespace CarBazaar.Server.Controllers
 		[Authorize]
 		public async Task<IActionResult> Logout()
 		{
+			var refreshToken = Request.Cookies["refresh_token"];
+			if (string.IsNullOrEmpty(refreshToken))
+			{
+				return BadRequest("No refresh token found");
+			}
+
+			
+
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
 			if (string.IsNullOrEmpty(token))
 			{
@@ -79,13 +87,14 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost("refresh-token")]
+		[ProducesResponseType<string>(200)]
 		[ProducesResponseType<string>(400)]
 		public async Task<IActionResult> RefreshToken()
 		{
 			var refreshToken = Request.Cookies["refresh-token"];
 			if (string.IsNullOrEmpty(refreshToken))
 			{
-				return BadRequest("Invalid Refresh Token");
+				return BadRequest("No refresh token found");
 			}
 
 			var userId = await redisService.GetUserIdByRefreshTokenAsync(refreshToken);

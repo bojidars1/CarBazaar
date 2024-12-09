@@ -43,6 +43,19 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 			return await database.KeyExistsAsync(token);
 		}
 
+		public async Task RemoveRefreshTokenAsync(string refreshToken)
+		{
+			var keys = server.Keys(pattern: "refreshToken:*");
+			foreach (var key in keys)
+			{
+				if (await database.StringGetAsync(key) == refreshToken)
+				{
+					await database.KeyDeleteAsync(key);
+					break;
+				}
+			}
+		}
+
 		public async Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry)
 		{
 			await database.StringSetAsync($"refreshToken:{userId}", refreshToken, expiry);

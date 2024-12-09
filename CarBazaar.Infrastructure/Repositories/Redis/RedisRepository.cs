@@ -1,4 +1,5 @@
 ﻿using CarBazaar.Infrastructure.Repositories.Contracts.Redis;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,21 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 {
 	public class RedisRepository : IRedisRepository
 	{
-		public Task AddToBlackListAsync(string token, TimeSpan expiry)
+		private readonly IDatabase database;
+
+		public RedisRepository(IConnectionMultiplexer redis)
 		{
-			throw new NotImplementedException();
+			database = redis.GetDatabase();
 		}
 
-		public Task<bool> IsBlackListedAsync(string token)
+		public async Task AddToBlackListAsync(string token, TimeSpan expiry)
 		{
-			throw new NotImplementedException();
+			await database.StringSetAsync(token, "blacklisted", expiry);
+		}
+
+		public async Task<bool> IsBlackListedAsync(string token)
+		{
+			return await database.KeyExistsAsync(token);
 		}
 	}
 }

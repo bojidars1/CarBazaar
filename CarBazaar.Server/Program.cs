@@ -1,12 +1,12 @@
 using CarBazaar.Data;
 using CarBazaar.Data.Models;
-using CarBazaar.Infrastructure.Middlewares;
 using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Infrastructure.Repositories.Contracts.Redis;
 using CarBazaar.Infrastructure.Repositories.Redis;
 using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
+using CarBazaar.Services.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

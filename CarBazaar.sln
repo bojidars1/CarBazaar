@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Infrastructure", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{14A01A96-7C25-4663-A467-D3E6E2A97BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBazaar.Services", "CarBazaar.Services\CarBazaar.Services.csproj", "{2293D7A0-BC8E-4AC9-8CE5-88AD161EF11D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBazaar.Services", "CarBazaar.Services\CarBazaar.Services.csproj", "{2293D7A0-BC8E-4AC9-8CE5-88AD161EF11D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,10 @@ using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,24 @@ builder.Services.AddDbContext<CarBazaarDbContext>(options =>
 builder.Services.AddControllers();
 
 // Identity
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]));
+        var issuer = builder.Configuration["JWT:Issuer"];
+        var audience = builder.Configuration["JWT:Audience"];
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = key
+        };
+    });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<CarBazaarUser>(options =>
 {

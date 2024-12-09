@@ -3,6 +3,7 @@ using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace CarBazaar.Server.Controllers
 {
@@ -40,6 +41,24 @@ namespace CarBazaar.Server.Controllers
 
 			// I won't let them know that such an account exists
 			return BadRequest(ModelState);
+		}
+
+		[HttpPost("logout")]
+		public async Task<IActionResult> Logout([FromServices] IRedisService redisService)
+		{
+			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
+			if (string.IsNullOrEmpty(token))
+			{
+				return BadRequest("No token provided.");
+			}
+
+			var handler = new JwtSecurityTokenHandler();
+			var jwtToken = handler.ReadJwtToken(token);
+
+			var expiry = jwtToken.ValidTo - DateTime.UtcNow;
+			await redisService.AddToBlacklistAsync(token, expiry);
+
+			return Ok("Logged out successfully");
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using CarBazaar.Data.Models;
+using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
-	public class AccountController(UserManager<CarBazaarUser> userManager, SignInManager<CarBazaarUser> signInManager) : BaseController
+	public class AccountController(IJwtService jwtService, UserManager<CarBazaarUser> userManager) : BaseController
 	{
 		[HttpPost("register")]
 		[ProducesResponseType(200)]
@@ -18,7 +19,8 @@ namespace CarBazaar.Server.Controllers
 			var result = await userManager.CreateAsync(user, dto.Password);
 			if (result.Succeeded)
 			{
-				return Ok(new { user = dto.Email });
+				var token = jwtService.GenerateToken(user.Id, user.Email);
+				return Ok(new { token });
 			}
 
 			return BadRequest(ModelState);
@@ -29,22 +31,15 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType(400)]
 		public async Task<IActionResult> Login([FromBody] LoginDto dto)
 		{
-			var result = await signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, false);
-			if (result.Succeeded)
+			var user = await userManager.FindByEmailAsync(dto.Email);
+			if (user != null && await userManager.CheckPasswordAsync(user, dto.Password))
 			{
-				return Ok(new { user = dto.Email });
+				var token = jwtService.GenerateToken(user.Id, user.Email);
+				return Ok(new { token });
 			}
 
-			return Unauthorized(new { message = "Invalid email or password" });
-		}
-
-		[HttpPost("logout")]
-		[ProducesResponseType(204)]
-		public async Task<IActionResult> Logout()
-		{
-			await signInManager.SignOutAsync();
-
-			return NoContent();
+			// I won't let them know that such an account exists
+			return BadRequest(ModelState);
 		}
 	}
 }

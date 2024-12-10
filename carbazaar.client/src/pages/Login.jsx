@@ -1,5 +1,5 @@
 import { Container, Box, Typography, TextField, Button } from '@mui/material';
-import axios from 'axios';
+import api from '../api/api';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://localhost:7100/api/account/login', { email, password });
+            const response = await api.post('/account/login', { email, password });
             const { accessToken } = response.data;
 
             const decodedToken = jwtDecode(accessToken);

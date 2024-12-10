@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const checkAccessToken = async () => {
         const token = localStorage.getItem('token');
@@ -41,9 +40,10 @@ const useAuth = () => {
             console.log('Error refreshing access token: ', err);
             dispatch(logout());
             dispatch(clearUser());
-            navigate('/login');
         }
     }
 
     return { checkAccessToken };
 };
+
+export default useAuth;

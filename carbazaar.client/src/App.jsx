@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom' 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import lightTheme from './themes/lightTheme';
@@ -15,23 +15,14 @@ import { setAuthenticated } from './redux/authSlice';
 import { setUser } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
+import useAuth from './services/authService';
 
 const App = () => {
-   const dispatch = useDispatch();
-   const token = localStorage.getItem('token');
-   
-   if (token) {
-    const decodedToken = jwtDecode(token);
-    const isExpired = Date.now() >= decodedToken.exp * 1000;
-    if (isExpired) {
-      localStorage.removeItem('token');
-    } else {
-      const userEmail = decodedToken.email;
+   const { checkAccessToken } = useAuth();
 
-      dispatch(setAuthenticated(token));
-      dispatch(setUser(userEmail));
-    }
-   }
+   useEffect(() => {
+    checkAccessToken();
+   }, [checkAccessToken]);
 
     return(
       <ThemeProvider theme={lightTheme}>

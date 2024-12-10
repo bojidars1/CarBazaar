@@ -25,12 +25,7 @@ const Layout = ({ children }) => {
 
     const handleLogout = async () => {
         try {
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            };
-            await axios.post('https://localhost:7100/api/account/logout', {}, config);
+            await api.post('/account/logout');
             localStorage.removeItem('token');
             dispatch(logout());
             dispatch(clearUser());

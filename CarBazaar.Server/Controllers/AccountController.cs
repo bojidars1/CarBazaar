@@ -48,7 +48,7 @@ namespace CarBazaar.Server.Controllers
 				{
 					HttpOnly = true,
 					Secure = true,
-					SameSite = SameSiteMode.Strict,
+					SameSite = SameSiteMode.None,
 					Expires = DateTime.UtcNow.AddDays(30)
 				});
 
@@ -60,7 +60,6 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPost("logout")]
-		[Authorize]
 		public async Task<IActionResult> Logout()
 		{
 			var refreshToken = Request.Cookies["refresh_token"];
@@ -113,7 +112,7 @@ namespace CarBazaar.Server.Controllers
 			{
 				HttpOnly = true,
 				Secure = true,
-				SameSite = SameSiteMode.Strict,
+				SameSite = SameSiteMode.None,
 				Expires = DateTime.UtcNow.AddDays(30)
 			});
 

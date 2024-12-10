@@ -126,6 +126,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MySpecificOrigins", builder =>
     {
         builder.WithOrigins("https://localhost", "https://localhost:5173")
+        
         .AllowCredentials()
         .AllowAnyMethod()
         .AllowAnyHeader()

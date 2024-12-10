@@ -4,9 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { logout } from '../redux/authSlice';
 import { clearUser } from '../redux/userSlice';
+import api from '../api/api';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
             dispatch(clearUser());
             navigate('/');
         } catch (err) {
-            console.log('Logout failed');
+            console.log(err);
         }
     };
 

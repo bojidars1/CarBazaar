@@ -19,14 +19,14 @@ const Login = () => {
 
         try {
             const response = await axios.post('https://localhost:7100/api/account/login', { email, password });
-            const { token } = response.data;
+            const { accessToken } = response.data;
 
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(accessToken);
             const userEmail = decodedToken.email;
 
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', accessToken);
 
-            dispatch(setAuthenticated(token));
+            dispatch(setAuthenticated(accessToken));
             dispatch(setUser(userEmail));
             navigate('/');
         } catch (err) {

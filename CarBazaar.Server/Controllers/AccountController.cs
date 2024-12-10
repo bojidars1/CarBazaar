@@ -69,7 +69,7 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("No refresh token found");
 			}
 
-			
+			await redisService.RemoveRefreshTokenAsync(refreshToken);
 
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
 			if (string.IsNullOrEmpty(token))

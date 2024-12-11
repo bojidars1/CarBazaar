@@ -11,11 +11,8 @@ import EditCarListingForm from './features/CarListing/components/EditCarListingF
 import DeleteCarListing from './features/CarListing/components/DeleteCarListing';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { setAuthenticated } from './redux/authSlice';
-import { setUser } from './redux/userSlice';
-import { useDispatch } from 'react-redux';
-import { jwtDecode } from 'jwt-decode';
 import useAuth from './services/authService';
+import UserCarListingList from './pages/UserCarListing/UserCarListingList';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -36,6 +33,7 @@ const App = () => {
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
               <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
               <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
+              <Route path='/usercarlistings' element={<UserCarListingList />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
             </Routes>

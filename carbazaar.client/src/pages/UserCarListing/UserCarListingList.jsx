@@ -6,7 +6,7 @@ import CarListingCard from './CarListingCard';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 
-const Index = () => {
+const UserCarListingList = () => {
     const navigate = useNavigate();
 
     const [carListings, setCarListings] = useState([]);
@@ -88,4 +88,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default UserCarListingList;

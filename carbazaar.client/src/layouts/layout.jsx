@@ -49,9 +49,12 @@ const Layout = ({ children }) => {
                         CarBazaar
                         {/* User Greeting */}
                         {user && (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
                             <Typography variant="body1" sx={{ display: 'inline', color: 'white', ml: '1em' }}>
                             Hello, {user}
                             </Typography>
+                            <Button color="inherit" variant='outlined' size='small' component={Link} to="/user-carlistings">My Car Listings</Button>
+                            </Box>
                         )}
                     </Typography>
 

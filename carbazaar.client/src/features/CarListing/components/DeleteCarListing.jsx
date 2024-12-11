@@ -1,7 +1,7 @@
 import { Button, Paper, Typography, Box } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../../../api/api';
 
 const DeleteCarListing = () => {
     const { id } = useParams();
@@ -12,7 +12,7 @@ const DeleteCarListing = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.delete(`https://localhost:7100/api/CarListing/${id}`);
+            await api.delete(`/CarListing/${id}`);
             navigate('/carlisting/list');
         } catch (err) {
             console.error(err);
@@ -22,7 +22,7 @@ const DeleteCarListing = () => {
     useEffect(() => {
         const fetchDeleteCarListingDto = async () => {
             try {
-                const response = await axios.get(`https://localhost:7100/api/CarListing/delete/${id}`)
+                const response = await api.get(`/CarListing/delete/${id}`);
                 setCarListingName(response.data.name);
             } catch (err) {
                 console.error(err);
@@ -76,7 +76,7 @@ const DeleteCarListing = () => {
             width: '100%',
             mt: 5
         }}>
-            <Button variant='outlined' color='secondary' onClick={() => navigate("/carlisting/list")} sx={{ width: '40%' }}>
+            <Button variant='contained' color='secondary' onClick={() => navigate("/carlisting/list")} sx={{ width: '40%' }}>
                 Back to Listings
             </Button>
             <Button variant='contained' color='error' onClick={handleSubmit} sx={{ width: '40%' }}>

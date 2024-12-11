@@ -1,10 +1,10 @@
 import { Box, CircularProgress, Typography, Card, Grid2, CardMedia, CardContent, CardActions, Button, Pagination } from '@mui/material';
-import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import CarListingCard from './CarListingCard';
 import { useLocation, useNavigate } from 'react-router-dom';
+import api from '../../../api/api';
 
 const CarListings = () => {
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const CarListings = () => {
         };
 
         try {
-            const response = await axios.get('https://localhost:7100/api/CarListing/search', { params });
+            const response = await api.get('/CarListing/search', { params });
             setCarListings(response.data.items);
             setTotalPages(response.data.totalPages);
         } catch (err) {
@@ -52,6 +52,15 @@ const CarListings = () => {
         navigate(`/carlisting/details/${id}`)
     };
 
+    
+    const handleOnEditClick = (id) => {
+        navigate(`/carlisting/edit/${id}`);
+    };
+
+    const handleOnDeleteClick = (id) => {
+        navigate(`/carlisting/delete/${id}`);
+    };
+
     return (
         <Box sx={{ p: 2 }}>
             <Typography variant="h4" sx={{ textAlign: 'center', mb: 3 }}>
@@ -70,7 +79,9 @@ const CarListings = () => {
                 <>
                    <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
                        {carListings.map((car) => (
-                          <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />
+                          <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} 
+                          handleOnEditClick={handleOnEditClick}
+                          handleOnDeleteClick={handleOnDeleteClick} />
                        ))}
                    </Grid2>
 

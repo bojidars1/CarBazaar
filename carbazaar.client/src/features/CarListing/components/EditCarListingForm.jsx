@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
 import { useNavigate, useParams } from "react-router-dom";
+import api from '../../../api/api';
 
 const CarListingForm = () => {
     const { id } = useParams();
@@ -42,7 +42,7 @@ const CarListingForm = () => {
         setErrors({});
 
         try {
-            await axios.put('https://localhost:7100/api/CarListing', formData);
+            await api.put('/CarListing', formData);
             navigate(`/carlisting/details/${id}`);
         } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -56,7 +56,7 @@ const CarListingForm = () => {
     useEffect(() => {
         const fetchCarListingAsync = async () => {
             try {
-                const respone = await axios.get(`https://localhost:7100/api/CarListing/${id}`);
+                const respone = await api.get(`/CarListing/${id}`);
                 setFormData(respone.data);
             } catch (err) {
                 setErrors('Failed to fetch car listing.');
@@ -105,7 +105,7 @@ const CarListingForm = () => {
          gap: 2,
          mb: '1em' }}>
             <Typography variant="h5" sx={{ textAlign: 'center', mb: 2 }}>
-                Add Car Listing
+                Edit Car Listing
             </Typography>
 
             <TextField

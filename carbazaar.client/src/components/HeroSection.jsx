@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, InputLabel, Grid2, FormControl, MenuItem, Select } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const HeroSection = () => {
     const navigate = useNavigate();

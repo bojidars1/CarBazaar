@@ -48,7 +48,7 @@ namespace CarBazaar.Server.Controllers
 				{
 					HttpOnly = true,
 					Secure = true,
-					SameSite = SameSiteMode.None,
+					SameSite = SameSiteMode.Strict,
 					Expires = DateTime.UtcNow.AddDays(30)
 				});
 
@@ -70,10 +70,19 @@ namespace CarBazaar.Server.Controllers
 
 			await redisService.RemoveRefreshTokenAsync(refreshToken);
 
+			Response.Cookies.Delete("refresh_token", new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict,
+				Path = "/",
+				Expires = DateTime.UtcNow.AddDays(-1)
+			});
+
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
 			if (string.IsNullOrEmpty(token))
 			{
-				return BadRequest("No token provided.");
+				return BadRequest("No access token provided.");
 			}
 
 			var handler = new JwtSecurityTokenHandler();
@@ -90,7 +99,7 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType<string>(400)]
 		public async Task<IActionResult> RefreshToken()
 		{
-			var refreshToken = Request.Cookies["refresh-token"];
+			var refreshToken = Request.Cookies["refresh_token"];
 			if (string.IsNullOrEmpty(refreshToken))
 			{
 				return BadRequest("No refresh token found");
@@ -102,6 +111,17 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("Invalid Refresh Token");
 			}
 
+			await redisService.RemoveRefreshTokenAsync(refreshToken);
+
+			Response.Cookies.Delete("refresh_token", new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict,
+				Path = "/",
+				Expires = DateTime.UtcNow.AddDays(-1)
+			});
+
 			var user = await userManager.FindByIdAsync(userId);
 			var newAccessToken = jwtService.GenerateAccessToken(userId, user.Email);
 			var newRefreshToken = jwtService.GenerateRefreshToken();
@@ -112,7 +132,7 @@ namespace CarBazaar.Server.Controllers
 			{
 				HttpOnly = true,
 				Secure = true,
-				SameSite = SameSiteMode.None,
+				SameSite = SameSiteMode.Strict,
 				Expires = DateTime.UtcNow.AddDays(30)
 			});
 

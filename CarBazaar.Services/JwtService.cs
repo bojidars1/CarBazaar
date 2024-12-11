@@ -32,7 +32,7 @@ namespace CarBazaar.Services
 				issuer: issuer,
 				audience: audience,
 				claims: claims,
-				expires: DateTime.UtcNow.AddMinutes(30),
+				expires: DateTime.UtcNow.AddMinutes(60),
 				signingCredentials: creds
 				);
 

@@ -12,7 +12,6 @@ namespace CarBazaar.Server.Controllers
 	public class CarListingController(ICarListingService service) : BaseController
 	{
 		[HttpGet]
-		[Authorize(AuthenticationSchemes = "Bearer")]
 		[ProducesResponseType<CarListingPaginatedSearchDto>(200)]
 		public async Task<IActionResult> GetListings([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
@@ -27,7 +26,7 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType(401)]
 		public async Task<IActionResult> Add([FromBody] AddCarListingDto dto)
 		{
-			var userId = "";
+			var userId = GetUserId();
 
 			if (userId == null)
 			{

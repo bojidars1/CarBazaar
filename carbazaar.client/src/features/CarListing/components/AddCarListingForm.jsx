@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import api from '../../../api/api';
 
 const CarListingForm = () => {
     const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const CarListingForm = () => {
         setErrors({});
 
         try {
-            const response = await axios.post('https://localhost:7100/api/CarListing', formData);
+            const response = await api.post('/CarListing', formData);
 
             setTimeout(() => {
                 navigate("/carlisting/list");

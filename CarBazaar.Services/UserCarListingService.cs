@@ -2,6 +2,7 @@
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.CarListing;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,12 @@ namespace CarBazaar.Services
 
 			var query = repository.GetBaseQuery();
 
-			query = query.Where(cl => cl.UserId == userId);
+			query = query.Where(cl => cl.UserId == userId).Include(cl => cl.CarListing);
 
 			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
 			var totalPages = listings.TotalPages;
 
 			var items = listings
-				.Where(cl => cl.UserId == "y")
 				.Select(cl => new CarListingListDetailsDto{
 				Id = cl.CarListingId,
 				Name = cl.CarListing.Name,

@@ -37,6 +37,7 @@ const CarListingCard = ({ car, onDetailsClick }) => {
                 >
                     View Details
                 </Button>
+                
                 </CardActions>
             </Card>
         </Grid2>

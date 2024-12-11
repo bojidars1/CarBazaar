@@ -1,6 +1,8 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Extensions;
 using CarBazaar.Infrastructure.Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

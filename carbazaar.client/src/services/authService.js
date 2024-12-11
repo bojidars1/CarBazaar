@@ -37,6 +37,7 @@ const useAuth = () => {
             dispatch(setUser(userEmail));
         } catch (err) {
             console.log('Error refreshing access token: ', err);
+            localStorage.removeItem('token');
             dispatch(logout());
             dispatch(clearUser());
         }

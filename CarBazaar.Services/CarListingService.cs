@@ -114,8 +114,14 @@ namespace CarBazaar.Services
 			};
 		}
 
-		public async Task<bool> SoftDeleteCarListingAsync(string id)
+		public async Task<bool> SoftDeleteCarListingAsync(string id, string userId)
 		{
+			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(id);
+			if (userCarListing == null || userCarListing.UserId != userId)
+			{
+				return false;
+			}
+
 			CarListing? listing = await repository.GetByIdAsync(id);
 			if (listing == null)
 			{
@@ -127,8 +133,14 @@ namespace CarBazaar.Services
 			return true;
 		}
 
-		public async Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id)
+		public async Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id, string userId)
 		{
+			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(id);
+			if (userCarListing == null || userCarListing.UserId != userId)
+			{
+				return null;
+			}
+
 			var listing = await repository.GetByIdAsync(id);
 			if (listing == null)
 			{

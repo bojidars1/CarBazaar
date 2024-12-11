@@ -81,6 +81,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -88,10 +89,16 @@ namespace CarBazaar.Server.Controllers
 		{
 			if (string.IsNullOrEmpty(id))
 			{
-				return BadRequest();
+				return BadRequest("Invalid credentials");
 			}
 
-			bool isDeleted = await service.SoftDeleteCarListingAsync(id);
+			var userId = GetUserId();
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest("Invalid credentials");
+			}
+
+			bool isDeleted = await service.SoftDeleteCarListingAsync(id, userId);
 			if (!isDeleted)
 			{
 				return NotFound();
@@ -101,6 +108,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("delete/{id}")]
+		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -108,10 +116,16 @@ namespace CarBazaar.Server.Controllers
 		{
 			if (string.IsNullOrEmpty(id))
 			{
-				return BadRequest();
+				return BadRequest("Invalid credentials");
 			}
 
-			DeleteCarListingDto? listing = await service.GetDeleteCarListingDtoByIdAsync(id);
+			var userId = GetUserId();
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest("Invalid credentials");
+			}
+
+			DeleteCarListingDto? listing = await service.GetDeleteCarListingDtoByIdAsync(id, userId);
 
 			if (listing == null)
 			{

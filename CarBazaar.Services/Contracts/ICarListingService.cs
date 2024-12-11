@@ -15,7 +15,7 @@ namespace CarBazaar.Services.Contracts
 
 		public Task<CarListingDetailsDto?> GetCarListingDetailsByIdAsync(string id);
 
-		public Task<bool> UpdateCarListingAsync(EditCarListingDto dto);
+		public Task<bool> UpdateCarListingAsync(EditCarListingDto dto, string userId);
 
 		public Task<bool> SoftDeleteCarListingAsync(string id);
 

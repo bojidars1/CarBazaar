@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class CarListingService(ICarListingRepository repository, IUserCarListingService userCarListingService) : ICarListingService
+	public class CarListingService(ICarListingRepository repository, IUserCarListingService userCarListingService,
+		IUserCarListingRepository userCarListingRepository) : ICarListingService
 	{
 		public async Task AddAsync(AddCarListingDto dto, string userId)
 		{
@@ -43,9 +44,15 @@ namespace CarBazaar.Services
 			}); 
 		}
 
-		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto)
+		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto, string userId)
 		{
-			CarListing? listing = await repository.GetByIdAsync(dto.Id);
+			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
+            if (userCarListing == null || userCarListing.UserId != userId)
+            {
+				return false;
+            }
+
+            CarListing? listing = await repository.GetByIdAsync(dto.Id);
 			if (listing == null)
 			{
 				return false;

@@ -58,12 +58,19 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpPut]
+		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
 		public async Task<IActionResult> Edit([FromBody] EditCarListingDto dto)
 		{
-			bool isUpdated = await service.UpdateCarListingAsync(dto);
+			var userId = GetUserId();
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest();
+			}
+
+			bool isUpdated = await service.UpdateCarListingAsync(dto, userId);
 
 			if (!isUpdated)
 			{

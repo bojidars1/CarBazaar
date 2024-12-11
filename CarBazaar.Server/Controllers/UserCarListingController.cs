@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CarBazaar.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarBazaar.Server.Controllers
 {
 	[Route("/api/[controller]")]
 	[Authorize]
-	public class UserCarListingController : BaseController
+	public class UserCarListingController(IUserCarListingService userCarListingService) : BaseController
 	{
 		[HttpGet("get-listings")]
 		public Task<IActionResult> GetListings()
 		{
-
+			
 		}
 	}
 }

@@ -12,6 +12,6 @@ namespace CarBazaar.Services.Contracts
     {
         public Task AddAsync(UserCarListing listing);
 
-        public Task<CarListingPaginatedSearchDto> GetListingsAsync(int pageIndex = 1, int pageSize = 10);
+        public Task<CarListingPaginatedSearchDto?> GetListingsAsync(string userId, int pageIndex = 1, int pageSize = 10);
     }
 }

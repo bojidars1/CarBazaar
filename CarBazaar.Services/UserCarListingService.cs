@@ -17,12 +17,23 @@ namespace CarBazaar.Services
 			await repository.AddAsync(listing);
 		}
 
-		public async Task<CarListingPaginatedSearchDto> GetListingsAsync(int pageIndex = 1, int pageSize = 10)
+		public async Task<CarListingPaginatedSearchDto?> GetListingsAsync(string userId, int pageIndex = 1, int pageSize = 10)
 		{
-			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize);
+			if (string.IsNullOrEmpty(userId))
+			{
+				return null;
+			}
+
+			var query = repository.GetBaseQuery();
+
+			query = query.Where(cl => cl.UserId == userId);
+
+			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
 			var totalPages = listings.TotalPages;
 
-			var items = listings.Select(cl => new CarListingListDetailsDto{
+			var items = listings
+				.Where(cl => cl.UserId == "y")
+				.Select(cl => new CarListingListDetailsDto{
 				Id = cl.CarListingId,
 				Name = cl.CarListing.Name,
 				Price = cl.CarListing.Price,

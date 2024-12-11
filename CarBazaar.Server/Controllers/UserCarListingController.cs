@@ -11,8 +11,20 @@ namespace CarBazaar.Server.Controllers
 		[HttpGet("get-listings")]
 		public async Task<IActionResult> GetListings()
 		{
-			
-			var listings = await userCarListingService.GetListingsAsync();
+			string? userId = GetUserId();
+			if (string.IsNullOrEmpty(userId))
+			{
+				return Unauthorized();
+			}
+
+			var listings = await userCarListingService.GetListingsAsync(userId);
+			return Ok(listings);
 		}
-	}
+
+		[HttpGet("test")]
+		public IActionResult Test()
+		{
+			return Ok("Success");
+		}
+	} 
 }

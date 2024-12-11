@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Button color="inherit" component={Link} to="/">Home</Button>
                         <Button color="inherit" component={Link} to="/carlisting/list">Cars</Button>
-                        <Button color="inherit" component={Link} to="/">About</Button>
+                        <Button color="inherit" onClick={handleLogout}>About</Button>
                         {user ? (
                             <>
                             <Button color="inherit" onClick={handleLogout}>Logout</Button>

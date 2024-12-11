@@ -12,6 +12,7 @@ namespace CarBazaar.Server.Controllers
 	public class CarListingController(ICarListingService service) : BaseController
 	{
 		[HttpGet]
+		[Authorize(AuthenticationSchemes = "Bearer")]
 		[ProducesResponseType<CarListingPaginatedSearchDto>(200)]
 		public async Task<IActionResult> GetListings([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{

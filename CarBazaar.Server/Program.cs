@@ -8,6 +8,8 @@ using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
 using CarBazaar.Services.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -27,12 +29,36 @@ builder.Services.AddDbContext<CarBazaarDbContext>(options =>
 builder.Services.AddControllers();
 
 // Identity
+
+builder.Services.AddIdentity<CarBazaarUser, IdentityRole>(options =>
+{
+	options.Password.RequireDigit = false;
+	options.Password.RequireLowercase = false;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+	options.Password.RequiredLength = 6;
+	options.Password.RequiredUniqueChars = 1;
+
+	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+	options.Lockout.MaxFailedAccessAttempts = 5;
+	options.Lockout.AllowedForNewUsers = true;
+
+	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+	options.User.RequireUniqueEmail = true;
+
+	options.SignIn.RequireConfirmedAccount = false;
+	options.SignIn.RequireConfirmedEmail = false;
+	options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+    .AddEntityFrameworkStores<CarBazaarDbContext>()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]));
-        var issuer = builder.Configuration["JWT:Issuer"];
-        var audience = builder.Configuration["JWT:Audience"];
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -40,33 +66,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = audience,
-            IssuerSigningKey = key
-        };
-    });
-builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<CarBazaarUser>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
-
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = true;
-
-    options.SignIn.RequireConfirmedAccount = false;
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedPhoneNumber = false;
-})
-    .AddEntityFrameworkStores<CarBazaarDbContext>();
+            ClockSkew = TimeSpan.Zero,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+			ValidAudience = builder.Configuration["JWT:Audience"],
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+		};
+	});
+builder.Services.AddAuthorizationBuilder()
+	.SetDefaultPolicy(new AuthorizationPolicyBuilder()
+    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)   
+    .RequireAuthenticatedUser()
+    .Build());
 
 // Redis
 string redisConString = builder.Configuration.GetConnectionString("Redis");
@@ -150,13 +160,12 @@ app.UseMiddleware<JwtBlacklistValidationMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseCors("MySpecificOrigins");
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapIdentityApi<CarBazaarUser>();
 
 app.MapControllers();
-
-app.UseCors("MySpecificOrigins");
 
 app.MapFallbackToFile("/index.html");
 

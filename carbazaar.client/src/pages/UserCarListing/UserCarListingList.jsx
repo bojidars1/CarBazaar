@@ -1,10 +1,11 @@
-import { Box, CircularProgress, Typography, Grid2, Pagination } from '@mui/material';
+import { Box, CircularProgress, Typography, Grid2, Pagination, Button } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import CarListingCard from './CarListingCard';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
+import CarListingCard from '../../features/CarListing/components/CarListingCard';
+import { Link } from 'react-router-dom';
 
 const UserCarListingList = () => {
     const navigate = useNavigate();
@@ -45,6 +46,29 @@ const UserCarListingList = () => {
     const handleDetailsClick = (id) => {
         navigate(`/carlisting/details/${id}`)
     };
+
+    if (carListings.length === 0) {
+        return (
+            <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em'}}>
+                <Typography variant="h4" sx={{ textAlign: 'center', mb: 3 }}>
+                    My Car Listings
+                </Typography>
+                <Button
+                component={Link} to="/carlisting/add"
+                variant='contained'
+                color='primary'
+                size='large'
+                sx={{
+                textTransform: 'none',
+                fontWeight: 'bold',
+                }}
+                >
+                Sell Your Car Now
+                </Button>
+            </Box>
+            
+        );
+    }
 
     return (
         <Box sx={{ p: 2 }}>

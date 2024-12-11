@@ -1,6 +1,7 @@
 ﻿using CarBazaar.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CarBazaar.Server.Controllers
 {
@@ -13,18 +14,12 @@ namespace CarBazaar.Server.Controllers
 		{
 			string? userId = GetUserId();
 			if (string.IsNullOrEmpty(userId))
-			{
-				return Unauthorized();
+			{;
+				return Unauthorized("Unauthorized");
 			}
 
 			var listings = await userCarListingService.GetListingsAsync(userId);
 			return Ok(listings);
-		}
-
-		[HttpGet("test")]
-		public IActionResult Test()
-		{
-			return Ok("Success");
 		}
 	} 
 }

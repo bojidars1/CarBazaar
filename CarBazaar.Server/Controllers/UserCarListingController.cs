@@ -9,9 +9,10 @@ namespace CarBazaar.Server.Controllers
 	public class UserCarListingController(IUserCarListingService userCarListingService) : BaseController
 	{
 		[HttpGet("get-listings")]
-		public Task<IActionResult> GetListings()
+		public async Task<IActionResult> GetListings()
 		{
 			
+			var listings = await userCarListingService.GetListingsAsync();
 		}
 	}
 }

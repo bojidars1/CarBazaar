@@ -49,21 +49,21 @@ namespace CarBazaar.Server.Controllers
 		[HttpPost("logout")]
 		public async Task<IActionResult> Logout()
 		{
-			var refreshToken = Request.Cookies["refresh_token"];
-			if (string.IsNullOrEmpty(refreshToken))
-			{
-				return BadRequest("No Refresh Token found");
-			}
+			//var refreshToken = Request.Cookies["refresh_token"];
+			//if (string.IsNullOrEmpty(refreshToken))
+			//{
+			//	return BadRequest("No Refresh Token found");
+			//}
 
-			await redisService.RemoveRefreshTokenAsync(refreshToken);
-			Response.Cookies.Delete("refresh_token", new CookieOptions
-			{
-				HttpOnly = true,
-				Secure = true,
-				SameSite = SameSiteMode.Strict,
-				Path = "/",
-				Expires = DateTime.UtcNow.AddDays(-1)
-			});
+			//await redisService.RemoveRefreshTokenAsync(refreshToken);
+			//Response.Cookies.Delete("refresh_token", new CookieOptions
+			//{
+			//	HttpOnly = true,
+			//	Secure = true,
+			//	SameSite = SameSiteMode.Strict,
+			//	Path = "/",
+			//	Expires = DateTime.UtcNow.AddDays(-1)
+			//});
 
 			var token = Request.Headers.Authorization.ToString()?.Replace("Bearer ", "");
 			if (string.IsNullOrEmpty(token))

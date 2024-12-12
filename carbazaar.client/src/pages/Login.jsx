@@ -23,11 +23,9 @@ const Login = () => {
 
             const decodedToken = jwtDecode(accessToken);
             const userEmail = decodedToken.email;
-            const userCarListings = (await api.post('/UserCarListing/get-listings')).data;
-            console.log(userCarListings);
 
             localStorage.setItem('token', accessToken);
-
+            
             dispatch(setAuthenticated(accessToken));
             dispatch(setUser(userEmail));
             navigate('/');

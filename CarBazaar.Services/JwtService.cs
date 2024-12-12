@@ -1,6 +1,7 @@
 ﻿using CarBazaar.Services.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,15 +13,29 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class JwtService(IConfiguration config) : IJwtService
+	public class JwtService(IConfiguration config, IUserCarListingService userCarListingService) : IJwtService
 	{
-		public string GenerateAccessToken(string userId, string email)
+		public async string GenerateAccessToken(string userId, string email)
 		{
+			List<string> ids = new List<string>();
+
+			var listings = await userCarListingService.GetListingsAsync(userId);
+			if (listings != null)
+			{
+				foreach (var listing in listings.Items)
+				{
+					ids.Add(listing.Id.ToString());
+				}
+			}
+
+			var idsToJson = JsonConvert.SerializeObject(ids);
+
 			var claims = new[]
 			{
 				new Claim(JwtRegisteredClaimNames.Sub, userId),
 				new Claim(JwtRegisteredClaimNames.Email, email),
-				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+				new Claim("CarListings", idsToJson)
 			};
 
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:Key"]));

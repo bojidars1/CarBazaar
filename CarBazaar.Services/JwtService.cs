@@ -9,13 +9,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
 	public class JwtService(IConfiguration config, IUserCarListingService userCarListingService) : IJwtService
 	{
-		public async string GenerateAccessToken(string userId, string email)
+		public async Task<string> GenerateAccessToken(string userId, string email)
 		{
 			List<string> ids = new List<string>();
 
@@ -28,7 +29,7 @@ namespace CarBazaar.Services
 				}
 			}
 
-			var idsToJson = JsonConvert.SerializeObject(ids);
+			var idsToJson = System.Text.Json.JsonSerializer.Serialize(ids);
 
 			var claims = new[]
 			{

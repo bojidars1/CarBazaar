@@ -13,5 +13,16 @@ namespace CarBazaar.Infrastructure.Repositories
 {
 	public class UserCarListingRepository(CarBazaarDbContext context) : Repository<UserCarListing>(context), IUserCarListingRepository
 	{
+		public async Task<UserCarListing?> GetByCarIdAsync(string carId)
+		{
+			UserCarListing? listing = await context.UserCarListings
+				.FirstOrDefaultAsync(cl => cl.CarListingId.ToString() == carId);
+			if (listing == null)
+			{
+				return null;
+			}
+
+			return listing;
+		}
 	}
 }

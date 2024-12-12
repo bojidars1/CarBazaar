@@ -8,7 +8,7 @@ namespace CarBazaar.Services.Contracts
 {
     public interface IJwtService
     {
-        public string GenerateAccessToken(string userId, string email);
+        public Task<string> GenerateAccessToken(string userId, string email);
         public string GenerateRefreshToken();
     }
 }

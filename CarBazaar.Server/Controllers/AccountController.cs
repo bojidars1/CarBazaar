@@ -24,7 +24,7 @@ namespace CarBazaar.Server.Controllers
 			var result = await userManager.CreateAsync(user, dto.Password);
 			if (result.Succeeded)
 			{
-				var accessToken = jwtService.GenerateAccessToken(user.Id, user.Email);
+				var accessToken = await jwtService.GenerateAccessToken(user.Id, user.Email);
 				return Ok(new { accessToken });
 			}
 
@@ -42,7 +42,7 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("Invalid username or password");
 			}
 
-			var accessToken = jwtService.GenerateAccessToken(user.Id, dto.Email);
+			var accessToken = await jwtService.GenerateAccessToken(user.Id, dto.Email);
 			return Ok(new { accessToken });
 		}
 

@@ -23,6 +23,8 @@ const Login = () => {
 
             const decodedToken = jwtDecode(accessToken);
             const userEmail = decodedToken.email;
+            const carListings = decodedToken.CarListings;
+            console.log(carListings);
 
             localStorage.setItem('token', accessToken);
             

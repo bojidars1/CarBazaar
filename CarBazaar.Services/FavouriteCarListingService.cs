@@ -22,7 +22,13 @@ namespace CarBazaar.Services
 				return false;
             }
 
-			var favourite = new FavouriteCarListing
+			var favourite = await favouriteRepository.GetByUserAndCarIdAsync(carId, userId);
+			if (favourite != null)
+			{
+				return false;
+			}
+
+			favourite = new FavouriteCarListing
 			{
 				UserId = userId,
 				CarListingId = carListing.Id,
@@ -40,8 +46,7 @@ namespace CarBazaar.Services
 				return false;
 			}
 
-			var allFavourites = await favouriteRepository.GetAllAsync();
-			var favourite = allFavourites.FirstOrDefault(fc => fc.UserId == userId && fc.CarListingId.ToString() == carId);
+			var favourite = await favouriteRepository.GetByUserAndCarIdAsync(carId, userId);
 			if (favourite == null)
 			{
 				return false;

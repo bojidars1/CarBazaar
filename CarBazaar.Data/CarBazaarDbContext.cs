@@ -19,6 +19,8 @@ namespace CarBazaar.Data
 
 		public DbSet<FavouriteCarListing> FavoriteCarListings { get; set; }
 
+		public DbSet<ChatMessage> ChatMessages { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -48,6 +50,27 @@ namespace CarBazaar.Data
 				.HasOne(fc => fc.CarListing)
 				.WithMany()
 				.HasForeignKey(fc => fc.CarListingId);
+
+			modelBuilder.Entity<ChatMessage>()
+				.HasKey(cm => cm.Id);
+
+			modelBuilder.Entity<ChatMessage>()
+				.HasOne(cm => cm.Sender)
+				.WithMany()
+				.HasForeignKey(cm => cm.SenderId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<ChatMessage>()
+				.HasOne(cm => cm.Receiver)
+				.WithMany()
+				.HasForeignKey(cm => cm.ReceiverId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<ChatMessage>()
+				.HasOne(cm => cm.CarListing)
+				.WithMany()
+				.HasForeignKey(cm => cm.CarListingId)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<CarListing>().HasQueryFilter(cl => !cl.IsDeleted);
 		}

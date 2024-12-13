@@ -1,4 +1,5 @@
-﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+﻿using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Favourites;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,27 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class FavouriteCarListingService(IFavouriteCarListingRepository repository) : IFavouriteCarListingService
+	public class FavouriteCarListingService(IFavouriteCarListingRepository favouriteRepository,
+		ICarListingRepository carListingRepository) : IFavouriteCarListingService
 	{
+		public async Task<bool> AddToFavouriteAsync(string carId, string userId)
+		{
+			var carListing = await carListingRepository.GetByIdAsync(carId);
+            if (carListing == null)
+            {
+				return false;
+            }
+
+			var favourite = new FavouriteCarListing
+			{
+				UserId = userId,
+				CarListingId = carListing.Id,
+			};
+
+			await favouriteRepository.AddAsync(favourite);
+			return true;
+        }
+
 		public async Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10)
 		{
 			var query = repository.GetBaseQuery();

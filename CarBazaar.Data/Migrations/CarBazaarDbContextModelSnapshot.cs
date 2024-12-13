@@ -159,7 +159,7 @@ namespace CarBazaar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarListings");
+                    b.ToTable("CarListings", (string)null);
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.FavoriteCarListing", b =>
@@ -176,7 +176,7 @@ namespace CarBazaar.Data.Migrations
 
                     b.HasIndex("CarListingId");
 
-                    b.ToTable("FavoriteCarListings");
+                    b.ToTable("FavoriteCarListings", (string)null);
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.UserCarListing", b =>
@@ -193,7 +193,7 @@ namespace CarBazaar.Data.Migrations
 
                     b.HasIndex("CarListingId");
 
-                    b.ToTable("UserCarListings");
+                    b.ToTable("UserCarListings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

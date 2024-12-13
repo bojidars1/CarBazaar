@@ -86,7 +86,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Conn
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 builder.Services.AddScoped<IUserCarListingRepository, UserCarListingRepository>();
-builder.Services.AddScoped<IFavoriteCarListingRepository, FavoriteCarListingRepository>();
+builder.Services.AddScoped<IFavouriteCarListingRepository, FavouriteCarListingRepository>();
 builder.Services.AddSingleton<IRedisRepository, RedisRepository>();
 
 // Services

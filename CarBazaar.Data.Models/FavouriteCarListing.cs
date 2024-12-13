@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Data.Models
 {
-	public class FavoriteCarListing
+	public class FavouriteCarListing
 	{
 		[Comment("User Id")]
 		public string UserId { get; set; } = null!;

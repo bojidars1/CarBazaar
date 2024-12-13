@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Infrastructure.Repositories
 {
-	public class FavoriteCarListingRepository(CarBazaarDbContext context) : Repository<FavoriteCarListing>(context), IFavoriteCarListingRepository
+	public class FavouriteCarListingRepository(CarBazaarDbContext context) : Repository<FavouriteCarListing>(context), IFavouriteCarListingRepository
 	{
 	}
 }

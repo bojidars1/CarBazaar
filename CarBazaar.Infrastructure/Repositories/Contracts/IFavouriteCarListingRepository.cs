@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Infrastructure.Repositories.Contracts
 {
-    public interface IFavoriteCarListingRepository : IRepository<FavoriteCarListing>
+    public interface IFavouriteCarListingRepository : IRepository<FavouriteCarListing>
     {
     }
 }

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/api';
 import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button, Pagination } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const FavouriteCarListingList = () => {
+    const navigate = useNavigate();
+
     const [favouriteListings, setFavouriteListings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -30,6 +33,14 @@ const FavouriteCarListingList = () => {
 
     const handlePageChange = (e, value) => {
         setPage(value);
+    };
+
+    const handleDetailsClick = (id) => {
+        navigate(`/carlisting/details/${id}`);
+    };
+
+    const handleRemoveClick = (id) => {
+
     };
 
     useEffect(() => {
@@ -72,7 +83,12 @@ const FavouriteCarListingList = () => {
                                     </TableCell>
                                     <TableCell align='right'>
                                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5em'}}>
-                                          <Button variant='contained' color='primary' size='small'>
+                                          <Button 
+                                          variant='contained' 
+                                          color='primary' 
+                                          size='small' 
+                                          onClick={() => handleDetailsClick(car.id)}
+                                          >
                                             Details
                                           </Button>
                                           <Button variant='contained' color='error' size='small'>

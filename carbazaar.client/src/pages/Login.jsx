@@ -24,12 +24,15 @@ const Login = () => {
             const decodedToken = jwtDecode(accessToken);
             const userEmail = decodedToken.email;
             const carListings = decodedToken.CarListings;
-            console.log(carListings);
+            const user = {
+              userEmail: userEmail,
+              carListings: carListings
+            };
 
             localStorage.setItem('token', accessToken);
             
             dispatch(setAuthenticated(accessToken));
-            dispatch(setUser(userEmail));
+            dispatch(setUser(user));
             navigate('/');
         } catch (err) {
             console.log(err);

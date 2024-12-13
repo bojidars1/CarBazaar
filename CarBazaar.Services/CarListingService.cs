@@ -135,7 +135,7 @@ namespace CarBazaar.Services
 
 		public async Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id, string userId)
 		{
-			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(id);
+			UserCarListing? userCarListing = await userCarListingRepository.GetByCarIdAsync(id);
 			if (userCarListing == null || userCarListing.UserId != userId)
 			{
 				return null;

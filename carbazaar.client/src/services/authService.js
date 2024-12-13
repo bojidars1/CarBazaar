@@ -18,8 +18,13 @@ const useAuth = () => {
                 await refreshAccessToken();
             } else {
                 const userEmail = decodedToken.email;
+                const carListings = decodedToken.CarListings;
+                const user = {
+                  userEmail: userEmail,
+                  carListings: carListings
+                };
                 dispatch(setAuthenticated(token));
-                dispatch(setUser(userEmail));
+                dispatch(setUser(user));
             }
         }
     };

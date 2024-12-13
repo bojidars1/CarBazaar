@@ -2,14 +2,11 @@ import { Box, CircularProgress, Typography, Grid2, Pagination, Button } from '@m
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import CarListingCard from '../../features/CarListing/components/CarListingCard';
 import { Link } from 'react-router-dom';
 
 const UserCarListingList = () => {
-    const navigate = useNavigate();
-
     const [carListings, setCarListings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -42,10 +39,6 @@ const UserCarListingList = () => {
     const handlePageChange = (e, value) => {
         setPage(value);
     }
-
-    const handleDetailsClick = (id) => {
-        navigate(`/carlisting/details/${id}`)
-    };
 
     if (carListings.length === 0) {
         return (
@@ -88,7 +81,7 @@ const UserCarListingList = () => {
                 <>
                    <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
                        {carListings.map((car) => (
-                          <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} />
+                          <CarListingCard key={car.id} car={car} />
                        ))}
                    </Grid2>
 

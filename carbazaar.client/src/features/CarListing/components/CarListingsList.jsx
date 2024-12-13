@@ -48,19 +48,6 @@ const CarListings = () => {
         setPage(value);
     }
 
-    const handleDetailsClick = (id) => {
-        navigate(`/carlisting/details/${id}`)
-    };
-
-    
-    const handleOnEditClick = (id) => {
-        navigate(`/carlisting/edit/${id}`);
-    };
-
-    const handleOnDeleteClick = (id) => {
-        navigate(`/carlisting/delete/${id}`);
-    };
-
     return (
         <Box sx={{ p: 2 }}>
             <Typography variant="h4" sx={{ textAlign: 'center', mb: 3 }}>
@@ -79,9 +66,7 @@ const CarListings = () => {
                 <>
                    <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>
                        {carListings.map((car) => (
-                          <CarListingCard key={car.id} car={car} onDetailsClick={handleDetailsClick} 
-                          handleOnEditClick={handleOnEditClick}
-                          handleOnDeleteClick={handleOnDeleteClick} />
+                          <CarListingCard key={car.id} car={car} />
                        ))}
                    </Grid2>
 

@@ -10,7 +10,6 @@ import api from '../api/api';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
-    const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -51,7 +50,7 @@ const Layout = ({ children }) => {
                         {user && (
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
                             <Typography variant="body1" sx={{ display: 'inline', color: 'white', ml: '1em' }}>
-                            Hello, {user}
+                            Hello, {user.userEmail}
                             </Typography>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/user-carlistings">My Car Listings</Button>
                             </Box>

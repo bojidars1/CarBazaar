@@ -1,10 +1,25 @@
 import { Card, CardContent, CardMedia, CardActions, Typography, Grid2, Button } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const CarListingCard = ({ car, onDetailsClick, handleOnEditClick, handleOnDeleteClick }) => {
+const CarListingCard = ({ car }) => {
+    const navigate = useNavigate();
+
     const user = useSelector((state) => state.user.user);
     const token = useSelector((state) => state.auth.token);
+
+    const handleDetailsClick = (id) => {
+        navigate(`/carlisting/details/${id}`)
+    };
+
+    const handleOnEditClick = (id) => {
+        navigate(`/carlisting/edit/${id}`);
+    };
+
+    const handleOnDeleteClick = (id) => {
+        navigate(`/carlisting/delete/${id}`);
+    };
 
     return (
         <Grid2 key={car.id} xs={12}>
@@ -37,11 +52,11 @@ const CarListingCard = ({ car, onDetailsClick, handleOnEditClick, handleOnDelete
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => onDetailsClick(car.id)}
+                    onClick={() => handleDetailsClick(car.id)}
                 >
                     View Details
                 </Button>
-                {user && token && 
+                {user && token && user.carListings.includes(car.id) &&
                 <>
                 <Button
                     variant="contained"

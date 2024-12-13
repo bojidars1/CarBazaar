@@ -21,7 +21,6 @@ const FavouriteCarListingList = () => {
             const response = await api.get('/FavouriteCarListing/get-favourites', { params });
             setFavouriteListings(response.data.items);
             setTotalPages(response.data.totalPages);
-            console.log(response.data);
         } catch (err) {
             setError('Failed to get car listing favourites. Please try again');
         } finally {

@@ -53,6 +53,7 @@ const Layout = ({ children }) => {
                             Hello, {user.userEmail}
                             </Typography>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/user-carlistings">My Car Listings</Button>
+                            <Button color="inherit" variant='outlined' size='small' component={Link} to="/favourites">Favourites</Button>
                             </Box>
                         )}
                     </Typography>

@@ -17,6 +17,8 @@ namespace CarBazaar.Data
 
 		public DbSet<UserCarListing> UserCarListings { get; set; }
 
+		public DbSet<FavoriteCarListing> FavoriteCarListings { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -33,6 +35,19 @@ namespace CarBazaar.Data
 				.HasOne(uc => uc.CarListing)
 				.WithMany()
 				.HasForeignKey(uc => uc.CarListingId);
+
+			modelBuilder.Entity<FavoriteCarListing>()
+				.HasKey(fc => new { fc.UserId, fc.CarListingId });
+
+			modelBuilder.Entity<FavoriteCarListing>()
+				.HasOne(fc => fc.User)
+				.WithMany()
+				.HasForeignKey(fc => fc.UserId);
+
+			modelBuilder.Entity<FavoriteCarListing>()
+				.HasOne(fc => fc.CarListing)
+				.WithMany()
+				.HasForeignKey(fc => fc.CarListingId);
 
 			modelBuilder.Entity<CarListing>().HasQueryFilter(cl => !cl.IsDeleted);
 		}

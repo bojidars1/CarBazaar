@@ -39,8 +39,17 @@ const FavouriteCarListingList = () => {
         navigate(`/carlisting/details/${id}`);
     };
 
-    const handleRemoveClick = (id) => {
-
+    const handleRemoveClick = async (id) => {
+        try {
+            await api.delete(`/FavouriteCarListing/${id}`);
+            navigate('/favourites');
+        } catch (err) {
+            setError('Failed to remove from favourites. Try again');
+            setTimeout(() => {
+                navigate('/favourites');
+                window.location.reload();
+            }, 1000);
+        }
     };
 
     useEffect(() => {
@@ -91,7 +100,12 @@ const FavouriteCarListingList = () => {
                                           >
                                             Details
                                           </Button>
-                                          <Button variant='contained' color='error' size='small'>
+                                          <Button 
+                                          variant='contained' 
+                                          color='error' 
+                                          size='small'
+                                          onClick={() => handleRemoveClick(car.id)}
+                                          >
                                             Remove
                                           </Button>
                                         </Box>

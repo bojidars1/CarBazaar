@@ -21,7 +21,7 @@ namespace CarBazaar.Server.Controllers
             return Ok(favourites);
         }
 
-        [HttpPost]
+        [HttpPost("{carId}")]
         public async Task<IActionResult> AddToFavourite(string carId)
         {
             string? userId = GetUserId();
@@ -39,7 +39,7 @@ namespace CarBazaar.Server.Controllers
             return Ok("Added to favourites successfully");
         }
 
-        [HttpDelete]
+        [HttpDelete("{carId}")]
         public async Task<IActionResult> RemoveFromFavourite(string carId)
         {
             string? userId = GetUserId();

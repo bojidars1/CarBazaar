@@ -24,7 +24,6 @@ const FavouriteCarListingList = () => {
             const response = await api.get('/FavouriteCarListing/get-favourites', { params });
             setFavouriteListings(response.data.items);
             setTotalPages(response.data.totalPages);
-            console.log(response.data);
         } catch (err) {
             setError('Failed to get car listing favourites. Please try again');
         } finally {
@@ -43,7 +42,10 @@ const FavouriteCarListingList = () => {
     const handleRemoveClick = async (id) => {
         try {
             await api.delete(`/FavouriteCarListing/${id}`);
-            window.location.reload();
+            if (page === totalPages && page > 1) {
+                setPage(page - 1);
+            }
+            await fetchFavourites(page);
         } catch (err) {
             console.log(err);
             setError('Failed to remove from favourites. Try again');

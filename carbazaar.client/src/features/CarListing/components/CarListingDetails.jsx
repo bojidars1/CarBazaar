@@ -1,7 +1,8 @@
 import { Box, Button, CardContent, CardMedia, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, Paper, Typography } from '@mui/material';
-import axios from 'axios';
+import api from '../../../api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Star, StarBorder } from '@mui/icons-material';
 
 const CarListingDetails = () => {
     const { id } = useParams();
@@ -9,6 +10,7 @@ const CarListingDetails = () => {
 
     const [carListing, setCarListing] = useState(null);
     const [contactOpen, setContactOpen] = useState(false);
+    const [isFavourite, setIsFavourite] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -20,20 +22,42 @@ const CarListingDetails = () => {
         setContactOpen(false);
     };
 
+    const handleToggleFavourite = async () => {
+        try {
+            if (isFavourite) {
+                await api.delete(`/FavouriteCarListing/${id}`);
+            } else {
+                await api.post(`/FavouriteCarListing/${id}`);
+            }
+            setIsFavourite(!isFavourite);
+        } catch (err) {
+            setError('Failed to update favourites');
+        }
+    };
+
     useEffect(() => {
         const fetchCarDetailsAsync = async () => {
             try {
-                const respone = await axios.get(`https://localhost:7100/api/CarListing/${id}`);
+                const respone = await api.get(`/CarListing/${id}`);
                 setCarListing(respone.data);
             } catch (err) {
                 setError('Failed to fetch car listing details.');
-                console.error(err);
             } finally {
                 setLoading(false);
             }
         };
 
+        const fetchCarFavouriteStatusAsync = async () => {
+            try {
+                const respone = await api.get(`/FavouriteCarListing/get-favourites`);
+                setIsFavourite(respone.data.items.some(item => item.id === id));
+            } catch (err) {
+                setError('Failed to fetch car favourite status');
+            }
+        }
+
         fetchCarDetailsAsync();
+        fetchCarFavouriteStatusAsync();
     }, [id]);
 
     if (loading) {
@@ -126,6 +150,17 @@ const CarListingDetails = () => {
                             <Typography variant='body1' sx={{ mb: 2 }}>
                                 <strong>Extra Info:</strong> {carListing.extraInfo || "No additional information available."}
                             </Typography>
+
+                            <Box sx={{ mt: 3 }}>
+                                <Button
+                                variant='contained'
+                                color={isFavourite ? 'primary' : 'default'}
+                                startIcon={isFavourite ? <Star /> : <StarBorder />}
+                                onClick={handleToggleFavourite}
+                                >
+                                    {isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}
+                                </Button>
+                            </Box>
                         </CardContent>
                     </Grid2>
                 </Grid2>

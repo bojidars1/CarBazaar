@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import useAuth from './services/authService';
 import UserCarListingList from './pages/UserCarListing/UserCarListingList';
+import FavouriteCarListingList from './pages/FavouriteCarListing/FavouriteCarListingList';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -33,7 +34,8 @@ const App = () => {
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
               <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
               <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
-              <Route path='/user-carlistings' element={<UserCarListingList />} />
+              <Route path='/user-carlistings' element={<UserCarListingList /> } />
+              <Route path='/favourites' element={<FavouriteCarListingList /> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
             </Routes>

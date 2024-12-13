@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBazaar.Server.Controllers
 {
+    [Route("/api/[controller]")]
     [Authorize]
     public class FavoriteCarListingController(IFavouriteCarListingService favouriteCarListingService) : BaseController
     {

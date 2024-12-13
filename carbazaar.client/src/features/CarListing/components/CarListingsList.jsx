@@ -3,11 +3,10 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import CarListingCard from './CarListingCard';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import api from '../../../api/api';
 
 const CarListings = () => {
-    const navigate = useNavigate();
     const location = useLocation();
 
     const carListingsState = location.state?.params;

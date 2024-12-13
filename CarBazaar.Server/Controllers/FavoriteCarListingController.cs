@@ -9,7 +9,7 @@ namespace CarBazaar.Server.Controllers
     public class FavoriteCarListingController(IFavouriteCarListingService favouriteCarListingService) : BaseController
     {
         [HttpGet("get-favourites")]
-        public async Task<IActionResult> GetFavourites()
+        public async Task<IActionResult> GetFavourites([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
         {
             string? userId = GetUserId();
             if (userId == null)
@@ -17,7 +17,7 @@ namespace CarBazaar.Server.Controllers
                 return BadRequest();
             }
 
-            var favourites = await favouriteCarListingService.GetFavouritesAsync(userId);
+            var favourites = await favouriteCarListingService.GetFavouritesAsync(userId, pageIndex, pageSize);
             return Ok(favourites);
         }
 

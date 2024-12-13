@@ -1,0 +1,14 @@
+﻿using CarBazaar.ViewModels.Favourites;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CarBazaar.Services.Contracts
+{
+	public interface IFavouriteCarListingService
+	{
+		public Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId);
+	}
+}

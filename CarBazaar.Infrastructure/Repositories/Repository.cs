@@ -38,6 +38,12 @@ namespace CarBazaar.Infrastructure.Repositories
 			await _context.SaveChangesAsync();
 		}
 
+		public virtual async Task DeleteAsync(T entity)
+		{
+			_dbSet.Remove(entity);
+			await _context.SaveChangesAsync();
+		}
+
 		public virtual async Task<List<T>> GetAllAsync()
 		{
 			return await _dbSet.AsNoTracking().ToListAsync();

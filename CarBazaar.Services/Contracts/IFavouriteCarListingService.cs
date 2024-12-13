@@ -13,5 +13,7 @@ namespace CarBazaar.Services.Contracts
 		public Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10);
 
 		public Task<bool> AddToFavouriteAsync(string carId, string userId);
+
+		public Task<bool> DeleteFavouriteAsync(string carId, string userId);
 	}
 }

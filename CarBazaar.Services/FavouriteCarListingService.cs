@@ -32,6 +32,24 @@ namespace CarBazaar.Services
 			return true;
         }
 
+		public async Task<bool> DeleteFavouriteAsync(string carId, string userId)
+		{
+			var carListing = await carListingRepository.GetByIdAsync(carId);
+			if (carListing == null)
+			{
+				return false;
+			}
+
+			var allFavourites = await favouriteRepository.GetAllAsync();
+			var favourite = allFavourites.FirstOrDefault(fc => fc.UserId == userId && fc.CarListingId.ToString() == carId);
+			if (favourite == null)
+			{
+				return false;
+			}
+
+			
+		}
+
 		public async Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10)
 		{
 			var query = favouriteRepository.GetBaseQuery();

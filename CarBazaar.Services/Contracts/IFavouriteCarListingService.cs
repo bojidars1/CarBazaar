@@ -9,6 +9,6 @@ namespace CarBazaar.Services.Contracts
 {
 	public interface IFavouriteCarListingService
 	{
-		public Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId);
+		public Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10);
 	}
 }

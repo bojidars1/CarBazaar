@@ -21,6 +21,7 @@ const FavouriteCarListingList = () => {
             const response = await api.get('/FavouriteCarListing/get-favourites', { params });
             setFavouriteListings(response.data.items);
             setTotalPages(response.data.totalPages);
+            console.log(response.data);
         } catch (err) {
             setError('Failed to get car listing favourites. Please try again');
         } finally {
@@ -62,7 +63,7 @@ const FavouriteCarListingList = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {favouriteListings.map((car) => {
+                            {favouriteListings.map((car) => (
                                 <TableRow key={car.id}>
                                     <TableCell>
                                         {car.name}
@@ -71,15 +72,17 @@ const FavouriteCarListingList = () => {
                                         {car.price}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        <Button variant='contained' color='primary'>
+                                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5em'}}>
+                                          <Button variant='contained' color='primary' size='small'>
                                             Details
-                                        </Button>
-                                        <Button variant='contained' color='error'>
+                                          </Button>
+                                          <Button variant='contained' color='error' size='small'>
                                             Remove
-                                        </Button>
+                                          </Button>
+                                        </Box>
                                     </TableCell>
                                 </TableRow>
-                            })}
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>

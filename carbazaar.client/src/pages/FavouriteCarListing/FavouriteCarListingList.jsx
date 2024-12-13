@@ -42,8 +42,9 @@ const FavouriteCarListingList = () => {
     const handleRemoveClick = async (id) => {
         try {
             await api.delete(`/FavouriteCarListing/${id}`);
-            navigate('/favourites');
+            window.location.reload();
         } catch (err) {
+            console.log(err);
             setError('Failed to remove from favourites. Try again');
             setTimeout(() => {
                 navigate('/favourites');

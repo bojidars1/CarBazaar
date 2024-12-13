@@ -13,6 +13,8 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 		
 		Task<T?> GetByIdAsync(string id);
 
+		Task DeleteAsync(T entity);
+
 		Task AddAsync(T entity);
 
 		Task UpdateAsync(T entity);

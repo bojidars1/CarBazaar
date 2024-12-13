@@ -47,7 +47,8 @@ namespace CarBazaar.Services
 				return false;
 			}
 
-			
+			await favouriteRepository.DeleteAsync(favourite);
+			return true;
 		}
 
 		public async Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10)

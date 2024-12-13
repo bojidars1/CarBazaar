@@ -9,5 +9,6 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 {
     public interface IFavouriteCarListingRepository : IRepository<FavouriteCarListing>
     {
+        Task<FavouriteCarListing?> GetByUserAndCarIdAsync(string carId, string userId);
     }
 }

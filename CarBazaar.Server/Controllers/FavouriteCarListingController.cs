@@ -6,7 +6,7 @@ namespace CarBazaar.Server.Controllers
 {
     [Route("/api/[controller]")]
     [Authorize]
-    public class FavoriteCarListingController(IFavouriteCarListingService favouriteCarListingService) : BaseController
+    public class FavouriteCarListingController(IFavouriteCarListingService favouriteCarListingService) : BaseController
     {
         [HttpGet("get-favourites")]
         public async Task<IActionResult> GetFavourites([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)

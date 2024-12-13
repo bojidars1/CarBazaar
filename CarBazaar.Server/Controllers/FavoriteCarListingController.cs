@@ -33,10 +33,28 @@ namespace CarBazaar.Server.Controllers
             bool isAdded = await favouriteCarListingService.AddToFavouriteAsync(carId, userId);
             if (!isAdded)
             {
-                return BadRequest();
+                return BadRequest("Adding failed");
             }
 
             return Ok("Added to favourites successfully");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveFromFavourite(string carId)
+        {
+            string? userId = GetUserId();
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            bool isDeleted = await favouriteCarListingService.DeleteFavouriteAsync(carId, userId);
+            if(!isDeleted)
+            {
+                return BadRequest("Deletion failed");
+            }
+
+            return Ok("Removed from favourites successfully");
         }
     }
 }

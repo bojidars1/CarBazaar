@@ -19,5 +19,23 @@ namespace CarBazaar.Server.Controllers
             var favourites = await favouriteCarListingService.GetFavouritesAsync(userId);
             return Ok(favourites);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToFavourite(string carId)
+        {
+            string? userId = GetUserId();
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            bool isAdded = await favouriteCarListingService.AddToFavouriteAsync(carId, userId);
+            if (!isAdded)
+            {
+                return BadRequest();
+            }
+
+            return Ok("Added to favourites successfully");
+        }
     }
 }

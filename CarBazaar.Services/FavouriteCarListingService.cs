@@ -34,10 +34,10 @@ namespace CarBazaar.Services
 
 		public async Task<FavouriteCarListingPaginatedDto> GetFavouritesAsync(string userId, int pageIndex = 1, int pageSize = 10)
 		{
-			var query = repository.GetBaseQuery();
+			var query = favouriteRepository.GetBaseQuery();
 			query = query.Where(fc => fc.UserId == userId).Include(fc => fc.CarListing);
 
-			var listings = await repository.GetPaginatedAsync(pageIndex, pageSize, query);
+			var listings = await favouriteRepository.GetPaginatedAsync(pageIndex, pageSize, query);
 			int totalPages = listings.TotalPages;
 
 			var items = listings.Select(fc => new FavouriteCarListingListDetailsDto

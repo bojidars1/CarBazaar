@@ -32,7 +32,7 @@ namespace CarBazaar.Infrastructure.Extensions
 				var roles = await userManager.GetRolesAsync(user);
 				if (!roles.Contains("Administrator"))
 				{
-					await userManager.AddToRoleAsync(user, "Administator");
+					await userManager.AddToRoleAsync(user, "Administrator");
 				}
 			}
 		}

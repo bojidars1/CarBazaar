@@ -1,4 +1,6 @@
-﻿using CarBazaar.Services.Contracts;
+﻿using CarBazaar.Data.Models;
+using CarBazaar.Services.Contracts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -14,10 +16,14 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class JwtService(IConfiguration config, IUserCarListingService userCarListingService) : IJwtService
+	public class JwtService(IConfiguration config, IUserCarListingService userCarListingService,
+		UserManager<CarBazaarUser> userManager) : IJwtService
 	{
 		public async Task<string> GenerateAccessToken(string userId, string email)
 		{
+			var user = await userManager.FindByIdAsync(userId);
+			var roles = await userManager.GetRolesAsync(user);
+
 			List<string> ids = new List<string>();
 
 			var listings = await userCarListingService.GetListingsAsync(userId);
@@ -31,13 +37,15 @@ namespace CarBazaar.Services
 
 			var idsToJson = System.Text.Json.JsonSerializer.Serialize(ids);
 
-			var claims = new[]
+			var claims = new List<Claim>
 			{
 				new Claim(JwtRegisteredClaimNames.Sub, userId),
 				new Claim(JwtRegisteredClaimNames.Email, email),
 				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 				new Claim("CarListings", idsToJson)
 			};
+
+			claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:Key"]));
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

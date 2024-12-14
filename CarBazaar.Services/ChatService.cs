@@ -58,8 +58,8 @@ namespace CarBazaar.Services
 				.Select(cm => new MessageDto
 				{
 					Message = cm.Message,
-					SenderId = userId,
-					ParticipantId = participantId,
+					SenderId = cm.SenderId,
+					ParticipantId = cm.ReceiverId,
 				}).ToList();
 		}
 

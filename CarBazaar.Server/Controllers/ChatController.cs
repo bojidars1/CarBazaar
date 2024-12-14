@@ -21,6 +21,14 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("User id not found");
 			}
 
+			bool isOneOfThemOwner = await context.UserCarListings.AnyAsync(ucl => ucl.CarListingId == request.CarListingId && 
+			((ucl.UserId == userId) || (ucl.UserId == request.ReceiverId)));
+
+			if (!isOneOfThemOwner)
+			{
+				return BadRequest("One of users must be the owner of the car");
+			}
+
 			var message = new ChatMessage
 			{
 				SenderId = userId,

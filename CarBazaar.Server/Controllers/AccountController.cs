@@ -24,6 +24,7 @@ namespace CarBazaar.Server.Controllers
 			var result = await userManager.CreateAsync(user, dto.Password);
 			if (result.Succeeded)
 			{
+				await userManager.AddToRoleAsync(user, "User");
 				var accessToken = await jwtService.GenerateAccessToken(user.Id, user.Email);
 				return Ok(new { accessToken });
 			}

@@ -99,12 +99,5 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok(await Task.WhenAll(result));
 		}
-
-		[HttpPost("test")]
-		public IActionResult Post([FromBody] string message)
-		{
-			hubContext.Clients.All.SendAsync("ReceiveMessage", "Usera", message);
-			return Ok();
-		}
 	}
 }

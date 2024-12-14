@@ -51,8 +51,8 @@ const ChatMessages = () => {
 
        setConnection(connect);
 
-       connect.on('ReceiveMessage', (user, message) => {
-        console.log(`${user} and ${message}`);
+       connect.on('ReceiveMessage', (message) => {
+        setMessages(prev => [...prev, message]);
        });
 
        connect.start().catch((err) => console.error(err));
@@ -90,7 +90,7 @@ const ChatMessages = () => {
             onClick={() => {
                 sendMessage();
                 if (connection) {
-                    connection.invoke('SendMessage', participantId, 'Testvam 2');
+                    connection.invoke('SendMessage', carListingId, participantId, newMessage);
                 }
             }}>
                 Send

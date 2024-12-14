@@ -9,9 +9,13 @@ namespace CarBazaar.Server.Hubs
 	[Authorize]
 	public class ChatHub : Hub
 	{
-		public async Task SendMessage(string participantId, string message)
+		public async Task SendMessage(string carListingId, string participantId, string message)
 		{
-			await Clients.User(participantId).SendAsync("ReceiveMessage", participantId, message);
+			await Clients.User(participantId).SendAsync("ReceiveMessage", new {
+				SenderId = Context.UserIdentifier,
+				CarListingId = carListingId,
+				Message = message
+			});
 		}
 	}
 }

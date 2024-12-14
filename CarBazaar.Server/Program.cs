@@ -4,6 +4,7 @@ using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Infrastructure.Repositories.Contracts.Redis;
 using CarBazaar.Infrastructure.Repositories.Redis;
+using CarBazaar.Server.Hubs;
 using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
 using CarBazaar.Services.Middleware;
@@ -168,6 +169,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 
 app.MapFallbackToFile("/index.html");
 

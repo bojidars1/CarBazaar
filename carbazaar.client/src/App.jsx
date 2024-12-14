@@ -15,6 +15,7 @@ import useAuth from './services/authService';
 import UserCarListingList from './pages/UserCarListing/UserCarListingList';
 import FavouriteCarListingList from './pages/FavouriteCarListing/FavouriteCarListingList';
 import ChatList from './pages/Chat/ChatList';
+import ChatMessages from './pages/Chat/ChatMessages';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -38,6 +39,7 @@ const App = () => {
               <Route path='/user-carlistings' element={<UserCarListingList /> } />
               <Route path='/favourites' element={<FavouriteCarListingList /> } />
               <Route path='/chats' element={<ChatList /> } />
+              <Route path='/chat/:carListingId/:participantId' element={<ChatMessages /> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
             </Routes>

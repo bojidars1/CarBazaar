@@ -62,5 +62,40 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok(messages);
 		}
+
+		[HttpGet("chat/summaries")]
+		public async Task<IActionResult> GetChatSummaries()
+		{
+			var userId = GetUserId();
+			if (userId == null)
+			{
+				return BadRequest("User id not found");
+			}
+
+			var chatSummaries = await context.ChatMessages.Where(cm => cm.SenderId == userId || cm.ReceiverId == userId)
+				.GroupBy(cm => new { cm.CarListingId, OtherParticipant = cm.SenderId == userId ? cm.ReceiverId : cm.SenderId })
+				.Select(g => new
+				{
+					CarListingId = g.Key.CarListingId,
+					OtherParticipantId = g.Key.OtherParticipant,
+					LastMessage = g.OrderByDescending(cm => cm.Timestamp).FirstOrDefault()
+				})
+				.ToListAsync();
+
+			var result = chatSummaries.Select(async cs => new
+			{
+				CarListingId = cs.CarListingId,
+				OtherParticipant = cs.OtherParticipantId,
+				OtherParticipantName = await context.Users
+				.Where(u => u.Id == cs.OtherParticipantId)
+				.Select(u => u.Email)
+				.FirstOrDefaultAsync(),
+				LastMessage = cs.LastMessage.Message,
+				LastMessageTimestamp = cs.LastMessage.Timestamp
+
+			});
+
+			return Ok(await Task.WhenAll(result));
+		}
 	}
 }

@@ -1,5 +1,6 @@
 using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Extensions;
 using CarBazaar.Infrastructure.Middleware;
 using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
@@ -153,6 +154,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await RoleSeeder.SeedRolesAsync(roleManager);
+}
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

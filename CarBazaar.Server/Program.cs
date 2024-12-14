@@ -76,6 +76,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		};
 	});
 builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdminstratorRole", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Administrator");
+    })
 	.SetDefaultPolicy(new AuthorizationPolicyBuilder()
     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)   
     .RequireAuthenticatedUser()

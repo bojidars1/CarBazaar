@@ -58,9 +58,9 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("User id not found");
 			}
 
-			
+			var chatSummaries = await chatService.GetChatSummariesAsync(userId);
 
-			return Ok(await Task.WhenAll(result));
+			return Ok(chatSummaries);
 		}
 	}
 }

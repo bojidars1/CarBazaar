@@ -14,5 +14,7 @@ namespace CarBazaar.Services.Contracts
 		Task<bool> IsOneOfThemOwner(string userId, string receiverId, string carListingId);
 
 		Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId);
+
+		Task<List<ChatSummaryDto>> GetChatSummariesAsync(string userId);
 	}
 }

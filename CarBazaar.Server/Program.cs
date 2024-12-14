@@ -90,6 +90,7 @@ builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 builder.Services.AddScoped<IUserCarListingRepository, UserCarListingRepository>();
 builder.Services.AddScoped<IFavouriteCarListingRepository, FavouriteCarListingRepository>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRedisRepository, RedisRepository>();
 
 // Services

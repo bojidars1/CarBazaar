@@ -13,6 +13,35 @@ namespace CarBazaar.Services
 {
 	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository) : IChatService
 	{
+		public async Task<List<ChatSummaryDto>> GetChatSummariesAsync(string userId)
+		{
+			var allChatMessages = await chatRepository.GetAllAsync();
+
+			var chatSummaries = allChatMessages
+				.Where(cm => cm.SenderId == userId || cm.ReceiverId == userId)
+				.GroupBy(cm => new { cm.CarListingId, OtherParticipant = cm.SenderId == userId ? cm.ReceiverId : cm.SenderId })
+				.Select(g => new
+				{
+					CarListingId = g.Key.CarListingId,
+					OtherParticipantId = g.Key.OtherParticipant,
+					LastMessage = g.OrderByDescending(cm => cm.Timestamp).FirstOrDefault()
+				})
+				.ToList();
+
+			var result = chatSummaries.Select(async cs => new ChatSummaryDto
+			{
+				CarListingId = cs.CarListingId,
+				OtherParticipantId = cs.OtherParticipantId,
+				OtherParticipantName = await context.Users
+				.Where(u => u.Id == cs.OtherParticipantId)
+				.Select(u => u.Email)
+				.FirstOrDefaultAsync(),
+				LastMessage = cs.LastMessage.Message,
+				LastMessageTimestamp = cs.LastMessage.Timestamp
+
+			}).ToList();
+		}
+
 		public async Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId)
 		{
 			var messages = await chatRepository.GetAllAsync();

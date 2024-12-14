@@ -95,7 +95,7 @@ namespace CarBazaar.Server.Controllers
 
 			}).ToList();
 
-			return Ok(result);
+			return Ok(await Task.WhenAll(result));
 		}
 	}
 }

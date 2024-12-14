@@ -159,7 +159,10 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<CarBazaarUser>>();
+
     await RoleSeeder.SeedRolesAsync(roleManager);
+    await RoleSeeder.AssignAdminRoleToUser(userManager, "admin123@gmail.com");
 }
 
 app.UseDefaultFiles();

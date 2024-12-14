@@ -25,23 +25,12 @@ namespace CarBazaar.Server.Controllers
 			}
 
 			bool isOneOfThemOwner = await chatService.IsOneOfThemOwner(userId, request.ReceiverId, request.CarListingId.ToString());
-
 			if (!isOneOfThemOwner)
 			{
 				return BadRequest("One of users must be the owner of the car");
 			}
 
-			var message = new ChatMessage
-			{
-				SenderId = userId,
-				ReceiverId = request.ReceiverId,
-				Message = request.Message,
-				CarListingId = request.CarListingId,
-				Timestamp = DateTime.UtcNow
-			};
-
-			await context.ChatMessages.AddAsync(message);
-			await context.SaveChangesAsync();
+			await chatService.SendMessageAsync(userId, request.ReceiverId, request.CarListingId, request.Message);
 
 			return Ok("Message sent");
 		}

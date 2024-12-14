@@ -1,4 +1,6 @@
-﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+﻿using Azure.Core;
+using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class ChatService(IUserCarListingRepository userCarListingRepository) : IChatService
+	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository) : IChatService
 	{
 		public async Task<bool> IsOneOfThemOwner(string userId, string receiverId, string carListingId)
 		{
@@ -19,9 +21,18 @@ namespace CarBazaar.Services
 			return isOneOfThemOwner;
 		}
 
-		public Task SendMessageAsync(string userId, string receiverId, string carListingId, string message)
+		public async Task SendMessageAsync(string userId, string receiverId, Guid carListingId, string message)
 		{
-			throw new NotImplementedException();
+			var chatMessage = new ChatMessage
+			{
+				SenderId = userId,
+				ReceiverId = receiverId,
+				Message = message,
+				CarListingId = carListingId,
+				Timestamp = DateTime.UtcNow
+			};
+
+			await chatRepository.AddAsync(chatMessage);
 		}
 	}
 }

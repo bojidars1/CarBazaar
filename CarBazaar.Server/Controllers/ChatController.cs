@@ -8,6 +8,6 @@ namespace CarBazaar.Server.Controllers
 	[Authorize]
 	public class ChatController : BaseController
 	{
-		
+		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest)
 	}
 }

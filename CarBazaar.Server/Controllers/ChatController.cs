@@ -93,9 +93,9 @@ namespace CarBazaar.Server.Controllers
 				LastMessage = cs.LastMessage.Message,
 				LastMessageTimestamp = cs.LastMessage.Timestamp
 
-			});
+			}).ToList();
 
-			return Ok(await Task.WhenAll(result));
+			return Ok(result);
 		}
 	}
 }

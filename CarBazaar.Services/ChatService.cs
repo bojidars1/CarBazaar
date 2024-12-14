@@ -2,6 +2,7 @@
 using CarBazaar.Data.Models;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
+using CarBazaar.ViewModels.Chat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,23 @@ namespace CarBazaar.Services
 {
 	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository) : IChatService
 	{
+		public async Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId)
+		{
+			var messages = await chatRepository.GetAllAsync();
+
+			return messages
+				.Where(cm => cm.CarListingId.ToString() == carListingId &&
+				((cm.SenderId == userId && cm.ReceiverId == participantId) ||
+				(cm.SenderId == participantId && cm.ReceiverId == userId)))
+				.OrderBy(cm => cm.Timestamp)
+				.Select(cm => new MessageDto
+				{
+					Message = cm.Message,
+					SenderId = userId,
+					ParticipantId = participantId,
+				}).ToList();
+		}
+
 		public async Task<bool> IsOneOfThemOwner(string userId, string receiverId, string carListingId)
 		{
 			var userCarListings = await userCarListingRepository.GetAllAsync();

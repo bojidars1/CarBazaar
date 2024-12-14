@@ -36,7 +36,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("messages/{carId}/{participantId}")]
-		public async Task<IActionResult> GetChatMessages(string carId, string participantId)
+		public async Task<IActionResult> GetChatMessages(string carListingId, string participantId)
 		{
 			var userId = GetUserId();
 			if (userId == null)
@@ -44,12 +44,7 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("User id not found");
 			}
 
-			var messages = await context.ChatMessages
-				.Where(cm => cm.CarListingId.ToString() == carId &&
-				((cm.SenderId == userId && cm.ReceiverId == participantId) ||
-				(cm.SenderId == participantId && cm.ReceiverId == userId)))
-				.OrderBy(cm => cm.Timestamp)
-				.ToListAsync();
+			var messages = await chatService.GetMessagesAsync(carListingId, userId, participantId);
 
 			return Ok(messages);
 		}

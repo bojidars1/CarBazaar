@@ -91,7 +91,7 @@ const ChatMessages = () => {
             onClick={() => {
                 sendMessage();
                 if (connection) {
-                    connection.invoke('SendMessage', participantId, carListingId, newMessage);
+                    connection.invoke('SendMessageAsync', participantId, carListingId, newMessage);
                 }
             }}>
                 Send

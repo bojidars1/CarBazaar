@@ -43,29 +43,31 @@ const ChatMessages = () => {
         fetchMessages();
 
         const connect = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:7100/chatHub', {
-            accessTokenFactory: () => localStorage.getItem('token');
+        .withUrl('https://localhost:7100/chathub', {
+            accessTokenFactory: () => {
+                const token = localStorage.getItem('token');
+                return token ? `Bearer ${token}` : null;
+            }
         })
         .withAutomaticReconnect()
         .build();
 
-        setConnection(connect);
+       setConnection(connect);
 
-        connect.start()
-        .then(() => {
-            connect.on('ReceiveMessage', (message) => {
-                setMessages(prev => [...prev, message]);
-            });
-        }).catch(err => {console.log('SignalR Connection Error')});
+       connect.on('ReceiveMessage', (user, message) => {
+        console.log(`${user} and ${message}`);
+       });
+
+       connect.start().catch((err) => console.error(err));
 
         return () => {
-            connect.stop();
+          connect.stop();
         };
     }, []);
 
     return (
         <Box sx={{ p: 3 }}>
-            <Typography variant="h4" sx={{ mb: 3 }}>Chat</Typography>
+            <Typography variant="h4" sx={{ mb: 3, textAlign: 'center' }}>Chat</Typography>
             <Box sx={{ mb: 2 }}>
                 {loading ? (
                     <CircularProgress />
@@ -91,7 +93,7 @@ const ChatMessages = () => {
             onClick={() => {
                 sendMessage();
                 if (connection) {
-                    connection.invoke('SendMessageAsync', participantId, carListingId, newMessage);
+                    connection.invoke('SendMessage', participantId, 'Testvam 2');
                 }
             }}>
                 Send

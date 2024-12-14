@@ -134,6 +134,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "MySpecificOrigins", builder =>
@@ -146,8 +147,6 @@ builder.Services.AddCors(options =>
         .SetIsOriginAllowedToAllowWildcardSubdomains();
     });
 });
-
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -170,8 +169,8 @@ app.UseCors("MySpecificOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
 app.MapHub<ChatHub>("/chathub");
+app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 

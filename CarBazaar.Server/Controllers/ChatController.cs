@@ -1,16 +1,18 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Server.Hubs;
 using CarBazaar.ViewModels.Chat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
 	[Authorize]
-	public class ChatController(CarBazaarDbContext context) : BaseController
+	public class ChatController(CarBazaarDbContext context, IHubContext<ChatHub> hubContext) : BaseController
 	{
 		[HttpPost("send")]
 		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
@@ -96,6 +98,13 @@ namespace CarBazaar.Server.Controllers
 			}).ToList();
 
 			return Ok(await Task.WhenAll(result));
+		}
+
+		[HttpPost("test")]
+		public IActionResult Post([FromBody] string message)
+		{
+			hubContext.Clients.All.SendAsync("ReceiveMessage", "Usera", message);
+			return Ok();
 		}
 	}
 }

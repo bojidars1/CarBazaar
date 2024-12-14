@@ -12,7 +12,7 @@ namespace CarBazaar.Server.Controllers
 	[Authorize]
 	public class ChatController(CarBazaarDbContext context) : BaseController
 	{
-		[HttpPost("chat/send")]
+		[HttpPost("send")]
 		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
 		{
 			var userId = GetUserId();
@@ -44,7 +44,7 @@ namespace CarBazaar.Server.Controllers
 			return Ok("Message sent");
 		}
 
-		[HttpGet("chat/messages/{carId}/{participantId}")]
+		[HttpGet("messages/{carId}/{participantId}")]
 		public async Task<IActionResult> GetChatMessages(string carId, string participantId)
 		{
 			var userId = GetUserId();
@@ -63,7 +63,7 @@ namespace CarBazaar.Server.Controllers
 			return Ok(messages);
 		}
 
-		[HttpGet("chat/summaries")]
+		[HttpGet("summaries")]
 		public async Task<IActionResult> GetChatSummaries()
 		{
 			var userId = GetUserId();

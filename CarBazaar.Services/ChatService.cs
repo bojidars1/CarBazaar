@@ -1,4 +1,5 @@
-﻿using CarBazaar.Services.Contracts;
+﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+using CarBazaar.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class ChatService : IChatService
+	public class ChatService(IUserCarListingRepository userCarListingRepository) : IChatService
 	{
-		public bool IsOneOfThemOwner(string userId, string receiverId, string carListingId)
+		public async Task<bool> IsOneOfThemOwner(string userId, string receiverId, string carListingId)
 		{
-			throw new NotImplementedException();
+			var userCarListings = await userCarListingRepository.GetAllAsync();
+			bool isOneOfThemOwner = userCarListings.Any(ucl => ucl.CarListingId.ToString() == carListingId &&
+			((ucl.UserId == userId) || (ucl.UserId == receiverId)));
+
+			return isOneOfThemOwner;
 		}
 
 		public Task SendMessageAsync(string userId, string receiverId, string carListingId, string message)

@@ -10,6 +10,6 @@ namespace CarBazaar.Services.Contracts
 	{
 		Task SendMessageAsync(string userId, string receiverId, string carListingId, string message);
 
-		bool IsOneOfThemOwner(string userId, string receiverId, string carListingId);
+		Task<bool> IsOneOfThemOwner(string userId, string receiverId, string carListingId);
 	}
 }

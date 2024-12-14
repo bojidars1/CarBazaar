@@ -1,6 +1,7 @@
 ﻿using CarBazaar.Data;
 using CarBazaar.Data.Models;
 using CarBazaar.Server.Hubs;
+using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Chat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
 	[Authorize]
-	public class ChatController(CarBazaarDbContext context, IHubContext<ChatHub> hubContext) : BaseController
+	public class ChatController(IChatService chatService) : BaseController
 	{
 		[HttpPost("send")]
 		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
@@ -23,8 +24,7 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("User id not found");
 			}
 
-			bool isOneOfThemOwner = await context.UserCarListings.AnyAsync(ucl => ucl.CarListingId == request.CarListingId && 
-			((ucl.UserId == userId) || (ucl.UserId == request.ReceiverId)));
+			bool isOneOfThemOwner = await chatService.IsOneOfThemOwner(userId, request.ReceiverId, request.CarListingId.ToString());
 
 			if (!isOneOfThemOwner)
 			{

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api/api';
 import { Box, Button, CircularProgress, Typography, TextField } from '@mui/material';
+import * as signalR from '@microsoft/signalr';
 
 const ChatMessages = () => {
     const { carListingId, participantId } = useParams();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoading] = useState(true);
+
+    const [connection, setConnection] = useState(null);
 
     const fetchMessages = async () => {
         try {
@@ -38,6 +41,26 @@ const ChatMessages = () => {
 
     useEffect(() => {
         fetchMessages();
+
+        const connect = new signalR.HubConnectionBuilder()
+        .withUrl('https://localhost:7100/chatHub', {
+            accessTokenFactory: () => localStorage.getItem('token');
+        })
+        .withAutomaticReconnect()
+        .build();
+
+        setConnection(connect);
+
+        connect.start()
+        .then(() => {
+            connect.on('ReceiveMessage', (message) => {
+                setMessages(prev => [...prev, message]);
+            });
+        }).catch(err => {console.log('SignalR Connection Error')});
+
+        return () => {
+            connect.stop();
+        };
     }, []);
 
     return (
@@ -63,7 +86,16 @@ const ChatMessages = () => {
                 placeholder="Type a message..."
                 sx={{ mb: 2 }}
             />
-            <Button variant="contained" onClick={sendMessage}>Send</Button>
+            <Button 
+            variant="contained" 
+            onClick={() => {
+                sendMessage();
+                if (connection) {
+                    connection.invoke('SendMessage', participantId, carListingId, newMessage);
+                }
+            }}>
+                Send
+            </Button>
         </Box>
     );
 };

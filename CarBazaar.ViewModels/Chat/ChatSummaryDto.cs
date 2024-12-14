@@ -15,8 +15,8 @@ namespace CarBazaar.ViewModels.Chat
 
 		public string OtherParticipantName { get; set;} = null!;
 
-		public ChatMessage LastMessage { get; set; } = null!;
+		public string LastMessage { get; set; } = null!;
 
-		public DateTime LastMessageTimeStamp { get; set; }
+		public DateTime LastMessageTimestamp { get; set; }
 	}
 }

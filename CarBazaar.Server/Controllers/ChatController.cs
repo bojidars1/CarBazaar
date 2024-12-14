@@ -82,10 +82,10 @@ namespace CarBazaar.Server.Controllers
 				})
 				.ToListAsync();
 
-			var result = chatSummaries.Select(async cs => new
+			var result = chatSummaries.Select(async cs => new ChatSummaryDto
 			{
 				CarListingId = cs.CarListingId,
-				OtherParticipant = cs.OtherParticipantId,
+				OtherParticipantId = cs.OtherParticipantId,
 				OtherParticipantName = await context.Users
 				.Where(u => u.Id == cs.OtherParticipantId)
 				.Select(u => u.Email)

@@ -89,6 +89,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICarListingRepository, CarListingRepository>();
 builder.Services.AddScoped<IUserCarListingRepository, UserCarListingRepository>();
 builder.Services.AddScoped<IFavouriteCarListingRepository, FavouriteCarListingRepository>();
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
 builder.Services.AddSingleton<IRedisRepository, RedisRepository>();
 
 // Services
@@ -96,6 +97,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<ICarListingService, CarListingService>();
 builder.Services.AddScoped<IUserCarListingService, UserCarListingService>();
 builder.Services.AddScoped<IFavouriteCarListingService, FavouriteCarListingService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IRedisService, RedisService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -54,6 +54,7 @@ const Layout = ({ children }) => {
                             </Typography>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/user-carlistings">My Car Listings</Button>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/favourites">Favourites</Button>
+                            <Button color="inherit" variant='outlined' size='small' component={Link} to="/chats">Chats</Button>
                             </Box>
                         )}
                     </Typography>

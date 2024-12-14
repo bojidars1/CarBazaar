@@ -31,6 +31,8 @@ const ChatMessages = () => {
             fetchMessages();
         } catch (err) {
             console.log('Failed to send message');
+        } finally {
+            setLoading(false);
         }
     };
 

@@ -21,8 +21,8 @@ const ChatList = () => {
         }
     };
 
-    const handleChatClick = (carId, participantId) => {
-        console.log('open chat');
+    const handleChatClick = (carListingId, participantId) => {
+        navigate(`/chat/${carListingId}/${participantId}`);
     };
 
     useEffect(() => {
@@ -43,8 +43,8 @@ const ChatList = () => {
                     {chats.map(chat => (
                         <ListItem
                             component={Button}
-                            key={`${chat.CarListingId}-${chat.OtherParticipantId}`} 
-                            onClick={() => handleChatClick(chat.CarListingId, chat.OtherParticipantId)}
+                            key={`${chat.carListingId}-${chat.otherParticipantId}`}
+                            onClick={() => handleChatClick(chat.carListingId, chat.otherParticipantId)}
                         >
                             <ListItemText
                                 primary={`Chat with ${chat.otherParticipantName}`}

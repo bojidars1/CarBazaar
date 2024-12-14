@@ -44,10 +44,7 @@ const ChatMessages = () => {
 
         const connect = new signalR.HubConnectionBuilder()
         .withUrl('https://localhost:7100/chathub', {
-            accessTokenFactory: () => {
-                const token = localStorage.getItem('token');
-                return token ? `Bearer ${token}` : null;
-            }
+            accessTokenFactory: () => localStorage.getItem('token')
         })
         .withAutomaticReconnect()
         .build();

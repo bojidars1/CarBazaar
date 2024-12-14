@@ -1,5 +1,6 @@
 using CarBazaar.Data;
 using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Middleware;
 using CarBazaar.Infrastructure.Repositories;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Infrastructure.Repositories.Contracts.Redis;
@@ -161,6 +162,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<JwtBlacklistValidationMiddleware>();
+app.UseMiddleware<WebSocketsMiddleware>();
 
 app.UseHttpsRedirection();
 

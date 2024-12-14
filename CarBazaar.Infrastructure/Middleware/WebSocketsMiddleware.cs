@@ -13,10 +13,12 @@ namespace CarBazaar.Infrastructure.Middleware
 		{
 			var request = httpContext.Request;
 
-			if (request.Path.StartsWithSegments("/hub", StringComparison.OrdinalIgnoreCase) &&
-				request.Query.TryGetValue("token", out var token))
+			if (request.Path.StartsWithSegments("/chathub", StringComparison.OrdinalIgnoreCase))
 			{
-				request.Headers.Add("Authorization", $"Bearer {token}");
+				if (request.Query.TryGetValue("access_token", out var token)) {
+					var tokenString = token.ToString();
+					request.Headers.Add("Authorization", $"Bearer {token}");
+				}
 			}
 
 			await next(httpContext);

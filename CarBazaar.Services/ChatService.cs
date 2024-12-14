@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository) : IChatService
+	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository,
+		IUserRepository userRepository) : IChatService
 	{
 		public async Task<List<ChatSummaryDto>> GetChatSummariesAsync(string userId)
 		{
@@ -28,18 +29,21 @@ namespace CarBazaar.Services
 				})
 				.ToList();
 
-			var result = chatSummaries.Select(async cs => new ChatSummaryDto
+			var users = await userRepository.GetAllAsync();
+			var result = chatSummaries.Select(cs => new ChatSummaryDto
 			{
 				CarListingId = cs.CarListingId,
 				OtherParticipantId = cs.OtherParticipantId,
-				OtherParticipantName = await context.Users
+				OtherParticipantName = users
 				.Where(u => u.Id == cs.OtherParticipantId)
 				.Select(u => u.Email)
-				.FirstOrDefaultAsync(),
+				.FirstOrDefault(),
 				LastMessage = cs.LastMessage.Message,
 				LastMessageTimestamp = cs.LastMessage.Timestamp
 
 			}).ToList();
+
+			return result;
 		}
 
 		public async Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId)

@@ -35,7 +35,7 @@ namespace CarBazaar.Server.Controllers
 			return Ok("Message sent");
 		}
 
-		[HttpGet("messages/{carId}/{participantId}")]
+		[HttpGet("messages/{carListingId}/{participantId}")]
 		public async Task<IActionResult> GetChatMessages(string carListingId, string participantId)
 		{
 			var userId = GetUserId();

@@ -11,7 +11,5 @@ namespace CarBazaar.Services.Contracts
 	public interface IUserService
 	{
 		Task<UserInfoPaginatedDto> GetUserInfoPaginated(int page, int pageSize);
-
-		Task<CarBazaarUser?> GetUserByUserIdAsync(string userId);
 	}
 }

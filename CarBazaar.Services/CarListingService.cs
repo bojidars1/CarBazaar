@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace CarBazaar.Services
 {
 	public class CarListingService(ICarListingRepository repository, IUserCarListingService userCarListingService,
-		IUserCarListingRepository userCarListingRepository, IUserService userService) : ICarListingService
+		IUserCarListingRepository userCarListingRepository, UserManager<CarBazaarUser> userManager) : ICarListingService
 	{
 		public async Task AddAsync(AddCarListingDto dto, string userId)
 		{
@@ -48,9 +48,13 @@ namespace CarBazaar.Services
 		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto, string userId)
 		{
 			var user = await userService.GetUserByUserIdAsync(userId);
+			if (user == null)
+			{
+				return false;
+			}
 
 			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
-            if (userCarListing == null || userCarListing.UserId != userId)
+            if (userCarListing == null || ( || userCarListing.UserId != userId))
             {
 				
 				return false;

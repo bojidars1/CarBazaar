@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
-	[Authorize(Roles = "Administrator")]
+	[Authorize(Policy = "RequireAdministratorRole")]
 	public class AdminController : BaseController
 	{
 		[HttpGet]

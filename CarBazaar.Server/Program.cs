@@ -71,13 +71,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ClockSkew = TimeSpan.Zero,
             ValidIssuer = builder.Configuration["JWT:Issuer"],
-			ValidAudience = builder.Configuration["JWT:Audience"],
-			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
-		};
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+        };
 	});
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("RequireAdminstratorRole", policy =>
+    .AddPolicy("RequireAdministratorRole", policy =>
     {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Administrator");
     })

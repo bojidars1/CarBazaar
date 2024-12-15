@@ -2,6 +2,7 @@
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.CarListing;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -49,6 +50,7 @@ namespace CarBazaar.Services
 			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
             if (userCarListing == null || userCarListing.UserId != userId)
             {
+				
 				return false;
             }
 

@@ -1,6 +1,8 @@
-﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+﻿using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.User;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,14 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class UserService(IUserRepository userRepository) : IUserService
+	public class UserService(IUserRepository userRepository, UserManager<CarBazaarUser> userManager) : IUserService
 	{
+		public async Task<CarBazaarUser?> GetUserByUserId(string userId)
+		{
+			var user = await userManager.FindByIdAsync(userId);
+			return user;
+		}
+
 		public async Task<UserInfoPaginatedDto> GetUserInfoPaginated(int page, int pageSize)
 		{
 			var paginatedUsers = await userRepository.GetPaginatedAsync(page, pageSize);

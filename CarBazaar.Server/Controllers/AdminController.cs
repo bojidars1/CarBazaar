@@ -1,5 +1,6 @@
 ﻿using CarBazaar.Services;
 using CarBazaar.Services.Contracts;
+using CarBazaar.ViewModels.CarListing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace CarBazaar.Services
 {
 	public class CarListingService(ICarListingRepository repository, IUserCarListingService userCarListingService,
-		IUserCarListingRepository userCarListingRepository, UserManager<CarBazaarUser> userManager) : ICarListingService
+		UserManager<CarBazaarUser> userManager) : ICarListingService
 	{
 		public async Task AddAsync(AddCarListingDto dto, string userId)
 		{
@@ -56,7 +56,7 @@ namespace CarBazaar.Services
 			var isUserAdmin = await userManager.IsInRoleAsync(user, "Administrator");
 			if (!isUserAdmin)
 			{
-				UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
+				UserCarListing? userCarListing = await userCarListingService.GetByCarIdAsync(dto.Id);
 				if (userCarListing == null || userCarListing.UserId != userId)
 				{
 					return false;
@@ -127,7 +127,7 @@ namespace CarBazaar.Services
 
 		public async Task<bool> SoftDeleteCarListingAsync(string id, string userId)
 		{
-			UserCarListing? userCarListing = await userCarListingRepository.GetByCarIdAsync(id);
+			UserCarListing? userCarListing = await userCarListingService.GetByCarIdAsync(id);
 			if (userCarListing == null || userCarListing.UserId != userId)
 			{
 				return false;
@@ -146,7 +146,7 @@ namespace CarBazaar.Services
 
 		public async Task<DeleteCarListingDto?> GetDeleteCarListingDtoByIdAsync(string id, string userId)
 		{
-			UserCarListing? userCarListing = await userCarListingRepository.GetByCarIdAsync(id);
+			UserCarListing? userCarListing = await userCarListingService.GetByCarIdAsync(id);
 			if (userCarListing == null || userCarListing.UserId != userId)
 			{
 				return null;

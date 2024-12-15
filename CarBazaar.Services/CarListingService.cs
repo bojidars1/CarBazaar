@@ -47,16 +47,16 @@ namespace CarBazaar.Services
 
 		public async Task<bool> UpdateCarListingAsync(EditCarListingDto dto, string userId)
 		{
-			var user = await userService.GetUserByUserIdAsync(userId);
+			var user = await userManager.FindByIdAsync(userId);
 			if (user == null)
 			{
 				return false;
 			}
+			var isUserAdmin = await userManager.IsInRoleAsync(user, "Administrator");
 
 			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
-            if (userCarListing == null || ( || userCarListing.UserId != userId))
+            if (userCarListing == null || !isUserAdmin || userCarListing.UserId != userId)
             {
-				
 				return false;
             }
 

@@ -16,6 +16,9 @@ import UserCarListingList from './pages/UserCarListing/UserCarListingList';
 import FavouriteCarListingList from './pages/FavouriteCarListing/FavouriteCarListingList';
 import ChatList from './pages/Chat/ChatList';
 import ChatMessages from './pages/Chat/ChatMessages';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import UsersDashboard from './pages/Admin/UsersDashboard';
+import CarListingsDashboard from './pages/Admin/CarListingsDashboard';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -42,6 +45,11 @@ const App = () => {
               <Route path='/chat/:carListingId/:participantId' element={<ChatMessages /> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+
+              <Route path='/admin' element={<AdminDashboard /> }>
+                <Route path='users' element={<UsersDashboard /> } />
+                <Route path='car-listings' element={<CarListingsDashboard />} />
+              </Route>
             </Routes>
           </Layout>
         </Router>

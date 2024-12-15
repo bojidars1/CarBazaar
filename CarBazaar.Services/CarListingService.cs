@@ -52,13 +52,16 @@ namespace CarBazaar.Services
 			{
 				return false;
 			}
-			var isUserAdmin = await userManager.IsInRoleAsync(user, "Administrator");
 
-			UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
-            if (userCarListing == null || !isUserAdmin || userCarListing.UserId != userId)
-            {
-				return false;
-            }
+			var isUserAdmin = await userManager.IsInRoleAsync(user, "Administrator");
+			if (!isUserAdmin)
+			{
+				UserCarListing? userCarListing = await userCarListingRepository.GetByIdAsync(dto.Id);
+				if (userCarListing == null || userCarListing.UserId != userId)
+				{
+					return false;
+				}
+			}
 
             CarListing? listing = await repository.GetByIdAsync(dto.Id);
 			if (listing == null)

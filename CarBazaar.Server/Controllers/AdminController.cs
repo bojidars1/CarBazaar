@@ -8,10 +8,10 @@ namespace CarBazaar.Server.Controllers
 	[Authorize(Policy = "RequireAdministratorRole")]
 	public class AdminController : BaseController
 	{
-		[HttpGet]
-		public IActionResult TestAdminRole()
+		[HttpGet("get-users")]
+		public async Task<IActionResult> GetUsers()
 		{
-			return Ok("You are an admin");
+
 		}
 	}
 }

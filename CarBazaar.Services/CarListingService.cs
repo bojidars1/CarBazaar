@@ -127,10 +127,21 @@ namespace CarBazaar.Services
 
 		public async Task<bool> SoftDeleteCarListingAsync(string id, string userId)
 		{
-			UserCarListing? userCarListing = await userCarListingService.GetByCarIdAsync(id);
-			if (userCarListing == null || userCarListing.UserId != userId)
+			var user = await userManager.FindByIdAsync(userId);
+			if (user == null)
 			{
 				return false;
+			}
+
+			var isUserAdmin = await userManager.IsInRoleAsync(user, "Administrator");
+
+			if (!isUserAdmin)
+			{
+				UserCarListing? userCarListing = await userCarListingService.GetByCarIdAsync(id);
+				if (userCarListing == null || userCarListing.UserId != userId)
+				{
+					return false;
+				}
 			}
 
 			CarListing? listing = await repository.GetByIdAsync(id);

@@ -106,6 +106,7 @@ builder.Services.AddScoped<ICarListingService, CarListingService>();
 builder.Services.AddScoped<IUserCarListingService, UserCarListingService>();
 builder.Services.AddScoped<IFavouriteCarListingService, FavouriteCarListingService>();
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRedisService, RedisService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

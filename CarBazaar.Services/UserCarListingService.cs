@@ -18,6 +18,16 @@ namespace CarBazaar.Services
 			await repository.AddAsync(listing);
 		}
 
+		public async Task<UserCarListing?> GetByCarIdAsync(string carId)
+		{
+			return await repository.GetByCarIdAsync(carId);
+		}
+
+		public async Task<UserCarListing?> GetByUserIdAsync(string userId)
+		{
+			return await repository.GetByUserIdAsync(userId);
+		}
+
 		public async Task<CarListingPaginatedSearchDto?> GetListingsAsync(string userId, int pageIndex = 1, int pageSize = 10)
 		{
 			if (string.IsNullOrEmpty(userId))

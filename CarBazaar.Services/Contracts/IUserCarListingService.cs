@@ -10,8 +10,12 @@ namespace CarBazaar.Services.Contracts
 {
     public interface IUserCarListingService
     {
-        public Task AddAsync(UserCarListing listing);
+        Task AddAsync(UserCarListing listing);
 
-        public Task<CarListingPaginatedSearchDto?> GetListingsAsync(string userId, int pageIndex = 1, int pageSize = 10);
+        Task<CarListingPaginatedSearchDto?> GetListingsAsync(string userId, int pageIndex = 1, int pageSize = 10);
+
+        Task<UserCarListing?> GetByCarIdAsync(string carId);
+
+        Task<UserCarListing?> GetByUserIdAsync(string userId);
     }
 }

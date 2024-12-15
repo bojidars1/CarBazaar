@@ -17,11 +17,14 @@ namespace CarBazaar.Infrastructure.Repositories
 		{
 			UserCarListing? listing = await context.UserCarListings
 				.FirstOrDefaultAsync(cl => cl.CarListingId.ToString() == carId);
-			if (listing == null)
-			{
-				return null;
-			}
 
+			return listing;
+		}
+
+		public async Task<UserCarListing?> GetByUserIdAsync(string userId)
+		{
+			UserCarListing? listing = await context.UserCarListings
+				.FirstOrDefaultAsync(cl => cl.UserId == userId);
 			return listing;
 		}
 	}

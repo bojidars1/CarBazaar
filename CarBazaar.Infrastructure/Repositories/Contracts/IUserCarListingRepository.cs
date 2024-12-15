@@ -10,5 +10,7 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
     public interface IUserCarListingRepository : IRepository<UserCarListing>
     {
         Task<UserCarListing?> GetByCarIdAsync(string carId);
+
+        Task<UserCarListing?> GetByUserIdAsync(string userId);
     }
 }

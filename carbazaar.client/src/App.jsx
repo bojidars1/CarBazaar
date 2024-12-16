@@ -19,6 +19,7 @@ import ChatMessages from './pages/Chat/ChatMessages';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UsersDashboard from './pages/Admin/UsersDashboard';
 import CarListingsDashboard from './pages/Admin/CarListingsDashboard';
+import NotificationsList from './pages/Notification/NotificationsList';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -45,6 +46,8 @@ const App = () => {
               <Route path='/chat/:carListingId/:participantId' element={<ChatMessages /> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+
+              <Route path='/notifications' element={<NotificationsList /> } />
 
               <Route path='/admin' element={<AdminDashboard /> }>
                 <Route path='users' element={<UsersDashboard /> } />

@@ -11,9 +11,9 @@ namespace CarBazaar.Services
 {
 	public class NotificationService(INotificationRepository notificationRepository) : INotificationService
 	{
-		public Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
+		public async Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
 		{
-			var items = 
+
 		}
 	}
 }

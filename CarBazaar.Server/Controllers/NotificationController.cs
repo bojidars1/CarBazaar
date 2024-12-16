@@ -1,9 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarBazaar.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarBazaar.Server.Controllers
 {
-	public class NotificationController : Controller
+	[Route("/api/[controller]")]
+	[Authorize]
+	public class NotificationController(INotificationService notificationService) : BaseController
 	{
-		
+		[HttpGet("get-notifications")]
+		public async Task<IActionResult> GetNotifications([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+		{
+			string? userId = GetUserId();
+
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest();
+			}
+
+			var notifications = await notificationService.GetNotificationsAsync(userId, page, pageSize);
+			return Ok(notifications);
+		}
 	}
 }

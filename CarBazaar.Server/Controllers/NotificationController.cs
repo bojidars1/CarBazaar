@@ -41,7 +41,13 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest();
 			}
 
-			
+			bool isDeleted = await notificationService.DeleteAsync(userId, id);
+			if (!isDeleted)
+			{
+				return BadRequest("Deletion failed");
+			}
+
+			return Ok("Deletion successfull");
 		}
 	}
 }

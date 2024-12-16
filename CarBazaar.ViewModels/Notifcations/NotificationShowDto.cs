@@ -10,8 +10,12 @@ namespace CarBazaar.ViewModels.Notifcations
 	{
 		public string Id { get; set; } = null!;
 
+		public string SenderId { get; set; } = null!;
+
+		public string CarListingId { get; set; } = null!;
+
 		public string Message { get; set; } = null!;
 
-		public bool isRead { get; set; } = false;
+		public bool IsRead { get; set; } = false;
 	}
 }

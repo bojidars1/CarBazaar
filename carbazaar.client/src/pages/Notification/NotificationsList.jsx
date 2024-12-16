@@ -38,6 +38,14 @@ const NotificationsList = () => {
     }
   };
 
+  const handleMarkAsRead = async (notificationId) => {
+    try {
+      await api.post("/Notification/mark-as-read", [notificationId]);
+    } catch (err) {
+      console.error("Failed to mark notification as read:", err);
+    }
+  };
+
   useEffect(() => {
     fetchNotifications(page);
   }, [page]);
@@ -75,22 +83,25 @@ const NotificationsList = () => {
                   <TableCell>{notification.message}</TableCell>
                   <TableCell align="right">
                     <Box sx={{ display: "flex", gap: "0.5em", justifyContent: "flex-end" }}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        component={Link}
-                        to={`/chat/${notification.carListingId}/${notification.senderId}`}
-                      >
-                        View
-                      </Button>
+                      {!notification.isRead && (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="small"
+                          component={Link}
+                          to={`/chat/${notification.carListingId}/${notification.senderId}`}
+                          onClick={() => handleMarkAsRead(notification.id)}
+                        >
+                          View
+                        </Button>
+                      )}
                       <Button
                         variant="contained"
                         color="error"
                         size="small"
                         onClick={() => handleMarkAsDeleted(notification.id)}
                       >
-                        Mark as Deleted
+                        Delete
                       </Button>
                     </Box>
                   </TableCell>

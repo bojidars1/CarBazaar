@@ -30,5 +30,18 @@ namespace CarBazaar.Server.Controllers
 			await notificationService.MarkNotificationsAsReadAsync(notificationIds);
 			return Ok();
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete([FromQuery] string id)
+		{
+			string? userId = GetUserId();
+
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest();
+			}
+
+			
+		}
 	}
 }

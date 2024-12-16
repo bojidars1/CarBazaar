@@ -15,5 +15,7 @@ namespace CarBazaar.Services.Contracts
         Task MarkNotificationsAsReadAsync(List<Guid> notificationsIds);
 
         Task AddNotificationAsync(Notification notification);
+
+        Task<bool> DeleteAsync(string userId, string notificationId);
     }
 }

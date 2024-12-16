@@ -18,6 +18,23 @@ namespace CarBazaar.Services
 			await notificationRepository.AddAsync(notification);
 		}
 
+		public async Task<bool> DeleteAsync(string userId, string notificationId)
+		{
+			var notification = await notificationRepository.GetByIdAsync(notificationId);
+			if (notification == null)
+			{
+				return false;
+			}
+
+			if (notification.UserId != userId)
+			{
+				return false;
+			}
+
+			await notificationRepository.DeleteAsync(notification);
+			return true;
+		}
+
 		public async Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
 		{
 			var query = notificationRepository.GetBaseQuery();
@@ -29,8 +46,10 @@ namespace CarBazaar.Services
 			var items = userNotificationsPaginated.Select(n => new NotificationShowDto
 			{
 				Id = n.Id.ToString(),
+				SenderId = n.SenderId,
+				CarListingId = n.CarListingId.ToString(),
 				Message = n.Message,
-				isRead = n.isRead
+				IsRead = n.isRead
 			}).ToList();
 
 			return new NotificationShowPaginatedDto

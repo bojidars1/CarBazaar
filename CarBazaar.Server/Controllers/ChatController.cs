@@ -36,6 +36,8 @@ namespace CarBazaar.Server.Controllers
 			await notificationService.AddNotificationAsync(new Notification
 			{
 				UserId = request.ReceiverId,
+				SenderId = userId,
+				CarListingId = request.CarListingId,
 				Message = $"You have a new message from {userEmail}"
 			});
 

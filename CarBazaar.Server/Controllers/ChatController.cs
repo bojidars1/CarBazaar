@@ -13,7 +13,7 @@ namespace CarBazaar.Server.Controllers
 {
 	[Route("api/[controller]")]
 	[Authorize]
-	public class ChatController(IChatService chatService) : BaseController
+	public class ChatController(IChatService chatService, INotificationService notificationService) : BaseController
 	{
 		[HttpPost("send")]
 		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)

@@ -13,10 +13,7 @@ namespace CarBazaar.Services
 	{
 		public async Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
 		{
-			var query = notificationRepository.GetBaseQuery();
-			query.Where(n => n.UserId == userId);
-
-			var userNotificationsPaginated = await notificationRepository.GetPaginatedAsync(page, pageSize, query);
+			var userNotificationsPaginated = await notificationRepository.GetUserNotificationsPaginated(userId, page, pageSize);
 
 			int totalPages = userNotificationsPaginated.TotalPages;
 			var items = userNotificationsPaginated.Select(n => new NotificationShowDto

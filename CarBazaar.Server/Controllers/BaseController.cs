@@ -18,5 +18,16 @@ namespace CarBazaar.Server.Controllers
 
 			return userIdClaim;
 		}
+
+		protected string? GetUserEmail()
+		{
+			var token = Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+
+			var handler = new JwtSecurityTokenHandler();
+			var jwtToken = handler.ReadJwtToken(token);
+			var userIdClaim = jwtToken?.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+
+			return userIdClaim;
+		}
 	}
 }

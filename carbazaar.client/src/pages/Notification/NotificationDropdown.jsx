@@ -25,7 +25,7 @@ const NotificationDropdown = () => {
       const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);
       await api.post("/Notification/mark-as-read", unreadIds);
       setUnreadCount(0);
-      fetchNotifications(); // Refresh the list
+      fetchNotifications();
     } catch (err) {
       console.error("Failed to mark notifications as read:", err);
     }

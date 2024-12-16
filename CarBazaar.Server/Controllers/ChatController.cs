@@ -30,6 +30,8 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("One of users must be the owner of the car");
 			}
 
+			
+
 			await chatService.SendMessageAsync(userId, request.ReceiverId, request.CarListingId, request.Message);
 			await notificationService.AddNotificationAsync(new Notification
 			{

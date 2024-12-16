@@ -25,40 +25,9 @@ namespace CarBazaar.Infrastructure.Repositories.Redis
 			await database.StringSetAsync(token, "blacklisted", expiry);
 		}
 
-		public async Task<string?> GetUserIdByRefreshTokenAsync(string refreshToken)
-		{
-			var keys = server.Keys(pattern: "refreshToken:*");
-			foreach (var key in keys)
-			{
-				if (await database.StringGetAsync(key) == refreshToken)
-				{
-					return key.ToString().Split(':')[1];
-				}
-			}
-			return null;
-		}
-
 		public async Task<bool> IsBlackListedAsync(string token)
 		{
 			return await database.KeyExistsAsync(token);
-		}
-
-		public async Task RemoveRefreshTokenAsync(string refreshToken)
-		{
-			var keys = server.Keys(pattern: "refreshToken:*");
-			foreach (var key in keys)
-			{
-				if (await database.StringGetAsync(key) == refreshToken)
-				{
-					await database.KeyDeleteAsync(key);
-					break;
-				}
-			}
-		}
-
-		public async Task StoreRefreshTokenAsync(string userId, string refreshToken, TimeSpan expiry)
-		{
-			await database.StringSetAsync($"refreshToken:{userId}", refreshToken, expiry);
 		}
 	}
 }

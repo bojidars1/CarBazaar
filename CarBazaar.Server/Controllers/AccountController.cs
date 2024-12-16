@@ -80,50 +80,5 @@ namespace CarBazaar.Server.Controllers
 
 			return Ok("Logged out successfully");
 		}
-
-		[HttpPost("refresh-token")]
-		[ProducesResponseType<string>(200)]
-		[ProducesResponseType<string>(400)]
-		public async Task<IActionResult> RefreshToken()
-		{
-			var refreshToken = Request.Cookies["refresh_token"];
-			if (string.IsNullOrEmpty(refreshToken))
-			{
-				return BadRequest("No refresh token found");
-			}
-
-			var userId = await redisService.GetUserIdByRefreshTokenAsync(refreshToken);
-			if (userId == null)
-			{
-				return BadRequest("Invalid Refresh Token");
-			}
-
-			await redisService.RemoveRefreshTokenAsync(refreshToken);
-
-			Response.Cookies.Delete("refresh_token", new CookieOptions
-			{
-				HttpOnly = true,
-				Secure = true,
-				SameSite = SameSiteMode.Strict,
-				Path = "/",
-				Expires = DateTime.UtcNow.AddDays(-1)
-			});
-
-			var user = await userManager.FindByIdAsync(userId);
-			var newAccessToken = jwtService.GenerateAccessToken(userId, user.Email);
-			var newRefreshToken = jwtService.GenerateRefreshToken();
-
-			await redisService.StoreRefreshTokenAsync(userId, newRefreshToken, TimeSpan.FromDays(30));
-
-			Response.Cookies.Append("refesh_token", newRefreshToken, new CookieOptions
-			{
-				HttpOnly = true,
-				Secure = true,
-				SameSite = SameSiteMode.Strict,
-				Expires = DateTime.UtcNow.AddDays(30)
-			});
-
-			return Ok(new { accessToken = newAccessToken });
-		}
 	}
 }

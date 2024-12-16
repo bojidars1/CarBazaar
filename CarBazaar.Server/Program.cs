@@ -23,13 +23,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddDbContext<CarBazaarDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CarBazaarDbContext"));
-});
 builder.Services.AddControllers();
+
+// Extensions
+builder.Services.AddDatabaseConfig(builder.Configuration);
+builder.Services.AddAuthenticationConfig(builder.Configuration);
 
 // Identity
 

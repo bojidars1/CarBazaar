@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { clearUser } from '../redux/userSlice';
 import api from '../api/api';
+import NotificationDropdown from '../pages/Notification/NotificationDropdown';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);
@@ -51,6 +52,7 @@ const Layout = ({ children }) => {
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
                             <Typography variant="body1" sx={{ display: 'inline', color: 'white', ml: '1em' }}>
                             Hello, {user.userEmail}
+                            <NotificationDropdown />
                             </Typography>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/user-carlistings">My Car Listings</Button>
                             <Button color="inherit" variant='outlined' size='small' component={Link} to="/favourites">Favourites</Button>

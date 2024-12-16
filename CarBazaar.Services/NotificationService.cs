@@ -1,4 +1,6 @@
-﻿using CarBazaar.Services.Contracts;
+﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+using CarBazaar.Services.Contracts;
+using CarBazaar.ViewModels.Notifcations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,11 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {
-	public class NotificationService : INotificationService
+	public class NotificationService(INotificationRepository notificationRepository) : INotificationService
 	{
+		public Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
+		{
+			var items = 
+		}
 	}
 }

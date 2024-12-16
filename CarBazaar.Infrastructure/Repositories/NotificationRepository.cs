@@ -11,5 +11,10 @@ namespace CarBazaar.Infrastructure.Repositories
 {
 	public class NotificationRepository(CarBazaarDbContext context) : Repository<Notification>(context), INotificationRepository
 	{
+		public async Task<List<Notification>> GetUserNotificationsByUserIdAsync(string userId)
+		{
+			var userNotifications = await GetAllAsync();
+			return userNotifications.Where(n => n.UserId == userId).ToList();
+		}
 	}
 }

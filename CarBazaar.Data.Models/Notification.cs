@@ -22,6 +22,13 @@ namespace CarBazaar.Data.Models
 		[Comment("The user that receives the notification")]
 		public CarBazaarUser User { get; set; } = null!;
 
+		[Comment("Car Listing Id")]
+		public Guid CarListingId { get; set; }
+
+		[ForeignKey(nameof(CarListingId))]
+		[Comment("The user that receives the notification")]
+		public CarListing CarListing { get; set; } = null!;
+
 		[Comment("The Notificaiton Message")]
 		public string Message { get; set; } = null!;
 

@@ -12,6 +12,6 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
     {
         Task<PaginatedList<Notification>> GetUserNotificationsPaginated(string userId, int page, int pageSize);
 
-        Task MarkAsReadAsync(List<string> notificationsIds);
+        Task MarkAsReadAsync(List<Guid> notificationsIds);
     }
 }

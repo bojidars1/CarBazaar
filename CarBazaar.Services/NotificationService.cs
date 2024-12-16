@@ -29,5 +29,10 @@ namespace CarBazaar.Services
 				TotalPages = totalPages
 			};
 		}
+
+		public async Task MarkNotificationsAsReadAsync(List<Guid> notificationsIds)
+		{
+			await notificationRepository.MarkAsReadAsync(notificationsIds);
+		}
 	}
 }

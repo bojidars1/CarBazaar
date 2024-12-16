@@ -24,7 +24,7 @@ namespace CarBazaar.Server.Controllers
 			return Ok(notifications);
 		}
 
-		[HttpGet("mark-as-read")]
+		[HttpPost("mark-as-read")]
 		public async Task<IActionResult> MarkAsReadAsync([FromBody] List<Guid> notificationIds)
 		{
 			await notificationService.MarkNotificationsAsReadAsync(notificationIds);

@@ -28,9 +28,10 @@ builder.Services.AddControllers();
 // Extensions
 builder.Services.AddDatabaseConfig(builder.Configuration);
 builder.Services.AddAuthenticationConfig(builder.Configuration);
+builder.Services.AddCorsConfig();
+builder.Services.AddSwaggerConfig();
 
 // Identity
-
 builder.Services.AddIdentity<CarBazaarUser, IdentityRole>(options =>
 {
 	options.Password.RequireDigit = false;
@@ -55,24 +56,7 @@ builder.Services.AddIdentity<CarBazaarUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ClockSkew = TimeSpan.Zero,
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
-        };
-	});
+//Authorization Policies
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireAdministratorRole", policy =>
     {
@@ -109,56 +93,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRedisService, RedisService>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "CarBazaarApi",
-        Version = "v1"
-    });
-
-    // Security scheme
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Type = SecuritySchemeType.ApiKey,
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Scheme = "Bearer",
-        BearerFormat = "JWT"
-    });
-
-    // Apply security to endpoints
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
-
+// SignalR
 builder.Services.AddSignalR();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "MySpecificOrigins", builder =>
-    {
-        builder.WithOrigins("https://localhost", "https://localhost:5173")
-        
-        .AllowCredentials()
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .SetIsOriginAllowedToAllowWildcardSubdomains();
-    });
-});
 
 var app = builder.Build();
 

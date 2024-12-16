@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarBazaar.ViewModels.Notifcations
 {
-	public class NotifcationShowDto
+	public class NotificationShowDto
 	{
 		public string Id { get; set; } = null!;
 

@@ -10,8 +10,6 @@ namespace CarBazaar.Infrastructure.Repositories.Contracts
 {
     public interface INotificationRepository : IRepository<Notification>
     {
-        Task<PaginatedList<Notification>> GetUserNotificationsPaginated(string userId, int page, int pageSize);
-
         Task MarkAsReadAsync(List<Guid> notificationsIds);
     }
 }

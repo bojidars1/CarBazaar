@@ -2,6 +2,7 @@
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Notifcations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace CarBazaar.Services
 
 		public async Task<NotificationShowPaginatedDto> GetNotificationsAsync(string userId, int page, int pageSize)
 		{
-			var userNotificationsPaginated = await notificationRepository.GetUserNotificationsPaginated(userId, page, pageSize);
+			var query = notificationRepository.GetBaseQuery();
+			query = query.Where(n => n.UserId == userId).OrderByDescending(n => n.CreatedAt);
+
+			var userNotificationsPaginated = await notificationRepository.GetPaginatedAsync(page, pageSize, query);
 
 			int totalPages = userNotificationsPaginated.TotalPages;
 			var items = userNotificationsPaginated.Select(n => new NotificationShowDto

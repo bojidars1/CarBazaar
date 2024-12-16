@@ -1,4 +1,6 @@
-﻿using CarBazaar.Services.Contracts;
+﻿using CarBazaar.Infrastructure.Repositories.Contracts;
+using CarBazaar.Services.Contracts;
+using CarBazaar.ViewModels.Notifcations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -98,6 +98,7 @@ builder.Services.AddScoped<IUserCarListingRepository, UserCarListingRepository>(
 builder.Services.AddScoped<IFavouriteCarListingRepository, FavouriteCarListingRepository>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddSingleton<IRedisRepository, RedisRepository>();
 
 // Services

@@ -31,6 +31,11 @@ namespace CarBazaar.Server.Controllers
 			}
 
 			await chatService.SendMessageAsync(userId, request.ReceiverId, request.CarListingId, request.Message);
+			await notificationService.AddNotificationAsync(new Notification
+			{
+				UserId = request.ReceiverId,
+				Message = $"You have a new message from {userId}"
+			});
 
 			return Ok("Message sent");
 		}

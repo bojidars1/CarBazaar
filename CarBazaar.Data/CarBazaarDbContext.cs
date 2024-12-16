@@ -80,7 +80,20 @@ namespace CarBazaar.Data
 			modelBuilder.Entity<Notification>()
 				.HasOne(n => n.User)
 				.WithMany()
-				.HasForeignKey(n => n.UserId);
+				.HasForeignKey(n => n.UserId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Notification>()
+				.HasOne(n => n.Sender)
+				.WithMany()
+				.HasForeignKey(n => n.SenderId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Notification>()
+				.HasOne(n => n.CarListing)
+				.WithMany()
+				.HasForeignKey(n => n.CarListingId)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<CarListing>().HasQueryFilter(cl => !cl.IsDeleted);
 		}

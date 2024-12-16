@@ -22,11 +22,18 @@ namespace CarBazaar.Data.Models
 		[Comment("The user that receives the notification")]
 		public CarBazaarUser User { get; set; } = null!;
 
+		[Comment("Sender Id")]
+		public string SenderId { get; set; } = null!;
+
+		[ForeignKey(nameof(SenderId))]
+		[Comment("Sender")]
+		public CarBazaarUser Sender { get; set; } = null!;
+
 		[Comment("Car Listing Id")]
 		public Guid CarListingId { get; set; }
 
 		[ForeignKey(nameof(CarListingId))]
-		[Comment("The user that receives the notification")]
+		[Comment("Car Listing of the notification")]
 		public CarListing CarListing { get; set; } = null!;
 
 		[Comment("The Notificaiton Message")]

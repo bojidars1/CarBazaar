@@ -31,7 +31,7 @@ namespace CarBazaar.Server.Controllers
 			return Ok();
 		}
 
-		[HttpPost]
+		[HttpDelete("delete")]
 		public async Task<IActionResult> Delete([FromQuery] string id)
 		{
 			string? userId = GetUserId();

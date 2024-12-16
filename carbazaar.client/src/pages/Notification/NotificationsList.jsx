@@ -31,10 +31,13 @@ const NotificationsList = () => {
 
   const handleMarkAsDeleted = async (id) => {
     try {
-      await api.post("/Notification/mark-as-deleted", { id });
+      const params = {
+        id: id
+      }
+      await api.delete("/Notification/delete", { params });
       fetchNotifications(page);
     } catch (err) {
-      console.error("Failed to mark notification as deleted:", err);
+      console.error("Failed to delete notification:", err);
     }
   };
 

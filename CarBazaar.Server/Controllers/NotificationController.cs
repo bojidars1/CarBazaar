@@ -21,5 +21,12 @@ namespace CarBazaar.Server.Controllers
 			var notifications = await notificationService.GetNotificationsAsync(userId, page, pageSize);
 			return Ok(notifications);
 		}
+
+		[HttpGet("mark-as-read")]
+		public async Task<IActionResult> MarkAsReadAsync([FromBody] List<Guid> notificationIds)
+		{
+			await notificationService.MarkNotificationsAsReadAsync(notificationIds);
+			return Ok();
+		}
 	}
 }

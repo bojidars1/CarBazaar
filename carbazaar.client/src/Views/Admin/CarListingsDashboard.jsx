@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper } from "@mui/material";
 import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const CarListingsDashboard = () => {
+  const navigate = useNavigate();
+
   const [carListings, setCarListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
@@ -18,7 +21,8 @@ const CarListingsDashboard = () => {
       setCarListings(response.data.items); 
       setTotalPages(response.data.totalPages || 0);
     } catch (error) {
-      console.error("Failed to fetch car listings:", error);
+      console.error(err);
+      navigate('/error');
     } finally {
       setLoading(false);
     }

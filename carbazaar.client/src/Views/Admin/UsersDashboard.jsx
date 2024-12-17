@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper } from "@mui/material";
 import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const UsersDashboard = () => {
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -19,7 +22,8 @@ const UsersDashboard = () => {
       setUsers(response.data.items); 
       setTotalPages(response.data.totalPages || 0);  
     } catch (error) {
-      console.error("Failed to fetch users:", error);
+      console.error(err);
+      navigate('/error');
     } finally {
       setLoading(false);
     }

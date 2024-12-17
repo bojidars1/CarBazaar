@@ -22,6 +22,7 @@ import CarListingsDashboard from './Views/Admin/CarListingsDashboard';
 import NotificationsList from './Views/Notification/NotificationsList';
 import InternalError from './Views/Error/InternalError';
 import NotFound from './Views/Error/NotFound';
+import ErrorBoundary from './components/Error/ErrorBoundary.jsx';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -34,6 +35,7 @@ const App = () => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Router>
+          <ErrorBoundary>
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -60,6 +62,7 @@ const App = () => {
               </Route>
             </Routes>
           </Layout>
+          </ErrorBoundary>
         </Router>
         
       </ThemeProvider>

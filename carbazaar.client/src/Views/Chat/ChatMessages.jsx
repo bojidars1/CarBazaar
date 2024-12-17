@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
 import { Box, Button, CircularProgress, Typography, TextField } from '@mui/material';
 import * as signalR from '@microsoft/signalr';
 
 const ChatMessages = () => {
+    const navigate = useNavigate();
+
     const { carListingId, participantId } = useParams();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
@@ -16,7 +18,12 @@ const ChatMessages = () => {
         try {
             const response = await api.get(`/Chat/messages/${carListingId}/${participantId}`);
             setMessages(response.data);
-        } finally {
+        }
+        catch (err) {
+            console.error(err);
+            navigate('/error');
+        }
+        finally {
             setLoading(false);
         }
     };
@@ -33,7 +40,8 @@ const ChatMessages = () => {
             setNewMessage('');
             fetchMessages();
         } catch (err) {
-            console.log('Failed to send message');
+            console.error(err);
+            navigate('/error');
         } finally {
             setLoading(false);
         }

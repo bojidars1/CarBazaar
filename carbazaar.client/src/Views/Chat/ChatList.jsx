@@ -8,7 +8,6 @@ import {
     List,
     ListItem,
     ListItemText,
-    Button,
     Pagination,
     Stack
 } from '@mui/material';
@@ -18,7 +17,6 @@ const ChatList = () => {
 
     const [chats, setChats] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 10;
@@ -37,7 +35,7 @@ const ChatList = () => {
             setTotalPages(response.data.totalPages);
         } catch (err) {
             console.error(err);
-            setError('Failed to fetch chat summaries. Please try again.');
+            navigate('/error');
         } finally {
             setLoading(false);
         }
@@ -62,8 +60,6 @@ const ChatList = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
                     <CircularProgress />
                 </Box>
-            ) : error ? (
-                <Typography color="error" sx={{ textAlign: 'center' }}>{error}</Typography>
             ) : chats.length === 0 ? (
                 <Typography sx={{ textAlign: 'center' }}>No chats found</Typography>
             ) : (

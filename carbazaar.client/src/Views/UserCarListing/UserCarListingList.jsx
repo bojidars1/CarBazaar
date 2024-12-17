@@ -4,12 +4,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import api from '../../api/api';
 import CarListingCard from '../../components/CarListing/CarListingCard';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserCarListingList = () => {
+    const navigate = useNavigate();
+
     const [carListings, setCarListings] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -26,7 +27,8 @@ const UserCarListingList = () => {
             setCarListings(response.data.items);
             setTotalPages(response.data.totalPages);
         } catch (err) {
-            setError('Failed to get car listings. Please try again.');
+            console.error(err);
+            navigate('/error');
         } finally {
             setLoading(false);
         }
@@ -73,10 +75,6 @@ const UserCarListingList = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
                     <CircularProgress />
                 </Box>
-            ) : error ? (
-                <Typography color="error" variant="h6" sx={{ textAlign: 'center' }}>
-                    {error}
-                </Typography>
             ) : (
                 <>
                    <Grid2 container spacing={2} direction="column" sx={{ mt: 2 }}>

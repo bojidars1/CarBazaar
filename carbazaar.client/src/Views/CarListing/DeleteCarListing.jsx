@@ -16,6 +16,7 @@ const DeleteCarListing = () => {
             navigate('/carlisting/list');
         } catch (err) {
             console.error(err);
+            navigate('/error');
         }
     };
 

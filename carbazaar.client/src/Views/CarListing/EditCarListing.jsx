@@ -48,7 +48,8 @@ const CarListingForm = () => {
             if (error.response && error.response.status === 400) {
                 setErrors(error.response.data.errors);
             } else {
-                console.error("An unexpected error occurred:", error);
+                console.error(err);
+                navigate('/error');
             }
         }
     };
@@ -59,8 +60,8 @@ const CarListingForm = () => {
                 const respone = await api.get(`/CarListing/${id}`);
                 setFormData(respone.data);
             } catch (err) {
-                setErrors('Failed to fetch car listing.');
                 console.error(err);
+                navigate('/error');
             } finally {
                 setLoading(false);
             }

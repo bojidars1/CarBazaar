@@ -8,7 +8,6 @@ const FavouriteCarListingList = () => {
 
     const [favouriteListings, setFavouriteListings] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -25,7 +24,8 @@ const FavouriteCarListingList = () => {
             setFavouriteListings(response.data.items);
             setTotalPages(response.data.totalPages);
         } catch (err) {
-            setError('Failed to get car listing favourites. Please try again');
+            console.error(err);
+            navigate('/error');
         } finally {
             setLoading(false);
         }
@@ -47,12 +47,8 @@ const FavouriteCarListingList = () => {
             }
             await fetchFavourites(page);
         } catch (err) {
-            console.log(err);
-            setError('Failed to remove from favourites. Try again');
-            setTimeout(() => {
-                navigate('/favourites');
-                window.location.reload();
-            }, 1000);
+            console.error(err);
+            navigate('/error');
         }
     };
 
@@ -70,10 +66,6 @@ const FavouriteCarListingList = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5}}>
                     <CircularProgress />
                 </Box>
-            ) : error ? (
-                <Typography color='error' variant='h6' sx={{ textAlign: 'center' }}>
-                    {error}
-                </Typography>
             ) : (
                 <>
                 <TableContainer component={Paper}>

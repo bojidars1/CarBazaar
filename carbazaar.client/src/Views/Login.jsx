@@ -37,7 +37,8 @@ const Login = () => {
             dispatch(setUser(user));
             navigate('/');
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            navigate('/error');
         }
     };
 

@@ -47,7 +47,8 @@ const AddCarListing = () => {
             if (error.response && error.response.status === 400) {
                 setErrors(error.response.data.errors);
             } else {
-                console.error("An unexpected error occurred:", error);
+                console.error(err);
+                navigate('/error');
             }
         }
     };

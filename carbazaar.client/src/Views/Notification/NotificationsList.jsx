@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/api";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Pagination } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NotificationsList = () => {
+  const navigate = useNavigate();
+
   const [notifications, setNotifications] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
@@ -20,7 +22,9 @@ const NotificationsList = () => {
       setTotalPages(response.data.totalPages);
       setLoading(false);
     } catch (err) {
-      console.error("Failed to fetch notifications:", err);
+      console.error(err);
+      navigate('/error');
+    } finally {
       setLoading(false);
     }
   };
@@ -37,7 +41,8 @@ const NotificationsList = () => {
       await api.delete("/Notification/delete", { params });
       fetchNotifications(page);
     } catch (err) {
-      console.error("Failed to delete notification:", err);
+      console.error(err);
+      navigate('/error');
     }
   };
 
@@ -45,7 +50,8 @@ const NotificationsList = () => {
     try {
       await api.post("/Notification/mark-as-read", [notificationId]);
     } catch (err) {
-      console.error("Failed to mark notification as read:", err);
+      console.error(err);
+      navigate('/error');
     }
   };
 

@@ -15,7 +15,6 @@ const CarListingDetails = () => {
     const [carListing, setCarListing] = useState(null);
     const [contactOpen, setContactOpen] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
     const handleContactOpen = () => {
@@ -35,7 +34,8 @@ const CarListingDetails = () => {
             }
             setIsFavourite(!isFavourite);
         } catch (err) {
-            setError('Failed to update favourites');
+            console.error(err);
+            navigate('/error');
         }
     };
 
@@ -45,7 +45,8 @@ const CarListingDetails = () => {
             navigate(`/chat/${carListing.id}/${carListing.sellerId}`);
             handleContactClose();
         } else {
-            setError('Seller information is unavailable.');
+            console.error(err);
+            navigate('/error');
         }
     }
 
@@ -55,7 +56,8 @@ const CarListingDetails = () => {
                 const respone = await api.get(`/CarListing/${id}`);
                 setCarListing(respone.data);
             } catch (err) {
-                setError('Failed to fetch car listing details.');
+                console.error(err);
+                navigate('/error');
             } finally {
                 setLoading(false);
             }
@@ -66,12 +68,15 @@ const CarListingDetails = () => {
                 const respone = await api.get(`/FavouriteCarListing/get-favourites`);
                 setIsFavourite(respone.data.items.some(item => item.id === id));
             } catch (err) {
-                setError('Failed to fetch car favourite status');
+                console.error(err);
+                navigate('/error');
             }
         }
 
         fetchCarDetailsAsync();
-        fetchCarFavouriteStatusAsync();
+        if (user && token) {
+            fetchCarFavouriteStatusAsync();
+        }
     }, [id]);
 
     if (loading) {
@@ -87,7 +92,7 @@ const CarListingDetails = () => {
         );
     }
 
-    if (error || !carListing) {
+    if (!carListing) {
         return (
             <Box sx={{
                 display: 'flex',
@@ -95,7 +100,7 @@ const CarListingDetails = () => {
                 alignItems: 'center',
                 height: '100vh'
             }}>
-                <Typography variant='h6'>{error || "Car listing not found."}</Typography>
+                <Typography variant='h6'>{"Car listing not found."}</Typography>
             </Box>
         );
     }
@@ -165,16 +170,18 @@ const CarListingDetails = () => {
                                 <strong>Extra Info:</strong> {carListing.extraInfo || "No additional information available."}
                             </Typography>
 
+                            {user && token && 
                             <Box sx={{ mt: 3 }}>
-                                <Button
-                                variant='contained'
-                                color={isFavourite ? 'primary' : 'default'}
-                                startIcon={isFavourite ? <Star /> : <StarBorder />}
-                                onClick={handleToggleFavourite}
-                                >
-                                    {isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}
-                                </Button>
+                            <Button
+                            variant='contained'
+                            color={isFavourite ? 'primary' : 'default'}
+                            startIcon={isFavourite ? <Star /> : <StarBorder />}
+                            onClick={handleToggleFavourite}
+                            >
+                                {isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}
+                            </Button>
                             </Box>
+                            }
                         </CardContent>
                     </Grid2>
                 </Grid2>

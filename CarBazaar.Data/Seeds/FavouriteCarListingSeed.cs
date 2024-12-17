@@ -1,8 +1,6 @@
 ﻿using CarBazaar.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
-using System.Runtime.Intrinsics.X86;
 
 namespace CarBazaar.Data.Seeds
 {

@@ -12,8 +12,6 @@ const CarListingDetails = () => {
     const user = useSelector((state) => state.user.user);
     const token = useSelector((state) => state.auth.token);
 
-    console.log(user);
-
     const [carListing, setCarListing] = useState(null);
     const [contactOpen, setContactOpen] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);

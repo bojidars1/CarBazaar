@@ -24,6 +24,7 @@ namespace CarBazaar.UnitTests.Repositories
 			{
 				Id = Guid.NewGuid(),
 				Name = "TestCar",
+				SellerId = "seller",
 				Type = "Sedan",
 				Brand = "Mercedes",
 				Price = 1000,
@@ -54,6 +55,7 @@ namespace CarBazaar.UnitTests.Repositories
 			{
 				Id = Guid.NewGuid(),
 				Name = "Car 1",
+				SellerId = "seller",
 				Type = "Sedan",
 				Brand = "Mercedes",
 				Price = 1000,
@@ -71,6 +73,7 @@ namespace CarBazaar.UnitTests.Repositories
 			{
 				Id = Guid.NewGuid(),
 				Name = "Car 2",
+				SellerId = "seller",
 				Type = "Sedan",
 				Brand = "Mercedes",
 				Price = 1000,
@@ -102,6 +105,7 @@ namespace CarBazaar.UnitTests.Repositories
 			{
 				Id = Guid.NewGuid(),
 				Name = "OldName",
+				SellerId = "seller",
 				Type = "Sedan",
 				Brand = "Mercedes",
 				Price = 1000,
@@ -134,6 +138,7 @@ namespace CarBazaar.UnitTests.Repositories
 			{
 				Id = Guid.NewGuid(),
 				Name = "OldName",
+				SellerId = "seller",
 				Type = "Sedan",
 				Brand = "Mercedes",
 				Price = 1000,

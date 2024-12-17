@@ -20,6 +20,8 @@ import AdminDashboard from './Views/Admin/AdminDashboard';
 import UsersDashboard from './Views/Admin/UsersDashboard';
 import CarListingsDashboard from './Views/Admin/CarListingsDashboard';
 import NotificationsList from './Views/Notification/NotificationsList';
+import InternalError from './Views/Error/InternalError';
+import NotFound from './Views/Error/NotFound';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -48,6 +50,9 @@ const App = () => {
               <Route path='/register' element={<Register />} />
 
               <Route path='/notifications' element={<NotificationsList /> } />
+
+              <Route path='/error' element={<InternalError />} />
+              <Route path='*' element={<NotFound />} />
 
               <Route path='/admin' element={<AdminDashboard /> }>
                 <Route path='users' element={<UsersDashboard /> } />

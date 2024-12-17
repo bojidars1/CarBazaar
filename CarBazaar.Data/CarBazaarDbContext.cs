@@ -1,8 +1,10 @@
 ﻿using CarBazaar.Data.Configurations;
 using CarBazaar.Data.Models;
 using CarBazaar.Data.Seeds;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,11 +38,22 @@ namespace CarBazaar.Data
 			modelBuilder.ApplyConfiguration(new ChatMessageConfiguration());
 			modelBuilder.ApplyConfiguration(new NotificationConfiguration());
 
+
 			modelBuilder.ApplyConfiguration(new CarBazaarUserSeed());
-			//modelBuilder.ApplyConfiguration(new CarListingSeed());
-			//modelBuilder.ApplyConfiguration(new ChatMessageSeed());
-			//modelBuilder.ApplyConfiguration(new FavouriteCarListingSeed());
-			//modelBuilder.ApplyConfiguration(new NotificationSeed());
+			modelBuilder.ApplyConfiguration(new CarListingSeed());
+			modelBuilder.ApplyConfiguration(new ChatMessageSeed());
+			modelBuilder.ApplyConfiguration(new FavouriteCarListingSeed());
+			modelBuilder.ApplyConfiguration(new NotificationSeed());
+		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.ConfigureWarnings(warnings =>
+			{
+				warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
+			});
+
+			base.OnConfiguring(optionsBuilder);
 		}
 	}
 }

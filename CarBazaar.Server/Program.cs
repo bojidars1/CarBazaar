@@ -100,12 +100,12 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<CarBazaarUser>>();
+	var services = scope.ServiceProvider;
+	var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+	var userManager = services.GetRequiredService<UserManager<CarBazaarUser>>();
 
-    await RoleSeeder.SeedRolesAsync(roleManager);
-    await RoleSeeder.AssignAdminRoleToUser(userManager, "admin@carbazaar.com");
+	await RoleSeeder.SeedRolesAsync(roleManager);
+	await RoleSeeder.AssignAdminRoleToUser(userManager, "admin@carbazaar.com");
 }
 
 app.UseDefaultFiles();

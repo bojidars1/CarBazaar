@@ -225,6 +225,7 @@ namespace CarBazaar.Services
 			var items = paginatedQuery.Select(cl => new CarListingListDetailsDto
 			{
 				Id = cl.Id,
+				SellerId = cl.SellerId,
 				Name = cl.Name,
 				Price = cl.Price,
 				ImageURL = cl.ImageURL,

@@ -9,6 +9,8 @@ const CarListingCard = ({ car }) => {
     const user = useSelector((state) => state.user.user);
     const token = useSelector((state) => state.auth.token);
 
+    console.log(car);
+
     const handleDetailsClick = (id) => {
         navigate(`/carlisting/details/${id}`)
     };

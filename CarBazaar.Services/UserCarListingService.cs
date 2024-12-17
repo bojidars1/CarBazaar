@@ -45,6 +45,7 @@ namespace CarBazaar.Services
 			var items = listings
 				.Select(cl => new CarListingListDetailsDto{
 				Id = cl.CarListingId,
+				SellerId = cl.UserId,
 				Name = cl.CarListing.Name,
 				Price = cl.CarListing.Price,
 				ImageURL = cl.CarListing.ImageURL,

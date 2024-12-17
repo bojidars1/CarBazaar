@@ -15,7 +15,7 @@ namespace CarBazaar.Services
 	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository,
 		IUserRepository userRepository) : IChatService
 	{
-		public async Task<PaginatedList<ChatSummaryDto>> GetChatSummariesAsync(string userId, int page, int pageSize)
+		public async Task<PaginatedChatSummariesDto> GetChatSummariesAsync(string userId, int page, int pageSize)
 		{
 			var allChatMessages = await chatRepository.GetAllAsync();
 
@@ -47,7 +47,11 @@ namespace CarBazaar.Services
 			PaginatedList<ChatSummaryDto> chatSummariesPaginated = await PaginatedList<ChatSummaryDto>
 				.CreateAsync(items, page, pageSize);
 
-			return result;
+			return new PaginatedChatSummariesDto
+			{
+				Items = chatSummariesPaginated.ToList(),
+				TotalPages = chatSummariesPaginated.Count
+			};
 		}
 
 		public async Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId)

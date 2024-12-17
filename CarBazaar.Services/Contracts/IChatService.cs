@@ -15,6 +15,6 @@ namespace CarBazaar.Services.Contracts
 
 		Task<List<MessageDto>> GetMessagesAsync(string carListingId, string userId, string participantId);
 
-		Task<List<ChatSummaryDto>> GetChatSummariesAsync(string userId);
+		Task<PaginatedChatSummariesDto> GetChatSummariesAsync(string userId, int page, int pageSize);
 	}
 }

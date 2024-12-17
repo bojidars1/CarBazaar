@@ -8,7 +8,7 @@ namespace CarBazaar.ViewModels.Chat
 {
     public class PaginatedChatSummariesDto
     {
-        public List<ChatSummaryDto> ChatSummaries { get; set; }
+        public List<ChatSummaryDto> Items { get; set; }
 
         public int TotalPages { get; set; }
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarBazaar.Data.Migrations
 {
     [DbContext(typeof(CarBazaarDbContext))]
-    [Migration("20241217184044_InitalDb")]
-    partial class InitalDb
+    [Migration("20241217185119_SeedData")]
+    partial class SeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,59 @@ namespace CarBazaar.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin-user",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bfff2856-5811-41ba-9ecc-3f4ba14ca357",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 222, DateTimeKind.Utc).AddTicks(1112),
+                            Email = "admin@carbazaar.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@CARBAZAAR.COM",
+                            NormalizedUserName = "ADMIN@CARBAZAAR.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIed9N1FT6eBwCH55Qe7KNWmHzNTYRtr37H9Q72bgc0zzpjuTlLPkSBvW1G7bGkkmg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7b063d85-93b9-4f8b-ab9d-71a1ab190d12",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@carbazaar.com"
+                        },
+                        new
+                        {
+                            Id = "user-1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4bb2aade-a56e-438e-92e9-b2a454c896ad",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 284, DateTimeKind.Utc).AddTicks(8455),
+                            Email = "bojidar.stoi@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BOJIDAR.STOI@GMAIL.COM",
+                            NormalizedUserName = "BOJIDAR.STOI@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAqc8PsQpDJ9HXimjs2ACwE4rB+vkbHrGNTKWGbqFpjsZvaFdfg7ot8zPL4XGp1HPg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7c2ee22b-88a2-4b2c-b3cb-e669ba0d834f",
+                            TwoFactorEnabled = false,
+                            UserName = "bojidar.stoi@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "user-2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3cf6a4ed-c609-4fdd-ae79-121f6af54261",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 341, DateTimeKind.Utc).AddTicks(6566),
+                            Email = "john.wick@abv.bg",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JOHN.WICK@ABV.BG",
+                            NormalizedUserName = "JOHN.WICK@ABV.BG",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFjL2jsya2nBV47aXfNHRigFxm/39Vv/awazyoe0idaBIpC9H5NPcaY9WffheMEcMQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e30fe9e7-12b0-47e5-b824-7b7eb9f480a3",
+                            TwoFactorEnabled = false,
+                            UserName = "john.wick@abv.bg"
+                        });
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.CarListing", b =>
@@ -173,6 +226,46 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("SellerId");
 
                     b.ToTable("CarListings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Brand = "Toyota",
+                            Color = "White",
+                            ExtraInfo = "Well maintained, low mileage.",
+                            Gearbox = "Automatic",
+                            Horsepower = 130,
+                            ImageURL = "https://scene7.toyota.eu/is/image/toyotaeurope/cors0005a_web_2023:Medium-Landscape?ts=1708962012070&resMode=sharp2&op_usm=1.75,0.3,2,0",
+                            IsDeleted = false,
+                            Km = 80000L,
+                            Name = "Toyota Corolla",
+                            Price = 15000m,
+                            ProductionYear = 2018,
+                            PublicationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = "user-1",
+                            State = "Used",
+                            Type = "Sedan"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Brand = "BMW",
+                            Color = "Black",
+                            ExtraInfo = "Luxury package included.",
+                            Gearbox = "Automatic",
+                            Horsepower = 300,
+                            ImageURL = "https://media.ed.edmunds-media.com/bmw/x5/2025/oem/2025_bmw_x5_4dr-suv_xdrive40i_fq_oem_1_1280.jpg",
+                            IsDeleted = false,
+                            Km = 5000L,
+                            Name = "BMW X5",
+                            Price = 50000m,
+                            ProductionYear = 2022,
+                            PublicationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = "user-2",
+                            State = "New",
+                            Type = "SUV"
+                        });
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.ChatMessage", b =>
@@ -213,6 +306,17 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("ChatMessages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ef3835be-ca5e-4840-918c-13fb1c8e2039"),
+                            CarListingId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Message = "Is the car still available?",
+                            ReceiverId = "user-2",
+                            SenderId = "user-1",
+                            Timestamp = new DateTime(2024, 12, 17, 18, 51, 19, 399, DateTimeKind.Utc).AddTicks(9364)
+                        });
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.FavouriteCarListing", b =>
@@ -230,6 +334,13 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("CarListingId");
 
                     b.ToTable("FavoriteCarListings");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user-1",
+                            CarListingId = new Guid("22222222-2222-2222-2222-222222222222")
+                        });
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.Notification", b =>
@@ -273,6 +384,18 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("143b16bd-d4fe-4b35-bc4e-339718692f8a"),
+                            CarListingId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 400, DateTimeKind.Utc).AddTicks(2280),
+                            IsRead = false,
+                            Message = "You have a new message from bojidar.stoi@gmail.com.",
+                            SenderId = "user-1",
+                            UserId = "user-2"
+                        });
                 });
 
             modelBuilder.Entity("CarBazaar.Data.Models.UserCarListing", b =>
@@ -290,6 +413,18 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("CarListingId");
 
                     b.ToTable("UserCarListings");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user-1",
+                            CarListingId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            UserId = "user-2",
+                            CarListingId = new Guid("22222222-2222-2222-2222-222222222222")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

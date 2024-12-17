@@ -41,6 +41,7 @@ namespace CarBazaar.Data
 
 			modelBuilder.ApplyConfiguration(new CarBazaarUserSeed());
 			modelBuilder.ApplyConfiguration(new CarListingSeed());
+			modelBuilder.ApplyConfiguration(new UserCarListingSeed());
 			modelBuilder.ApplyConfiguration(new ChatMessageSeed());
 			modelBuilder.ApplyConfiguration(new FavouriteCarListingSeed());
 			modelBuilder.ApplyConfiguration(new NotificationSeed());

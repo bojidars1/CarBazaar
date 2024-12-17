@@ -94,16 +94,16 @@ namespace CarBazaar.Data.Migrations
                         {
                             Id = "admin-user",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d022a220-a363-4a57-9b35-0fe69d6c9718",
-                            CreatedAt = new DateTime(2024, 12, 17, 18, 41, 23, 2, DateTimeKind.Utc).AddTicks(3827),
+                            ConcurrencyStamp = "bfff2856-5811-41ba-9ecc-3f4ba14ca357",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 222, DateTimeKind.Utc).AddTicks(1112),
                             Email = "admin@carbazaar.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARBAZAAR.COM",
                             NormalizedUserName = "ADMIN@CARBAZAAR.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECP1ss1UZyLC398VvaKVGNXFwwl5I3Yc3VXDFvvtEPAoM7rGId2dmxyjgh0//UVnTA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIed9N1FT6eBwCH55Qe7KNWmHzNTYRtr37H9Q72bgc0zzpjuTlLPkSBvW1G7bGkkmg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a9cd28ae-f6cb-4643-b70f-bade32f47216",
+                            SecurityStamp = "7b063d85-93b9-4f8b-ab9d-71a1ab190d12",
                             TwoFactorEnabled = false,
                             UserName = "admin@carbazaar.com"
                         },
@@ -111,16 +111,16 @@ namespace CarBazaar.Data.Migrations
                         {
                             Id = "user-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94fe044d-e007-4fa6-9c5b-f81ac9b42988",
-                            CreatedAt = new DateTime(2024, 12, 17, 18, 41, 23, 69, DateTimeKind.Utc).AddTicks(3522),
+                            ConcurrencyStamp = "4bb2aade-a56e-438e-92e9-b2a454c896ad",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 284, DateTimeKind.Utc).AddTicks(8455),
                             Email = "bojidar.stoi@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOJIDAR.STOI@GMAIL.COM",
                             NormalizedUserName = "BOJIDAR.STOI@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ8CVAkKdcmAwm6eB4w9MjyonnlBCDXdRQDG067tSjbzH7andD0zp3WRa4pBqmJ8dA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAqc8PsQpDJ9HXimjs2ACwE4rB+vkbHrGNTKWGbqFpjsZvaFdfg7ot8zPL4XGp1HPg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c6b97d2-cb92-4961-8565-ce38688e6d57",
+                            SecurityStamp = "7c2ee22b-88a2-4b2c-b3cb-e669ba0d834f",
                             TwoFactorEnabled = false,
                             UserName = "bojidar.stoi@gmail.com"
                         },
@@ -128,16 +128,16 @@ namespace CarBazaar.Data.Migrations
                         {
                             Id = "user-2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fcaa037a-933d-41be-84ba-ebaedb7b4b31",
-                            CreatedAt = new DateTime(2024, 12, 17, 18, 41, 23, 131, DateTimeKind.Utc).AddTicks(2242),
+                            ConcurrencyStamp = "3cf6a4ed-c609-4fdd-ae79-121f6af54261",
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 341, DateTimeKind.Utc).AddTicks(6566),
                             Email = "john.wick@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "JOHN.WICK@ABV.BG",
                             NormalizedUserName = "JOHN.WICK@ABV.BG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJcTK+CQeGa09wVevG+uWoc/+ZJjcaEMfRa7mrlyx1R29BYmpviQ1FMY+4X/J6lEFg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFjL2jsya2nBV47aXfNHRigFxm/39Vv/awazyoe0idaBIpC9H5NPcaY9WffheMEcMQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b5d2b218-15e2-42ff-854d-875b59ea3ad1",
+                            SecurityStamp = "e30fe9e7-12b0-47e5-b824-7b7eb9f480a3",
                             TwoFactorEnabled = false,
                             UserName = "john.wick@abv.bg"
                         });
@@ -307,12 +307,12 @@ namespace CarBazaar.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9ceb3623-7822-4af8-a7fa-eed8da9f5c9c"),
+                            Id = new Guid("ef3835be-ca5e-4840-918c-13fb1c8e2039"),
                             CarListingId = new Guid("22222222-2222-2222-2222-222222222222"),
                             Message = "Is the car still available?",
                             ReceiverId = "user-2",
                             SenderId = "user-1",
-                            Timestamp = new DateTime(2024, 12, 17, 18, 41, 23, 193, DateTimeKind.Utc).AddTicks(2536)
+                            Timestamp = new DateTime(2024, 12, 17, 18, 51, 19, 399, DateTimeKind.Utc).AddTicks(9364)
                         });
                 });
 
@@ -385,9 +385,9 @@ namespace CarBazaar.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fba8f601-1cfe-4d7e-b60f-e0189942c549"),
+                            Id = new Guid("143b16bd-d4fe-4b35-bc4e-339718692f8a"),
                             CarListingId = new Guid("22222222-2222-2222-2222-222222222222"),
-                            CreatedAt = new DateTime(2024, 12, 17, 18, 41, 23, 193, DateTimeKind.Utc).AddTicks(5964),
+                            CreatedAt = new DateTime(2024, 12, 17, 18, 51, 19, 400, DateTimeKind.Utc).AddTicks(2280),
                             IsRead = false,
                             Message = "You have a new message from bojidar.stoi@gmail.com.",
                             SenderId = "user-1",
@@ -410,6 +410,18 @@ namespace CarBazaar.Data.Migrations
                     b.HasIndex("CarListingId");
 
                     b.ToTable("UserCarListings");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user-1",
+                            CarListingId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            UserId = "user-2",
+                            CarListingId = new Guid("22222222-2222-2222-2222-222222222222")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

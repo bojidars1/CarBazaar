@@ -10,7 +10,7 @@ namespace CarBazaar.Data.Seeds
 		{
 			var user1 = new CarBazaarUser
 			{
-				Id = Guid.NewGuid().ToString(),
+				Id = "user-1",
 				UserName = "bojidar.stoi@gmail.com",
 				NormalizedUserName = "BOJIDAR.STOI@GMAIL.COM",
 				Email = "bojidar.stoi@gmail.com",
@@ -19,7 +19,7 @@ namespace CarBazaar.Data.Seeds
 
 			var user2 = new CarBazaarUser
 			{
-				Id = Guid.NewGuid().ToString(),
+				Id = "user-2",
 				UserName = "john.wick@abv.bg",
 				NormalizedUserName = "JOHN.WICK@ABV.BG",
 				Email = "john.wick@abv.bg",

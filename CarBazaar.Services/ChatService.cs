@@ -42,15 +42,14 @@ namespace CarBazaar.Services
 				LastMessage = cs.LastMessage.Message,
 				LastMessageTimestamp = cs.LastMessage.Timestamp
 
-			}).AsQueryable();
+			}).ToList();
 
-			PaginatedList<ChatSummaryDto> chatSummariesPaginated = await PaginatedList<ChatSummaryDto>
-				.CreateAsync(items, page, pageSize);
+			int totalPages = (int)Math.Ceiling(items.Count / (double)pageSize);
 
 			return new PaginatedChatSummariesDto
 			{
-				Items = chatSummariesPaginated.ToList(),
-				TotalPages = chatSummariesPaginated.Count
+				Items = items,
+				TotalPages = totalPages
 			};
 		}
 

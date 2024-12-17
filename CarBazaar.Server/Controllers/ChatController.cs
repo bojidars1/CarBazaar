@@ -59,7 +59,7 @@ namespace CarBazaar.Server.Controllers
 		}
 
 		[HttpGet("summaries")]
-		public async Task<IActionResult> GetChatSummaries()
+		public async Task<IActionResult> GetChatSummaries([FromQuery] int page = 1, int pageSize = 10)
 		{
 			var userId = GetUserId();
 			if (userId == null)
@@ -67,7 +67,7 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("User id not found");
 			}
 
-			var chatSummaries = await chatService.GetChatSummariesAsync(userId);
+			var chatSummaries = await chatService.GetChatSummariesAsync(userId, page, pageSize);
 
 			return Ok(chatSummaries);
 		}

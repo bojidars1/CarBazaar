@@ -9,8 +9,8 @@ import CarListings from './Views/CarListing/CarListingsList';
 import CarListingDetails from './Views/CarListing/CarListingDetails';
 import EditCarListingForm from './Views/CarListing/EditCarListing';
 import DeleteCarListing from './Views/CarListing/DeleteCarListing';
-import Login from './Views/Login';
-import Register from './Views/Register';
+import Login from './Views/Account/Login';
+import Register from './Views/Account/Register';
 import useAuth from './services/authService';
 import UserCarListingList from './Views/UserCarListing/UserCarListingList';
 import FavouriteCarListingList from './Views/FavouriteCarListing/FavouriteCarListingList';
@@ -40,15 +40,15 @@ const App = () => {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/carlisting/add" element={<AddCarListing />} />
+              <Route path="/carlisting/add" element={<ProtectedRoute> <AddCarListing /> </ProtectedRoute>} />
               <Route path="/carlisting/list" element={<CarListings />} />
               <Route path="/carlisting/details/:id" element={<CarListingDetails /> } />
-              <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
-              <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
-              <Route path='/user-carlistings' element={<UserCarListingList /> } />
+              <Route path="/carlisting/edit/:id" element={<ProtectedRoute> <EditCarListingForm /> </ProtectedRoute> } />
+              <Route path='/carlisting/delete/:id' element={<ProtectedRoute> <DeleteCarListing /> </ProtectedRoute> } />
+              <Route path='/user-carlistings' element={<ProtectedRoute> <UserCarListingList /> </ProtectedRoute> } />
               <Route path='/favourites' element={<ProtectedRoute> <FavouriteCarListingList /> </ProtectedRoute> } />
-              <Route path='/chats' element={<ChatList /> } />
-              <Route path='/chat/:carListingId/:participantId' element={<ChatMessages /> } />
+              <Route path='/chats' element={<ProtectedRoute> <ChatList /> </ProtectedRoute> } />
+              <Route path='/chat/:carListingId/:participantId' element={<ProtectedRoute> <ChatMessages /> </ProtectedRoute> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
 
@@ -58,8 +58,8 @@ const App = () => {
               <Route path='*' element={<NotFound />} />
 
               <Route path='/admin' element={<ProtectedRoute> <AdminDashboard /> </ProtectedRoute> }>
-                <Route path='users' element={<UsersDashboard /> } />
-                <Route path='car-listings' element={<CarListingsDashboard />} />
+                <Route path='users' element={<ProtectedRoute> <UsersDashboard /> </ProtectedRoute> } />
+                <Route path='car-listings' element={<ProtectedRoute> <CarListingsDashboard /> </ProtectedRoute>} />
               </Route>
             </Routes>
           </Layout>

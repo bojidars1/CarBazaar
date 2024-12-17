@@ -80,9 +80,6 @@ const Layout = ({ children }) => {
             <Button color="inherit" component={Link} to="/carlisting/list">
               Cars
             </Button>
-            <Button color="inherit" component={Link} to="/about">
-              About
-            </Button>
 
             {user ? (
               <>
@@ -138,9 +135,6 @@ const Layout = ({ children }) => {
             </ListItem>
             <ListItem component={Link} to="/carlisting/list">
               <ListItemText primary="Cars" />
-            </ListItem>
-            <ListItem component={Link} to="/about">
-              <ListItemText primary="About" />
             </ListItem>
             <Divider />
             {user ? (

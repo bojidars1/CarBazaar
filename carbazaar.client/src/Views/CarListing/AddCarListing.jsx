@@ -123,13 +123,9 @@ const AddCarListing = () => {
             label="Car Brand"
             name="brand"
             fullWidth
-            select
             error={touched.brand && Boolean(errors.brand)}
             helperText={touched.brand && errors.brand}
           >
-            <MenuItem value="BMW">BMW</MenuItem>
-            <MenuItem value="Mercedes">Mercedes</MenuItem>
-            <MenuItem value="Audi">Audi</MenuItem>
           </Field>
 
           <Field
@@ -159,10 +155,14 @@ const AddCarListing = () => {
             as={TextField}
             label="State"
             name="state"
+            select
             fullWidth
             error={touched.state && Boolean(errors.state)}
             helperText={touched.state && errors.state}
-          />
+          >
+            <MenuItem value="New">New</MenuItem>
+            <MenuItem value="Used">Used</MenuItem>
+          </Field>
 
           <Field
             as={TextField}

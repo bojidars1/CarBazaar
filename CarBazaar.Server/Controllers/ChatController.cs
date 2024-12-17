@@ -19,20 +19,15 @@ namespace CarBazaar.Server.Controllers
 		public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
 		{
 			var userId = GetUserId();
-			if (userId == null)
+			if (string.IsNullOrEmpty(userId) || userId == request.ReceiverId)
 			{
-				return BadRequest("User id not found");
+				return BadRequest("Invalid userId");
 			}
 
 			bool isOneOfThemOwner = await chatService.IsOneOfThemOwner(userId, request.ReceiverId, request.CarListingId.ToString());
 			if (!isOneOfThemOwner)
 			{
 				return BadRequest("One of users must be the owner of the car");
-			}
-
-			if (userId == request.ReceiverId)
-			{
-				return BadRequest("Can't message yourself");
 			}
 
 			var userEmail = GetUserEmail();

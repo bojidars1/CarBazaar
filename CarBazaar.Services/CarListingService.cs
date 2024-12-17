@@ -107,9 +107,16 @@ namespace CarBazaar.Services
 				return null;
 			}
 
+			var userCar = await userCarListingService.GetByCarIdAsync(id);
+			if (userCar == null)
+			{
+				return null;
+			}
+
 			return new CarListingDetailsDto
 			{
 				Id = listing.Id,
+				SellerId = userCar.UserId,
 				Name = listing.Name,
 				Type = listing.Type,
 				Brand = listing.Brand,

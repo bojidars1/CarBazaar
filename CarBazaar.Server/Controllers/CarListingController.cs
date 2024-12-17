@@ -43,7 +43,7 @@ namespace CarBazaar.Server.Controllers
 		[ProducesResponseType(404)]
 		public async Task<IActionResult> Details(string id)
 		{
-			if (id == string.Empty || id == null)
+			if (string.IsNullOrEmpty(id))
 			{
 				return NotFound();
 			}

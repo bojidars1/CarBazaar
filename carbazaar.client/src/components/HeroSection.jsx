@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, InputLabel, FormControl, MenuItem, Select, Paper, Divider, Grid2 } from '@mui/material';
+import { Box, Typography, Button, InputLabel, Grid, FormControl, MenuItem, Select, Paper, Divider } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
@@ -26,7 +26,6 @@ const HeroSection = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 textAlign: 'center',
-                background: 'linear-gradient(to bottom, #f9f9f9, #e0f7fa)',
                 p: 4,
                 gap: 4,
             }}
@@ -67,9 +66,9 @@ const HeroSection = () => {
                     backgroundColor: '#ffffff',
                 }}
             >
-                <Grid2 container spacing={2} justifyContent="center" alignItems="center">
+                <Grid container spacing={2} alignItems="center" justifyContent="center">
                     {/* Car Type Filter */}
-                    <Grid2 xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <FormControl fullWidth variant="outlined">
                             <InputLabel>Car Type</InputLabel>
                             <Select value={carType} onChange={handleCarTypeChange} label="Car Type">
@@ -80,23 +79,20 @@ const HeroSection = () => {
                                 <MenuItem value="Convertible">Convertible</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid2>
+                    </Grid>
 
                     {/* Car Brand Filter */}
-                    <Grid2 xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <FormControl fullWidth variant="outlined">
                             <InputLabel>Car Brand</InputLabel>
                             <Select value={carBrand} onChange={handleCarBrandChange} label="Car Brand">
                                 <MenuItem value="All">All</MenuItem>
-                                <MenuItem value="BMW">BMW</MenuItem>
-                                <MenuItem value="Mercedes">Mercedes</MenuItem>
-                                <MenuItem value="Audi">Audi</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid2>
+                    </Grid>
 
                     {/* Price Range Filter */}
-                    <Grid2 xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <FormControl fullWidth variant="outlined">
                             <InputLabel>Price Range</InputLabel>
                             <Select value={priceRange} onChange={handlePriceRangeChange} label="Price Range">
@@ -106,10 +102,10 @@ const HeroSection = () => {
                                 <MenuItem value="50000+">50,000+</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid2>
+                    </Grid>
 
                     {/* Search Button */}
-                    <Grid2 xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <Button
                             variant="contained"
                             color="primary"
@@ -124,12 +120,12 @@ const HeroSection = () => {
                         >
                             Search
                         </Button>
-                    </Grid2>
-                </Grid2>
+                    </Grid>
+                </Grid>
             </Paper>
 
             {/* Call-to-Action */}
-            <Divider sx={{ width: '80%', my: 2 }} />
+            <Divider sx={{ width: '80%', my: 0.5 }} />
             <Button
                 component={Link}
                 to="/carlisting/add"
@@ -139,10 +135,7 @@ const HeroSection = () => {
                 sx={{
                     textTransform: 'none',
                     fontWeight: 'bold',
-                    borderRadius: 2,
-                    '&:hover': {
-                        backgroundColor: 'secondary.light',
-                    },
+                    borderRadius: 2
                 }}
             >
                 Sell Your Car Now

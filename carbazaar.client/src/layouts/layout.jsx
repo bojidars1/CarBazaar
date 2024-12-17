@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { clearUser } from '../redux/userSlice';
 import api from '../api/api';
-import NotificationDropdown from '../pages/Notification/NotificationDropdown';
+import NotificationDropdown from '../components/Notification/NotificationDropdown';
 
 const Layout = ({ children }) => {
     const user = useSelector((state) => state.user.user);

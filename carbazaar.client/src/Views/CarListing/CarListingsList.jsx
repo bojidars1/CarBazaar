@@ -1,10 +1,10 @@
-import { Box, CircularProgress, Typography, Card, Grid2, CardMedia, CardContent, CardActions, Button, Pagination } from '@mui/material';
+import { Box, CircularProgress, Typography, Grid2, Pagination } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import CarListingCard from './CarListingCard';
+import CarListingCard from '../../components/CarListing/CarListingCard';
 import { useLocation } from 'react-router-dom';
-import api from '../../../api/api';
+import api from '../../api/api';
 
 const CarListings = () => {
     const location = useLocation();

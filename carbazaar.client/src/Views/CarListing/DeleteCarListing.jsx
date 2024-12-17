@@ -1,7 +1,7 @@
 import { Button, Paper, Typography, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../../../api/api';
+import api from '../../api/api';
 
 const DeleteCarListing = () => {
     const { id } = useParams();

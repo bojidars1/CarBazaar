@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
 import { useNavigate, useParams } from "react-router-dom";
-import api from '../../../api/api';
+import api from '../../api/api';
 
 const CarListingForm = () => {
     const { id } = useParams();

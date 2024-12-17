@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, MenuItem, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import api from '../../../api/api';
+import api from '../../api/api';
 
-const CarListingForm = () => {
+const AddCarListing = () => {
     const [formData, setFormData] = useState({
         name: '',
         type: '',
@@ -223,4 +223,4 @@ const CarListingForm = () => {
     );
 };
 
-export default CarListingForm;
+export default AddCarListing;

@@ -1,5 +1,5 @@
 import { Box, Button, CardContent, CardMedia, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, Paper, Typography } from '@mui/material';
-import api from '../../../api/api';
+import api from '../../api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Star, StarBorder } from '@mui/icons-material';

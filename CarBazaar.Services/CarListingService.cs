@@ -22,6 +22,7 @@ namespace CarBazaar.Services
 			{
 				Id = Guid.NewGuid(),
 				Name = dto.Name,
+				SellerId = userId,
 				Type = dto.Type,
 				Brand = dto.Brand,
 				Price = dto.Price,
@@ -107,16 +108,10 @@ namespace CarBazaar.Services
 				return null;
 			}
 
-			var userCar = await userCarListingService.GetByCarIdAsync(id);
-			if (userCar == null)
-			{
-				return null;
-			}
-
 			return new CarListingDetailsDto
 			{
 				Id = listing.Id,
-				SellerId = userCar.UserId,
+				SellerId = listing.SellerId,
 				Name = listing.Name,
 				Type = listing.Type,
 				Brand = listing.Brand,

@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using CarBazaar.Data.Models;
+using CarBazaar.Infrastructure.Extensions;
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Chat;
@@ -14,7 +15,7 @@ namespace CarBazaar.Services
 	public class ChatService(IUserCarListingRepository userCarListingRepository, IChatRepository chatRepository,
 		IUserRepository userRepository) : IChatService
 	{
-		public async Task<List<ChatSummaryDto>> GetChatSummariesAsync(string userId)
+		public async Task<PaginatedList<ChatSummaryDto>> GetChatSummariesAsync(string userId, int page, int pageSize)
 		{
 			var allChatMessages = await chatRepository.GetAllAsync();
 
@@ -30,7 +31,7 @@ namespace CarBazaar.Services
 				.ToList();
 
 			var users = await userRepository.GetAllAsync();
-			var result = chatSummaries.Select(cs => new ChatSummaryDto
+			var items = chatSummaries.Select(cs => new ChatSummaryDto
 			{
 				CarListingId = cs.CarListingId,
 				OtherParticipantId = cs.OtherParticipantId,
@@ -41,7 +42,10 @@ namespace CarBazaar.Services
 				LastMessage = cs.LastMessage.Message,
 				LastMessageTimestamp = cs.LastMessage.Timestamp
 
-			}).ToList();
+			}).AsQueryable();
+
+			PaginatedList<ChatSummaryDto> chatSummariesPaginated = await PaginatedList<ChatSummaryDto>
+				.CreateAsync(items, page, pageSize);
 
 			return result;
 		}

@@ -22,8 +22,6 @@ const ChatList = () => {
     const pageSize = 10;
 
     const fetchChats = async (page) => {
-        setLoading(true);
-        setError(null);
         try {
             const response = await api.get('/Chat/summaries', {
                 params: {
@@ -67,7 +65,7 @@ const ChatList = () => {
                     <List>
                         {chats.map(chat => (
                             <ListItem
-                                button
+                                component={"button"}
                                 key={`${chat.carListingId}-${chat.otherParticipantId}`}
                                 onClick={() => handleChatClick(chat.carListingId, chat.otherParticipantId)}
                                 sx={{

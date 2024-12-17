@@ -21,7 +21,7 @@ const UsersDashboard = () => {
 
       setUsers(response.data.items); 
       setTotalPages(response.data.totalPages || 0);  
-    } catch (error) {
+    } catch (err) {
       console.error(err);
       navigate('/error');
     } finally {

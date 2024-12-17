@@ -2,7 +2,7 @@ import { Container, Box, Typography, TextField, Button } from '@mui/material';
 import api from '../api/api';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setUser } from '../redux/userSlice';
 import { setAuthenticated } from '../redux/authSlice';
 import { jwtDecode } from 'jwt-decode';
@@ -10,6 +10,9 @@ import { jwtDecode } from 'jwt-decode';
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -33,9 +36,9 @@ const Login = () => {
 
             localStorage.setItem('token', accessToken);
             
-            dispatch(setAuthenticated(accessToken));
+            dispatch(setAuthenticated(true));
             dispatch(setUser(user));
-            navigate('/');
+            navigate(from, { replace: true });
         } catch (err) {
             console.error(err);
             navigate('/error');

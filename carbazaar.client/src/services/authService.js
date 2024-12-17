@@ -25,7 +25,7 @@ const useAuth = () => {
                   userEmail: userEmail,
                   carListings: carListings
                 };
-                dispatch(setAuthenticated(token));
+                dispatch(setAuthenticated(true));
                 dispatch(setUser(user));
             }
         }
@@ -40,7 +40,7 @@ const useAuth = () => {
 
             const decodedToken = jwtDecode(accessToken);
             const userEmail = decodedToken.email;
-            dispatch(setAuthenticated(accessToken));
+            dispatch(setAuthenticated(true));
             dispatch(setUser(userEmail));
         } catch (err) {
             console.log('Error refreshing access token: ', err);

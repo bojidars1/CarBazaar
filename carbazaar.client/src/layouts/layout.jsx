@@ -32,6 +32,7 @@ const Layout = ({ children }) => {
             navigate('/');
         } catch (err) {
             console.log(err);
+            navigate('/error');
         }
     };
 

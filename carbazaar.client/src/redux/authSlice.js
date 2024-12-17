@@ -7,7 +7,8 @@ const slice = createSlice({ name, initialState, reducers });
 
 function createIntialState() {
     return {
-        token: null
+        token: localStorage.getItem('token') || null,
+        isLoading: false
     }
 }
 

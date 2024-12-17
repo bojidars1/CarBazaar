@@ -23,6 +23,7 @@ import NotificationsList from './Views/Notification/NotificationsList';
 import InternalError from './Views/Error/InternalError';
 import NotFound from './Views/Error/NotFound';
 import ErrorBoundary from './components/Error/ErrorBoundary.jsx';
+import ProtectedRoute from './components/Account/ProtectedRoute.jsx';
 
 const App = () => {
    const { checkAccessToken } = useAuth();
@@ -45,18 +46,18 @@ const App = () => {
               <Route path="/carlisting/edit/:id" element={<EditCarListingForm /> } />
               <Route path='/carlisting/delete/:id' element={<DeleteCarListing /> } />
               <Route path='/user-carlistings' element={<UserCarListingList /> } />
-              <Route path='/favourites' element={<FavouriteCarListingList /> } />
+              <Route path='/favourites' element={<ProtectedRoute> <FavouriteCarListingList /> </ProtectedRoute> } />
               <Route path='/chats' element={<ChatList /> } />
               <Route path='/chat/:carListingId/:participantId' element={<ChatMessages /> } />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
 
-              <Route path='/notifications' element={<NotificationsList /> } />
+              <Route path='/notifications' element={<ProtectedRoute> <NotificationsList /> </ProtectedRoute> } />
 
               <Route path='/error' element={<InternalError />} />
               <Route path='*' element={<NotFound />} />
 
-              <Route path='/admin' element={<AdminDashboard /> }>
+              <Route path='/admin' element={<ProtectedRoute> <AdminDashboard /> </ProtectedRoute> }>
                 <Route path='users' element={<UsersDashboard /> } />
                 <Route path='car-listings' element={<CarListingsDashboard />} />
               </Route>

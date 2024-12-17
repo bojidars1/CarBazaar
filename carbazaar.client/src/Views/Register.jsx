@@ -41,7 +41,7 @@ const Register = () => {
 
             localStorage.setItem('token', accessToken);
             
-            dispatch(setAuthenticated(accessToken));
+            dispatch(setAuthenticated(true));
             dispatch(setUser(user));
             navigate('/');
         } catch (err) {

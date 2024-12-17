@@ -3,9 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
 import { Box, Button, CircularProgress, Typography, TextField } from '@mui/material';
 import * as signalR from '@microsoft/signalr';
+import { useSelector } from 'react-redux';
 
 const ChatMessages = () => {
     const navigate = useNavigate();
+
+    const user = useSelector((state) => state.user.user);
 
     const { carListingId, participantId } = useParams();
     const [messages, setMessages] = useState([]);
@@ -98,7 +101,12 @@ const ChatMessages = () => {
             onClick={() => {
                 sendMessage();
                 if (connection) {
-                    connection.invoke('SendMessage', carListingId, participantId, newMessage);
+                    connection.invoke('SendMessage', carListingId, participantId, newMessage)
+                    .catch(err => console.error("Error sending message: ", err));
+                    
+                    const notificationMessage = `You have a new message from ${user.userEmail || 'Client'}`;
+                    connection.invoke('SendNotification', participantId, notificationMessage)
+                    .catch(err => console.error("Error sending notification: ", err));
                 }
             }}>
                 Send

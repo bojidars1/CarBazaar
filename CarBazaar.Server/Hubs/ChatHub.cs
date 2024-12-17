@@ -18,10 +18,5 @@ namespace CarBazaar.Server.Hubs
 				Message = message
 			});
 		}
-
-		public async Task SendNotification(string recepientId, string message)
-		{
-			await Clients.User(recepientId).SendAsync("ReceiveNotification", message);
-		}
 	}
 }

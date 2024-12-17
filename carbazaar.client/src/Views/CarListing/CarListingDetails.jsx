@@ -84,14 +84,7 @@ import {
   
     if (loading) {
       return (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
           <Typography variant="h6">Loading...</Typography>
         </Box>
       );
@@ -99,15 +92,8 @@ import {
   
     if (!carListing) {
       return (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <Typography variant="h6">{"Car listing not found."}</Typography>
+        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+          <Typography variant="h6">Car listing not found.</Typography>
         </Box>
       );
     }
@@ -119,11 +105,12 @@ import {
           margin: "auto",
           mt: 5,
           p: 3,
-          backgroundColor: "#f9f9f9",
+          backgroundColor: "#ffffff",
           borderRadius: 3,
           boxShadow: 3,
         }}
       >
+        {/* Main Card */}
         <Paper elevation={3} sx={{ overflow: "hidden", borderRadius: 3 }}>
           <Grid2 container spacing={0}>
             {/* Image Section */}
@@ -137,15 +124,16 @@ import {
                 alt={carListing.name}
                 sx={{
                   width: "100%",
-                  height: "400px",
-                  objectFit: "cover", 
+                  height: { xs: "250px", md: "400px" },
+                  objectFit: "cover",
+                  backgroundColor: "#f5f5f5",
                 }}
               />
             </Grid2>
   
-            {/* Car Details */}
+            {/* Details Section */}
             <Grid2 item xs={12} md={6}>
-              <CardContent sx={{ p: 4 }}>
+              <CardContent sx={{ p: { xs: 2, md: 4 } }}>
                 <Typography variant="h4" gutterBottom>
                   {carListing.name}
                 </Typography>
@@ -181,6 +169,7 @@ import {
                   </Typography>
                 </Box>
   
+                {/* Favourite Button */}
                 {user && token && (
                   <Button
                     variant="contained"
@@ -189,9 +178,7 @@ import {
                     onClick={handleToggleFavourite}
                     sx={{ mt: 2 }}
                   >
-                    {isFavourite
-                      ? "Remove from Favourites"
-                      : "Add to Favourites"}
+                    {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
                   </Button>
                 )}
               </CardContent>
@@ -203,24 +190,18 @@ import {
         <Box
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
             justifyContent: "space-between",
+            alignItems: "center",
             mt: 4,
+            gap: 2,
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate("/carlisting/list")}
-          >
+          <Button variant="outlined" color="primary" onClick={() => navigate("/carlisting/list")}>
             Back To Listings
           </Button>
-  
           {user && token && user.userId !== carListing.sellerId && (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleContactOpen}
-            >
+            <Button variant="contained" color="secondary" onClick={handleContactOpen}>
               Contact Seller
             </Button>
           )}
@@ -230,13 +211,12 @@ import {
         <Dialog open={contactOpen} onClose={handleContactClose}>
           <DialogTitle>Contact the Seller</DialogTitle>
           <DialogContent>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              For inquiries about this car, you can:
-            </Typography>
+            <Typography>For inquiries about this car, you can:</Typography>
             <Button
               variant="outlined"
               color="primary"
               onClick={handleStartChat}
+              sx={{ mt: 2 }}
             >
               Start Chat
             </Button>
@@ -246,7 +226,7 @@ import {
           </DialogActions>
         </Dialog>
       </Box>
-   );
+    );
 };
   
 export default CarListingDetails;  

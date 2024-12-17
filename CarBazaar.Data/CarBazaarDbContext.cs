@@ -27,6 +27,15 @@ namespace CarBazaar.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
+			modelBuilder.Entity<CarListing>()
+				.HasKey(cl => new { cl.Id });
+
+			modelBuilder.Entity<CarListing>()
+				.HasOne(cl => cl.Seller)
+				.WithMany()
+				.HasForeignKey(cl => cl.SellerId)
+				.OnDelete(DeleteBehavior.Restrict);
+
 			modelBuilder.Entity<UserCarListing>()
 				.HasKey(uc => new { uc.UserId, uc.CarListingId });
 

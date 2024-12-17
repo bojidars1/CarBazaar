@@ -17,9 +17,11 @@ const useAuth = () => {
             if (isExpired) {
                 await refreshAccessToken();
             } else {
+                const userId = decodedToken.sub;
                 const userEmail = decodedToken.email;
                 const carListings = decodedToken.CarListings;
                 const user = {
+                  userId: userId,
                   userEmail: userEmail,
                   carListings: carListings
                 };

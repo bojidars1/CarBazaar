@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarBazaar.Data.Models
 {
@@ -8,6 +9,13 @@ namespace CarBazaar.Data.Models
         [Key]
         [Comment("Car Listing Identifier")]
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Comment("Seller Id")]
+        public string SellerId { get; set; } = null!;
+
+        [ForeignKey(nameof(SellerId))]
+        [Comment("Seller")]
+        public CarBazaarUser Seller { get; set; } = null!;
 
         [Comment("Car Listing Name")]
         public string Name { get; set; } = null!;

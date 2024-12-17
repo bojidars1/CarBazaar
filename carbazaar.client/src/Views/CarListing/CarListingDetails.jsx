@@ -3,10 +3,16 @@ import api from '../../api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Star, StarBorder } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 const CarListingDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const user = useSelector((state) => state.user.user);
+    const token = useSelector((state) => state.auth.token);
+
+    console.log(user);
 
     const [carListing, setCarListing] = useState(null);
     const [contactOpen, setContactOpen] = useState(false);
@@ -186,9 +192,11 @@ const CarListingDetails = () => {
                 <Button variant='contained' color='primary' onClick={() => navigate("/carlisting/list")}>
                     Back To Listings
                 </Button>
+                {user && token && user.userId !== carListing.sellerId &&
                 <Button variant='contained' color='secondary' onClick={handleContactOpen}>
-                    Contact Seller
+                Contact Seller
                 </Button>
+                }
 
                 {/* Contact Dialog */}
                 <Dialog open={contactOpen} onClose={handleContactClose}>

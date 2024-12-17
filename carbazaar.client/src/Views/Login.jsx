@@ -41,7 +41,6 @@ const Login = () => {
             navigate(from, { replace: true });
         } catch (err) {
             console.error(err);
-            navigate('/error');
         }
     };
 

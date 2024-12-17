@@ -1,11 +1,11 @@
 import { Container, Box, Typography, TextField, Button, Alert } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
 import { setAuthenticated } from '../redux/authSlice';
 import { jwtDecode } from "jwt-decode";
+import api from "../api/api";
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -46,7 +46,6 @@ const Register = () => {
             navigate('/');
         } catch (err) {
             console.error(err);
-            navigate('/error');
         }
     }
 

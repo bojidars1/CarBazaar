@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarBazaar.Data.Migrations
 {
     [DbContext(typeof(CarBazaarDbContext))]
-    [Migration("20241216133334_Notification_Entity_Added")]
-    partial class Notification_Entity_Added
+    [Migration("20241217180323_InitalDb")]
+    partial class InitalDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace CarBazaar.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -150,6 +153,11 @@ namespace CarBazaar.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Listing Publication Date");
 
+                    b.Property<string>("SellerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Seller Id");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -161,6 +169,8 @@ namespace CarBazaar.Data.Migrations
                         .HasComment("Car Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SellerId");
 
                     b.ToTable("CarListings");
                 });
@@ -229,23 +239,36 @@ namespace CarBazaar.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Notification identifier");
 
+                    b.Property<Guid>("CarListingId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Car Listing Id");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("The Notificaiton Message");
 
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Sender Id");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasComment("User Id");
 
-                    b.Property<bool>("isRead")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CarListingId");
+
+                    b.HasIndex("SenderId");
 
                     b.HasIndex("UserId");
 
@@ -402,6 +425,17 @@ namespace CarBazaar.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CarBazaar.Data.Models.CarListing", b =>
+                {
+                    b.HasOne("CarBazaar.Data.Models.CarBazaarUser", "Seller")
+                        .WithMany()
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Seller");
+                });
+
             modelBuilder.Entity("CarBazaar.Data.Models.ChatMessage", b =>
                 {
                     b.HasOne("CarBazaar.Data.Models.CarListing", "CarListing")
@@ -450,11 +484,27 @@ namespace CarBazaar.Data.Migrations
 
             modelBuilder.Entity("CarBazaar.Data.Models.Notification", b =>
                 {
+                    b.HasOne("CarBazaar.Data.Models.CarListing", "CarListing")
+                        .WithMany()
+                        .HasForeignKey("CarListingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarBazaar.Data.Models.CarBazaarUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CarBazaar.Data.Models.CarBazaarUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CarListing");
+
+                    b.Navigation("Sender");
 
                     b.Navigation("User");
                 });

@@ -243,6 +243,9 @@ namespace CarBazaar.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -257,9 +260,6 @@ namespace CarBazaar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasComment("User Id");
-
-                    b.Property<bool>("isRead")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

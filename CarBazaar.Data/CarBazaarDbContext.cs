@@ -1,4 +1,6 @@
-﻿using CarBazaar.Data.Models;
+﻿using CarBazaar.Data.Configurations;
+using CarBazaar.Data.Models;
+using CarBazaar.Data.Seeds;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,7 +30,17 @@ namespace CarBazaar.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			modelBuilder.ApplyConfiguration(new CarListingConfiguration());
+			modelBuilder.ApplyConfiguration(new UserCarListingConfiguration());
+			modelBuilder.ApplyConfiguration(new FavouriteCarListingConfiguration());
+			modelBuilder.ApplyConfiguration(new ChatMessageConfiguration());
+			modelBuilder.ApplyConfiguration(new NotificationConfiguration());
+
+			modelBuilder.ApplyConfiguration(new CarBazaarUserSeed());
+			//modelBuilder.ApplyConfiguration(new CarListingSeed());
+			//modelBuilder.ApplyConfiguration(new ChatMessageSeed());
+			//modelBuilder.ApplyConfiguration(new FavouriteCarListingSeed());
+			//modelBuilder.ApplyConfiguration(new NotificationSeed());
 		}
 	}
 }

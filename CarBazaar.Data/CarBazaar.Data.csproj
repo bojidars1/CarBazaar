@@ -21,4 +21,8 @@
     <ProjectReference Include="..\CarBazaar.Data.Models\CarBazaar.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

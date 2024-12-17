@@ -16,8 +16,8 @@ namespace CarBazaar.Data.Seeds
 				NormalizedUserName = "ADMIN@CARBAZAAR.COM",
 				Email = "admin@carbazaar.com",
 				NormalizedEmail = "ADMIN@CARBAZAAR.COM",
+				PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(null, "admin123!")
 			};
-			adminUser.PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(adminUser, "admin123!");
 			
 
 			var user1 = new CarBazaarUser
@@ -27,8 +27,8 @@ namespace CarBazaar.Data.Seeds
 				NormalizedUserName = "BOJIDAR.STOI@GMAIL.COM",
 				Email = "bojidar.stoi@gmail.com",
 				NormalizedEmail = "BOJIDAR.STOI@GMAIL.COM"
+				PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(null, "user123!")
 			};
-			user1.PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(user1, "user123!");
 
 			var user2 = new CarBazaarUser
 			{
@@ -36,9 +36,9 @@ namespace CarBazaar.Data.Seeds
 				UserName = "john.wick@abv.bg",
 				NormalizedUserName = "JOHN.WICK@ABV.BG",
 				Email = "john.wick@abv.bg",
-				NormalizedEmail = "JOHN.WICK@ABV.BG"
+				NormalizedEmail = "JOHN.WICK@ABV.BG",
+				PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(null, "user123!")
 			};
-			user2.PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(user2, "user123!");
 
 			builder.HasData(user1, user2);
 		}

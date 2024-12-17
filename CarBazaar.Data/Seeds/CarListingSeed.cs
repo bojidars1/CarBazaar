@@ -6,11 +6,14 @@ namespace CarBazaar.Data.Seeds
 {
 	public class CarListingSeed : IEntityTypeConfiguration<CarListing>
 	{
+		public static readonly Guid carListing1Id = Guid.Parse("11111111-1111-1111-1111-111111111111");
+		public static readonly Guid carListing2Id = Guid.Parse("22222222-2222-2222-2222-222222222222");
+
 		public void Configure(EntityTypeBuilder<CarListing> builder)
 		{
 			var carListing1 = new CarListing
 			{
-				Id = Guid.NewGuid(),
+				Id = carListing1Id,
 				SellerId = "user-1",
 				Name = "Toyota Corolla",
 				Type = "Sedan",
@@ -28,7 +31,7 @@ namespace CarBazaar.Data.Seeds
 
 			var carListing2 = new CarListing
 			{
-				Id = Guid.NewGuid(),
+				Id = carListing2Id,
 				SellerId = "user-2",
 				Name = "BMW X5",
 				Type = "SUV",

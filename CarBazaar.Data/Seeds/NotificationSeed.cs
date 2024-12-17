@@ -4,18 +4,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarBazaar.Data.Seeds
 {
-	public class ChatMessageSeed : IEntityTypeConfiguration<ChatMessage>
+	public class NotificationSeed : IEntityTypeConfiguration<Notification>
 	{
-		public void Configure(EntityTypeBuilder<ChatMessage> builder)
+		public void Configure(EntityTypeBuilder<Notification> builder)
 		{
-			builder.HasData(new ChatMessage
+			builder.HasData(new Notification
 			{
 				Id = Guid.NewGuid(),
+				UserId = "user-2",
 				SenderId = "user-1",
-				ReceiverId = "user-2",
 				CarListingId = CarListingSeed.carListing2Id,
-				Message = "Is the car still available?",
-				Timestamp = DateTime.UtcNow
+				Message = "You have a new message from bojidar.stoi@gmail.com."
 			});
 		}
 	}

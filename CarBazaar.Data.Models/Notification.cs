@@ -39,7 +39,7 @@ namespace CarBazaar.Data.Models
 		[Comment("The Notificaiton Message")]
 		public string Message { get; set; } = null!;
 
-		public bool isRead { get; set; } = false;
+		public bool IsRead { get; set; } = false;
 
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 	}

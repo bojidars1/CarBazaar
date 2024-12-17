@@ -49,7 +49,7 @@ namespace CarBazaar.Services
 				SenderId = n.SenderId,
 				CarListingId = n.CarListingId.ToString(),
 				Message = n.Message,
-				IsRead = n.isRead
+				IsRead = n.IsRead
 			}).ToList();
 
 			return new NotificationShowPaginatedDto

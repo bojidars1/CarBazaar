@@ -19,7 +19,7 @@ namespace CarBazaar.Infrastructure.Repositories
 				.Where(n => notificationsIds.Contains(n.Id))
 				.ToListAsync();
 
-			notifications.ForEach(n => n.isRead = true);
+			notifications.ForEach(n => n.IsRead = true);
 			await context.SaveChangesAsync();
 		}
 	}

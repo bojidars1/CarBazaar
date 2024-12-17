@@ -19,9 +19,9 @@ namespace CarBazaar.UnitTests.Repositories
 			var senderId = "User2";
 			var carId = Guid.NewGuid();
 
-			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg1", isRead = false };
-			var n2 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg2", isRead = false };
-			var n3 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg3", isRead = false };
+			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg1", IsRead = false };
+			var n2 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg2", IsRead = false };
+			var n3 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg3", IsRead = false };
 
 			await repo.AddAsync(n1);
 			await repo.AddAsync(n2);
@@ -33,9 +33,9 @@ namespace CarBazaar.UnitTests.Repositories
 			var updated2 = await repo.GetByIdAsync(n2.Id.ToString());
 			var updated3 = await repo.GetByIdAsync(n3.Id.ToString());
 
-			updated1!.isRead.Should().BeTrue("n1 was included in the read list");
-			updated2!.isRead.Should().BeFalse("n2 was not included in the read list");
-			updated3!.isRead.Should().BeTrue("n3 was included in the read list");
+			updated1!.IsRead.Should().BeTrue("n1 was included in the read list");
+			updated2!.IsRead.Should().BeFalse("n2 was not included in the read list");
+			updated3!.IsRead.Should().BeTrue("n3 was included in the read list");
 		}
 
 		[Test]
@@ -48,13 +48,13 @@ namespace CarBazaar.UnitTests.Repositories
 			var senderId = "UserY";
 			var carId = Guid.NewGuid();
 
-			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "ExistingMsg", isRead = false };
+			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "ExistingMsg", IsRead = false };
 			await repo.AddAsync(n1);
 
 			await repo.MarkAsReadAsync(new List<Guid> { Guid.NewGuid() });
 
 			var updated = await repo.GetByIdAsync(n1.Id.ToString());
-			updated!.isRead.Should().BeFalse("the existing notification should remain unread");
+			updated!.IsRead.Should().BeFalse("the existing notification should remain unread");
 		}
 
 		[Test]
@@ -67,13 +67,13 @@ namespace CarBazaar.UnitTests.Repositories
 			var senderId = "UserB";
 			var carId = Guid.NewGuid();
 
-			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg", isRead = false };
+			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, SenderId = senderId, CarListingId = carId, Message = "Msg", IsRead = false };
 			await repo.AddAsync(n1);
 
 			await repo.MarkAsReadAsync(new List<Guid>());
 
 			var updated = await repo.GetByIdAsync(n1.Id.ToString());
-			updated!.isRead.Should().BeFalse("no IDs were provided, so no change should occur");
+			updated!.IsRead.Should().BeFalse("no IDs were provided, so no change should occur");
 		}
 	}
 }

@@ -77,8 +77,8 @@ namespace CarBazaar.UnitTests.Services
 		public async Task GetNotificationsAsync_ReturnsPaginatedDto()
 		{
 			var userId = "User123";
-			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, Message = "Msg1", isRead = false };
-			var n2 = new Notification { Id = Guid.NewGuid(), UserId = userId, Message = "Msg2", isRead = true };
+			var n1 = new Notification { Id = Guid.NewGuid(), UserId = userId, Message = "Msg1", IsRead = false };
+			var n2 = new Notification { Id = Guid.NewGuid(), UserId = userId, Message = "Msg2", IsRead = true };
 			var all = new List<Notification> { n1, n2 };
 
 			var paginated = new PaginatedList<Notification>(all, all.Count, 1, 10);

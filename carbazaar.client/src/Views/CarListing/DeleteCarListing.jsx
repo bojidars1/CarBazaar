@@ -1,4 +1,4 @@
-import { Button, Paper, Typography, Box } from '@mui/material';
+import { Button, Paper, Typography, Box, CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
@@ -30,61 +30,121 @@ const DeleteCarListing = () => {
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         fetchDeleteCarListingDto();
     }, [id]);
 
     if (loading) {
         return (
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh'
-            }}>
-                <Typography variant='h6'>Loading...</Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+            >
+                <CircularProgress />
             </Box>
         );
     }
 
-    if (carListingName === '') {
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh'
-        }}>
-            <Typography variant='h6'>Car listing not found.</Typography>
-        </Box>
+    if (!carListingName) {
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+            >
+                <Typography variant="h6" color="error">
+                    Car listing not found.
+                </Typography>
+            </Box>
+        );
     }
 
     return (
-    <Paper elevation={6} sx={{
-        p: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        maxWidth: '80%',
-        margin: 'auto',
-        borderRadius: 2,
-        boxShadow: 3
-    }}>
-        <Typography variant='h4' color='error'>Delete Car Listing: <strong>{carListingName}</strong>?</Typography>
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            mt: 5
-        }}>
-            <Button variant='contained' color='secondary' onClick={() => navigate("/carlisting/list")} sx={{ width: '40%' }}>
-                Back to Listings
-            </Button>
-            <Button variant='contained' color='error' onClick={handleSubmit} sx={{ width: '40%' }}>
-                Delete
-            </Button>
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                px: 2,
+            }}
+        >
+            <Paper
+                elevation={6}
+                sx={{
+                    p: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    maxWidth: { xs: '100%', sm: '90%', md: '60%' },
+                    textAlign: 'center',
+                    borderRadius: 3,
+                    boxShadow: 5,
+                    backgroundColor: '#fefefe',
+                }}
+            >
+                <Typography
+                    variant="h4"
+                    color="error"
+                    sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '1.8rem', md: '2.5rem' } }}
+                >
+                    Delete Car Listing
+                </Typography>
+                <Typography
+                    variant="h6"
+                    color="text.secondary"
+                    sx={{ mb: 4, fontSize: { xs: '1rem', md: '1.2rem' } }}
+                >
+                    Are you sure you want to delete <strong>{carListingName}</strong>?
+                </Typography>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        width: '100%',
+                        gap: 2,
+                        flexDirection: { xs: 'column', sm: 'row' },
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => navigate('/carlisting/list')}
+                        sx={{
+                            flex: 1,
+                            borderRadius: 2,
+                            px: 3,
+                            py: 1.5,
+                            fontSize: { xs: '0.9rem', md: '1rem' },
+                        }}
+                    >
+                        Back to Listings
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="error"
+                        onClick={handleSubmit}
+                        sx={{
+                            flex: 1,
+                            borderRadius: 2,
+                            px: 3,
+                            py: 1.5,
+                            fontSize: { xs: '0.9rem', md: '1rem' },
+                        }}
+                    >
+                        Delete
+                    </Button>
+                </Box>
+            </Paper>
         </Box>
-    </Paper>
     );
 };
 

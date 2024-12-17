@@ -26,20 +26,26 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('https://localhost:7100/api/account/register', { email, password });
-            const { token } = response.data;
+            const response = await api.post('/account/register', { email, password });
+            const { accessToken } = response.data;
 
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(accessToken);
+            const userId = decodedToken.sub;
             const userEmail = decodedToken.email;
+            const carListings = decodedToken.CarListings;
+            const user = {
+              id: userId,
+              userEmail: userEmail,
+              carListings: carListings
+            };
 
-            localStorage.setItem('token', token);
-
-            dispatch(setAuthenticated(token));
-            dispatch(setUser(userEmail));
+            localStorage.setItem('token', accessToken);
+            
+            dispatch(setAuthenticated(accessToken));
+            dispatch(setUser(user));
             navigate('/');
         } catch (err) {
-            const errorMessages = Object.values(err.response.data.errors).flat().join('\n');
-            setError(errorMessages);
+            console.log(err);
         }
     }
 

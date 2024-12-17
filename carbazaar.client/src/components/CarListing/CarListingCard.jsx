@@ -56,7 +56,7 @@ const CarListingCard = ({ car }) => {
                 >
                     View Details
                 </Button>
-                {user && token && user.carListings.includes(car.id) &&
+                {user && token && user.id == car.sellerId &&
                 <>
                 <Button
                     variant="contained"

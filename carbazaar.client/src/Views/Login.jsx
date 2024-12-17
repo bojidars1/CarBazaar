@@ -22,9 +22,11 @@ const Login = () => {
             const { accessToken } = response.data;
 
             const decodedToken = jwtDecode(accessToken);
+            const userId = decodedToken.sub;
             const userEmail = decodedToken.email;
             const carListings = decodedToken.CarListings;
             const user = {
+              id: userId,
               userEmail: userEmail,
               carListings: carListings
             };

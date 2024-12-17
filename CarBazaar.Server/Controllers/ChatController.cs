@@ -30,6 +30,11 @@ namespace CarBazaar.Server.Controllers
 				return BadRequest("One of users must be the owner of the car");
 			}
 
+			if (userId == request.ReceiverId)
+			{
+				return BadRequest("Can't message yourself");
+			}
+
 			var userEmail = GetUserEmail();
 
 			await chatService.SendMessageAsync(userId, request.ReceiverId, request.CarListingId, request.Message);

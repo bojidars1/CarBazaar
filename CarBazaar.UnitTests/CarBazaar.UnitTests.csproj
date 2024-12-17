@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarBazaar.Data\CarBazaar.Data.csproj" />
     <ProjectReference Include="..\CarBazaar.Infrastructure\CarBazaar.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarBazaar.Server\CarBazaar.Server.csproj" />
     <ProjectReference Include="..\CarBazaar.Services\CarBazaar.Services.csproj" />
   </ItemGroup>
 

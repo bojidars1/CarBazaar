@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, CardActions, Typography, Grid2, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, CardActions, Typography, Grid2, Button, Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ const CarListingCard = ({ car }) => {
     const token = useSelector((state) => state.auth.token);
 
     const handleDetailsClick = (id) => {
-        navigate(`/carlisting/details/${id}`)
+        navigate(`/carlisting/details/${id}`);
     };
 
     const handleOnEditClick = (id) => {
@@ -22,23 +22,40 @@ const CarListingCard = ({ car }) => {
     };
 
     return (
-        <Grid2 key={car.id} xs={12}>
-            <Card sx={{ display: 'flex', alignItems: 'center', p: 2, boxShadow: 3 }}>
+        <Grid2 xs={12} sm={6} md={4}>
+            <Card
+                sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: 'center',
+                    p: 2,
+                    boxShadow: 3,
+                    borderRadius: 2,
+                    gap: 2,
+                    height: '100%',
+                }}
+            >
                 {/* Image */}
                 <CardMedia
                     component="img"
-                    image={car.imageURL || 'placeholder.jpg'} // Placeholder image if no URL
+                    image={car.imageURL || 'placeholder.jpg'}
                     alt={car.name}
                     sx={{
-                        width: 150,
+                        width: { xs: '100%', sm: 150 },
                         height: 100,
                         objectFit: 'cover',
-                        borderRadius: 1
-                        }}
+                        borderRadius: 1,
+                    }}
                 />
 
                 {/* Details */}
-                <CardContent sx={{ flexGrow: 1, ml: 2 }}>
+                <CardContent
+                    sx={{
+                        flexGrow: 1,
+                        width: '100%',
+                        textAlign: { xs: 'center', sm: 'left' }, 
+                    }}
+                >
                     <Typography variant="h6" fontWeight="bold">
                         {car.name}
                     </Typography>
@@ -48,33 +65,37 @@ const CarListingCard = ({ car }) => {
                 </CardContent>
 
                 {/* Actions */}
-                <CardActions>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleDetailsClick(car.id)}
-                >
-                    View Details
-                </Button>
-                {user && token && user.userId === car.sellerId &&
-                <>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleOnEditClick(car.id)}
-                >
-                    Edit
-                </Button>
-                <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => handleOnDeleteClick(car.id)}
-                >
-                    Delete
-                </Button>
-                </>
-                }
-                </CardActions>
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleDetailsClick(car.id)}
+                        size="small"
+                    >
+                        View Details
+                    </Button>
+
+                    {user && token && user.userId === car.sellerId && (
+                        <>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => handleOnEditClick(car.id)}
+                                size="small"
+                            >
+                                Edit
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                onClick={() => handleOnDeleteClick(car.id)}
+                                size="small"
+                            >
+                                Delete
+                            </Button>
+                        </>
+                    )}
+                </Box>
             </Card>
         </Grid2>
     );

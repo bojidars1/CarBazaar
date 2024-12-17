@@ -114,7 +114,7 @@ import {
         <Paper elevation={3} sx={{ overflow: "hidden", borderRadius: 3 }}>
           <Grid2 container spacing={0}>
             {/* Image Section */}
-            <Grid2 item xs={12} md={6}>
+            <Grid2 xs={12} md={6}>
               <CardMedia
                 component="img"
                 image={
@@ -132,7 +132,7 @@ import {
             </Grid2>
   
             {/* Details Section */}
-            <Grid2 item xs={12} md={6}>
+            <Grid2 xs={12} md={6}>
               <CardContent sx={{ p: { xs: 2, md: 4 } }}>
                 <Typography variant="h4" gutterBottom>
                   {carListing.name}

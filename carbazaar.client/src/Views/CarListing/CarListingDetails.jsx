@@ -35,6 +35,16 @@ const CarListingDetails = () => {
         }
     };
 
+    const handleStartChat = () => {
+        console.log(carListing)
+        if (carListing && carListing.sellerId) {
+            navigate(`/chat/${carListing.id}/${carListing.sellerId}`);
+            handleContactClose();
+        } else {
+            setError('Seller information is unavailable.');
+        }
+    }
+
     useEffect(() => {
         const fetchCarDetailsAsync = async () => {
             try {
@@ -190,9 +200,13 @@ const CarListingDetails = () => {
                         <Typography variant='body2' sx={{ mb: 1 }}>
                             - <strong>Phone Number</strong>: {"+359893456569"}
                         </Typography>
-                        <Typography variant='body2'>
-                            - Start a <strong>chat</strong> (Coming soon!)
-                        </Typography>
+                        <Button
+                            variant='outlined'
+                            color='primary'
+                            onClick={handleStartChat}
+                        >
+                            Start Chat
+                        </Button>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleContactClose}>Close</Button>

@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Box, Typography, TextField, Button, Alert } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import api from "../api/api";
+import api from "../../api/api";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setUser } from "../redux/userSlice";
-import { setAuthenticated } from "../redux/authSlice";
+import { setUser } from "../../redux/userSlice";
+import { setAuthenticated } from "../../redux/authSlice";
 import { jwtDecode } from "jwt-decode";
 
 const LoginSchema = Yup.object().shape({

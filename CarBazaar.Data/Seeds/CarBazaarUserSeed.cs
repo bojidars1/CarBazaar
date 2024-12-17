@@ -1,4 +1,5 @@
 ﻿using CarBazaar.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +9,17 @@ namespace CarBazaar.Data.Seeds
 	{
 		public void Configure(EntityTypeBuilder<CarBazaarUser> builder)
 		{
+			var adminUser = new CarBazaarUser
+			{
+				Id = "admin-user",
+				UserName = "admin@carbazaar.com",
+				NormalizedUserName = "ADMIN@CARBAZAAR.COM",
+				Email = "admin@carbazaar.com",
+				NormalizedEmail = "ADMIN@CARBAZAAR.COM",
+			};
+			adminUser.PasswordHash = new PasswordHasher<CarBazaarUser>().HashPassword(adminUser, "admin123!");
+			
+
 			var user1 = new CarBazaarUser
 			{
 				Id = "user-1",

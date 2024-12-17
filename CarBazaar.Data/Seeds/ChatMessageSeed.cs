@@ -15,7 +15,7 @@ namespace CarBazaar.Data.Seeds
 				Id = Guid.NewGuid(),
 				SenderId = "user-1",
 				ReceiverId = "user-2",
-				CarListingId = carListing1.Id,
+				CarListingId = CarListingSeed.carListing2Id,
 				Message = "Is the car still available?",
 				Timestamp = DateTime.UtcNow
 			});

@@ -1,4 +1,4 @@
-import { Container, Box, Typography, TextField, Button, Alert } from '@mui/material';
+import { Container, Box, Typography, TextField, Button } from '@mui/material';
 import api from '../api/api';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,11 +16,9 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // For server-side errors
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Clear previous error messages
 
         try {
             const response = await api.post('/account/login', { email, password });
@@ -30,27 +28,19 @@ const Login = () => {
             const userId = decodedToken.sub;
             const userEmail = decodedToken.email;
             const carListings = decodedToken.CarListings;
-
             const user = {
-                userId: userId,
-                userEmail: userEmail,
-                carListings: carListings
+              userId: userId,
+              userEmail: userEmail,
+              carListings: carListings
             };
 
             localStorage.setItem('token', accessToken);
-
+            
             dispatch(setAuthenticated(true));
             dispatch(setUser(user));
             navigate(from, { replace: true });
         } catch (err) {
             console.error(err);
-
-            // Handle error response from server
-            if (err.response && err.response.data) {
-                setErrorMessage(err.response.data.message || "Invalid email or password.");
-            } else {
-                setErrorMessage("Something went wrong. Please try again later.");
-            }
         }
     };
 
@@ -69,39 +59,31 @@ const Login = () => {
                 <Typography variant='h4' sx={{ mb: 2 }}>
                     Sign In
                 </Typography>
-
-                {errorMessage && (
-                    <Alert severity="error" sx={{ mb: 2, width: '100%' }}>
-                        {errorMessage}
-                    </Alert>
-                )}
-
                 <form onSubmit={handleLogin} style={{ width: '100%' }}>
                     <TextField
-                        label='Email'
-                        type='email'
-                        fullWidth
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        sx={{ mb: 2 }}
+                    label='Email'
+                    type='email'
+                    fullWidth
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{ mb: 2 }}
                     />
 
                     <TextField
-                        label='Password'
-                        type='password'
-                        fullWidth
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        sx={{ mb: 2 }}
+                    label='Password'
+                    type='password'
+                    fullWidth
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    sx={{ mb: 2 }}
                     />
 
                     <Button type='submit' variant='contained' color='primary' fullWidth>
                         Sign In
                     </Button>
                 </form>
-
                 <Typography variant='body2' sx={{ mt: 2 }}>
                     Don't have an account?
                     <Button variant='text' color='primary'>

@@ -10,6 +10,8 @@ namespace CarBazaar.ViewModels.CarListing
 	{
 		public Guid Id { get; set; }
 
+		public string SellerId { get; set; } = null!;
+
 		public string Name { get; set; } = null!;
 
 		public decimal Price { get; set; }

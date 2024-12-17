@@ -89,7 +89,7 @@ namespace CarBazaar.UnitTests.Services
 			summary.OtherParticipantName.Should().Be("a@example.com");
 			summary.LastMessage.Should().Be("Hello User123");
 			summary.LastMessageTimestamp.Should().BeCloseTo(DateTime.UtcNow.AddMinutes(-5), TimeSpan.FromSeconds(1));
-			result.TotalPages.Should().Be(0);
+			result.TotalPages.Should().Be(1);
 		}
 
 		[Test]

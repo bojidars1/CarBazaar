@@ -2,12 +2,6 @@
 using CarBazaar.Infrastructure.Repositories.Contracts;
 using CarBazaar.Services.Contracts;
 using CarBazaar.ViewModels.Notifcations;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarBazaar.Services
 {

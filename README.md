@@ -6,11 +6,9 @@
 3. [Technologies Used](#technologies-used)
 4. [Prerequisites](#prerequisites)
 5. [Installation](#installation)
-6. [Running the Application](#running-the-application)
-7. [Usage](#usage)
-8. [API Endpoints](#api-endpoints)
-9. [Contributing](#contributing)
-10. [License](#license)
+6. [API Endpoints](#api-endpoints)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ---
 
